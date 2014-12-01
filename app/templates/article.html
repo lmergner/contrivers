@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import render_authors, render_title, render_reviewed_book, render_aside %}
+
+{% block head %}
+{{ super() }}
+
+    <!-- Article Specific Head -->
+    <meta property="og:title" content="{{ article.title }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ article.make_url() }}" />
+    {% for author in article.authors -%}
+    <meta property="article:author" content="{{ author.name }}" />
+    {%- endfor %}
+    <meta property="article:published_date" content="{{ article.publish_date.strftime("%Y-%m-%d %H:%M:%S") }}" />
+{% endblock head %}
+
+{% block title %} - {{ article.title }}{% endblock %}
+{% block sidebar %}{% endblock %}
+
+{% block content %} 
+<div class='article-page layout'>
+{{ render_aside(article, site, request) }}
+
+<article>
+<div class='article-header'>
+    {{ render_title(article, class='article-header-title') }}
+    {% if article.book_reviewed is defined %}
+    {{ render_reviewed_book(article.book_reviewed, amzn_tag=site.amzn_tag) }}{% endif %}
+	{{ render_authors(article.authors, class='article-header') }}
+</div>
+
+<div class='article-body'>
+{{ article.text | md | safe }}
+<div>
+</article>
+
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script type='text/javascript' src='http://code.jquery.com/jquery-2.1.1.min.js' ></script>
+{{ super() }}
+<script type="text/javascript">
+    $.bigfoot(
+    	{
+    		numberResetSelector: "article.article-body",
+    		positionContent: true,
+            actionOriginalFN: "ignore",
+    	}
+    );
+
+</script>
+{% endblock %}
+

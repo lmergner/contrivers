@@ -1,0 +1,17 @@
+{% extends 'layout.html' -%}
+{% from 'macros.html' import render_author_block %}
+
+{% block content %}
+<div class='author-page'>
+
+{% for author in paginated.items | sort(attribute='order', reverse=True)%}
+
+{% if not author.hidden %}{{ render_author_block(author, show_articles=False) }}{% endif %}
+
+{% endfor %}
+{% elif author is defined %}
+    {% if not author.hidden %}{{ render_author_block(author, show_abstract=True) }}{% endif %}
+{% endif %}
+</div>
+{% endblock %}
+

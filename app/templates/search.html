@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import render_articles, render_issues, render_page_buttons, render_tags, render_issue %}
+{% block title %} - {{ page_type | capitalize }}{% endblock title %}
+{% block header %}{{ super() }}{% endblock %}
+
+{% block content %}
+<div id='content' class='layout search-page'>
+{{ render_page_buttons(paginated, endpoint, search) }}
+{{ render_articles(paginated.items) }}
+
+</div><!-- end #content.search-page -->
+{% endblock %}

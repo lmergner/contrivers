@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block title %} - {{ error.name }}{% endblock %}
+
+{% block content %}
+<div id='content' class='layout error-page'>
+    <h1>{{ error.name | safe }}</h1>
+    <p>{{ error.description | safe }}</p>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

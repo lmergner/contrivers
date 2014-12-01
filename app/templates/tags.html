@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% from 'macros.html' import render_page_buttons, render_articles %}
+
+{% block title %} - Categories{% endblock title %}
+{% block header %}{{ super() }}{% endblock %}
+
+{% block content %}
+
+<div id='content' class='page tags-page'>
+{% if paginated is defined %}
+{{ render_page_buttons(paginated, '.search', search) }}
+<h1 class='tag-page-title'>Categories</h1>
+{% for tag in paginated.items %}
+<div class='block__tag'>
+    <a href="{{ url_for('www.tags', tag_id=tag.id) }}">
+        {{ loop.index }}.  {{ tag.tag }} {{ tag.count }} articles
+    </a>
+</div>
+{% endfor %}
+{% elif tag is defined %}
+
+{{ render_page_buttons(tag_articles, '.search', search) }}
+<h1 class='tag-page-title'>Category: {{ tag.tag }}</h1>
+{{ render_articles(tag_articles.items) }}
+
+{% else %}
+Something went wrong...
+
+{% endif %}
+
+</div>
+
+{% endblock %}

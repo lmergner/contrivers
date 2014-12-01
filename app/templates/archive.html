@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{# print out lists of article models #}
+{% from 'macros.html' import render_articles, render_page_buttons %}
+
+{% block content %}
+<div id='content' class='layout archive-page'>
+{{ render_page_buttons(paginated, endpoint) }}
+{{ render_articles(paginated.items, sort_by='publish_date', show_abstract=True, show_date=True) }}
+</div>
+{% endblock %}
+
