@@ -20,7 +20,6 @@ from sqlalchemy.orm import with_polymorphic
 
 from ..core import *
 from ..core.models import tag_to_writing
-from ..ext import db
 
 __all__ = [
     'get_current_issue','get_featured',

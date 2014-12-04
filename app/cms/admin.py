@@ -7,7 +7,7 @@ from flask import url_for, current_app
 from wtforms.fields import TextAreaField, SelectField
 from flask.ext.admin import Admin
 from ..core.models import *
-from ..ext import db
+from ..core import db
 
 admin = Admin()
 

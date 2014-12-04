@@ -3,7 +3,7 @@
 
 import os
 import config
-from ext import (db, cache, login_manager)
+from core import (db, cache, login_manager)
 from core.models import *
 from cms.auth import auth, Admin
 from cms.admin import admin

@@ -11,7 +11,6 @@ from flask import (
     current_app
     )
 from sqlalchemy import func
-from ..ext import db, cache
 from .forms import SearchForm
 from .utils import aopen
 from .rss import RssGenerator

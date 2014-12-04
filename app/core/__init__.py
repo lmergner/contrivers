@@ -7,3 +7,4 @@
 """
 
 from .models import *
+from .ext import *

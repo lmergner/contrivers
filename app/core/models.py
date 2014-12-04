@@ -25,7 +25,7 @@ from sqlalchemy.types import TypeDecorator
 from sqlalchemy.orm import with_polymorphic
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from ..ext import db
+from .ext import db
 from .serializers import *
 
 # from sqlalchemy.ext.declarative import declarative_base
@@ -136,40 +136,21 @@ class Author(BaseMixin, Base):
     """Author table represents authors"""
     __tablename__ = 'author'
     id = Column(Integer, primary_key=True)
-    # first_name = Column(String)
-    # last_name = Column(String)
     name = Column(String)
     email = Column('email', String, unique=True, nullable=False)
     twitter = Column('twitter', String, unique=True)
     bio = Column('bio', String)
     hidden = Column('hidden', Boolean, default=False)
 
-    def __init__(self, *args, **kwargs):
-        """ Backwards compatable for when Author had only one name field  """
-        if 'name' in kwargs:
-            name = kwargs.pop('name')
-            try:
-                kwargs['first_name'], kwargs['last_name'] = name.split(' ', 1)
-            except ValueError:
-                kwargs['first_name'] = None
-                kwargs['last_name'] = name
-        super(Author, self).__init__(*args, **kwargs)
-
     def __repr__(self):
         return "<{}({})>".format(self.__class__.__name__, self.email)
-
-    @property
-    def html_bio(self):
-        """ convert markdown to html """
-        md =  markdown.Markdown(extensions=['footnotes', 'headerid', 'smarty'])
-        return md.convert(self.bio)
 
     def __hash__(self):
         return hash(self.__class__.__name__ + str(self.id) + self.email)
 
     @property
     def serialize(self):
-        _serialize = Serializer(fields=['id', 'first_name', 'last_name', 'email', 'twitter', 'bio', 'hidden', 'name'])
+        _serialize = Serializer(fields=['id', 'email', 'twitter', 'bio', 'hidden', 'name'])
         return _serialize(self)
 
 
@@ -178,9 +159,6 @@ class Issue(BaseMixin, Base):
     id = Column('id', Integer, primary_key=True)
     issue_num = Column('issue_num', Integer, unique=True)
     theme = Column('theme', String)
-    # month = Column(String)
-    # year = Column(Integer)
-
     articles = relationship('Writing', backref='issue')
 
     def __unicode__(self):
@@ -232,10 +210,14 @@ class Writing(BaseMixin, Base):
     hidden = Column(Boolean, nullable=False, default=True)
     featured = Column(Boolean, nullable=False, default=False)
 
+    #
+    # Relationships
+    #
+
     issue_id = Column(Integer, ForeignKey('issue.id'))
 
     authors = relationship('Author', secondary=author_to_writing,
-        backref=backref('writing', lazy='subquery'))
+        backref=backref('writing', lazy='dynamic'))
 
     tags = relationship('Tag', secondary=tag_to_writing,
         backref=backref('writing', lazy='subquery'))
@@ -243,8 +225,10 @@ class Writing(BaseMixin, Base):
     images = relationship('Image', secondary=image_to_writing,
         backref=backref('writing', lazy='subquery'))
 
+    #
     # Response -> Adjancy List Relationship
     #
+
     responses = relationship("Writing",
                     secondary=writing_to_writing,
                     primaryjoin=id==writing_to_writing.c.response_id,

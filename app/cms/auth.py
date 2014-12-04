@@ -14,7 +14,7 @@ from sqlalchemy.exc import OperationalError
 from werkzeug import generate_password_hash, check_password_hash
 
 from .forms import LoginForm
-from ..ext import login_manager, db
+from ..core import login_manager, db
 
 auth = Blueprint('auth', __name__, template_folder='journal/templates')
 
