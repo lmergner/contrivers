@@ -2,16 +2,17 @@
 {% from 'macros.html' import render_article, render_issue, render_posts, render_announcements %}
 
 {% block content %}
-<div id='content' class='layout index-page'>
-{% if featured is defined %}{% for feature in featured %}
+<div id='content' class='page index-page'>
+{% if featured is defined %}
+{% for feature in featured %}
 {{ render_article(feature, show_abstract=True, show_featured=True) }}
-{% endfor %}{% endif %}
-
+{% endfor %}
+{% endif %}
 {% if current_issue is defined %}
     {% for article in current_issue.articles %}
     {{ render_article(article) }}
     {% endfor %}
 {% endif %}
-</div><!-- end content div -->
+</div>
 {% endblock content %}
 

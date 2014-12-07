@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import render_issues %}
+
+{% block title %} - Issues{% endblock title %}
+{% block header %}{{ super() }}{% endblock %}
+
+{% block content %}
+<div id='content' class='issues-page page'>
+{{ render_issues(paginated.items, show_articles=False) }}
+</div>
+{% endblock %}

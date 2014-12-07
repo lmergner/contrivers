@@ -13,12 +13,20 @@ from flask.ext.login import (
 from sqlalchemy.exc import OperationalError
 from werkzeug import generate_password_hash, check_password_hash
 
-from .forms import LoginForm
 from ..core import login_manager, db
+from flask.ext.wtf import Form
+from wtforms import (TextField, PasswordField, validators)
 
-auth = Blueprint('auth', __name__, template_folder='journal/templates')
+
+class LoginForm(Form):
+    username = TextField("Username", [validators.Length(min=4, max=25)])
+    password = PasswordField("Password", [validators.Required()])
+
+
+auth = Blueprint('auth', __name__, template_folder='./templates')
 
 salt_phrase = 'f64a80d7b499472ea253f36b9b8b36ba'  # uuid.uuid4().hex
+
 
 __models__ = ['Admin']
 
@@ -52,7 +60,7 @@ class Admin(db.Model, UserMixin):
 
 
 @auth.route('/login', methods=['GET', 'POST'])
-def site_login():
+def login():
     form = LoginForm()
     if form.validate_on_submit():
         admin = db.session.query(Admin).filter(
@@ -70,7 +78,7 @@ def site_login():
 
 @auth.route('/logout')
 @login_required
-def site_logout():
+def logout():
     logout_user()
     return redirect(url_for('frontend.index'))
 

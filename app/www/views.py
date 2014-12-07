@@ -5,6 +5,8 @@
     ----------------
 
 """
+from datetime import datetime, timedelta
+from collections import namedtuple
 
 from flask import (
     render_template, request, url_for, redirect, make_response,
@@ -22,8 +24,7 @@ from ..core import *
 
 @www.context_processor
 def set_site_info():
-    settings = dict(search=SearchForm())
-    return settings
+    return dict(search=SearchForm())
 
 # @cache.cached(timeout=50)
 @www.route('/')
@@ -46,18 +47,18 @@ def rss_index():
 @www.route('/articles/featured/', defaults={'page': 1})
 def featured(page):
     query = db.session.query(_poly).filter_by(featured=True)
-    featureds = page_query(query, page)
+    featureds = page_query(None, page, query=query)
     return render_template(
-        'page.html',
+        'articles.html',
         paginated = featureds,
         endpoint='.featured',
         sort_by='publish_date',
         page_type='archive',
-        rss_url = url_for('.featured_rss', _external=True))
+        rss_url = url_for('.rss_featured', _external=True))
 
 @www.route('/articles/featured/rss/')
-def featured_rss():
-    pass
+def rss_featured():
+    abort(404)
 
 @www.route('/articles/', defaults={'article_id': None, 'page': 1})
 @www.route('/articles/<int:article_id>/', defaults={'page': 1})
@@ -69,7 +70,7 @@ def articles(article_id, page):
     else:
         rs = page_query(Article, page)
         return render_template(
-            'page.html',
+            'articles.html',
             paginated=rs,
             endpoint='.articles',
             page_type='archive',
@@ -92,7 +93,7 @@ def reviews(review_id, page):
             'article.html',
             article = id_query(Review, review_id))
     else:
-        return render_template('page.html',
+        return render_template('articles.html',
             paginated=page_query(Review, page),
             endpoint='.reviews',
             sort_by='publish_date',
@@ -102,12 +103,18 @@ def reviews(review_id, page):
 @www.route('/archive/', defaults={'page': 1})
 @www.route('/archive/p/<int:page>/')
 def archive(page):
-        return render_template('page.html',
+        return render_template('articles.html',
             paginated=page_query(_poly, page),
             endpoint='.archive',
             sort_by='publish_date',
             page_type='archive',
             rss_url = url_for('.rss_reviews', _external=True))
+
+@www.route('/archive/rss/')
+def rss_archive():
+    query = db.session.query(_poly).order_by('publish_date').limit(10)
+    rss = RssGenerator(url_for('.archive'), query, title=u"Contrivers' Review Recent")
+    return make_response(rss.rss_str())
 
 @www.route('/reviews/rss/')
 def rss_reviews():
@@ -121,13 +128,13 @@ def rss_reviews():
 def issues(issue_id, page=1):
     if issue_id:
         return render_template(
-            'page.html',
+            'issue.html',
             page_type='issues',
             endpoint='.issues',
             issue=id_query(Issue, issue_id))
     else:
         return render_template(
-            'page.html',
+            'issues.html',
             paginated=page_query(Issue, page),
             endpoint='.issues',
             page_type='issues',
@@ -144,15 +151,16 @@ def rss_issues():
 @www.route('/authors/<int:author_id>/', defaults={'page': 1})
 def authors(author_id, page):
     if author_id is not None:
+        author = id_query(Author, author_id)
         return render_template(
-            'page.html',
+            'author.html',
             page_type='authors',
-            author=id_query(Author, author_id),
+            author=author,
             rss_url=url_for('.rss_author', author_id=author.id, _external=True))
     else:
         return render_template(
-            'page.html',
-            paginated=base_query(Author, page),
+            'authors.html',
+            paginated=page_query(Author, page),
             endpoint='.authors',
             page_type='authors',
             sort_by='name')
@@ -172,7 +180,7 @@ def tags(tag_id, page):
     if tag_id is not None:
         tag = id_query(Tag, tag_id)
         return render_template(
-            'tags.html',
+            'tag.html',
             tag=tag,
             page_type='tags',
             rss_url=url_for('.rss_tag', tag_id=tag.id, _external=True))
@@ -197,7 +205,7 @@ def masthead():
 
 @www.route('/subscribe/')
 def subscribe():
-    return render_template('subscribe.html')
+    return redirect(url_for('www.support'))
 
 
 @www.route('/support/')
@@ -257,3 +265,44 @@ def redirect_catalog():
         return redirect(url_for('www.' + target))
     else:
         return redirect(url_for('www.index'))
+
+@www.route('/favicon.ico')
+def favicon():
+    """Redirect a /favicon.ico request to the static images file."""
+    return(current_app.send_static_file('images/favicon.ico'))
+
+@www.route('/sitemap.xml')
+def sitemap():
+    """ Create a sitemap 
+    http://www.sitemaps.org/protocol.html
+    """
+    pages = []
+    RuleTuple = namedtuple('Rule', ['loc', 'lastmod',]) #'changefreq', 'priority'])
+    ten_days_ago = (datetime.now() - timedelta(days=10)).date().isoformat()
+
+    # static pages
+    for rule in current_app.url_map.iter_rules():
+        # Only process rules in this Blueprint
+        # Only process GET methods
+        # Only process endpoints without arguments
+        if 'www' in rule.endpoint and "GET" in rule.methods and len(rule.arguments) == 0:
+            pages.append(RuleTuple(rule.rule, ten_days_ago))
+
+    # user model pages
+    writings = db.session.query(_poly).filter_by(hidden=False).order_by(_poly.last_edited_date.desc()).all()
+    print writings
+    for article in writings:
+        url = article.make_url() # url_for('www.articles', article_id=article.id )
+        modified_time = article.last_edited_date.date().isoformat()
+        pages.append(RuleTuple(url, modified_time))
+
+    authors = db.session.query(Author).filter_by(hidden=False).all()
+    for author in authors:
+        pages.append(RuleTuple(url_for('www.authors', author_id=author.id), ten_days_ago))
+
+
+    sitemap_xml = render_template('sitemap.xml', pages=pages)
+    response= make_response(sitemap_xml)
+    response.headers["Content-Type"] = "application/xml"    
+
+    return response

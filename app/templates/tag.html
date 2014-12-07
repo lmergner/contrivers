@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import render_page_buttons, render_articles %}
+
+{% block title %} - Categories{% endblock title %}
+{% block header %}{{ super() }}{% endblock %}
+
+{% block content %}
+<div id='content' class='tags-page page'>
+<h1 class='page-title'>Category: {{ tag.tag }}</h1>
+
+{{ render_articles(tag.writing) }}
+
+</div>
+{% endblock %}

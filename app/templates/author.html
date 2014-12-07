@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import render_author_block, render_articles %}
+
+{% block content %}
+<div id='content' class='author-page page'>
+<h1 class='author-name'>{{ author.name }}</h1>
+<a href="{{ url_for('www.rss_author', author_id=author.id) }}"><i class='fa fa-rss-square'></i></a>
+{% if author.twitter %}<div class='author-twitter'><a href='http://www.twitter.com/{{ author.twitter }}'><i class="fa fa-twitter"></i> @{{ author.twitter }}</a></div>{% endif %}
+{% if author.bio %}<div class='author-bio'>{{ author.bio | md | safe }}</div>{% endif %}
+{{ render_articles(author.writing, show_abstract=True, show_featured=True, show_author=False) }}
+
+
+</div>
+{% endblock %}

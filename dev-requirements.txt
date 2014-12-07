@@ -1,4 +1,6 @@
 -r requirements.txt
 
+livereload
+
 Flask-Testing
 alembic

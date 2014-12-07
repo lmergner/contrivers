@@ -3,8 +3,8 @@
 
 <div id='content' class='support-page'>
 
-<div class='announcement__fundraising'>
-<h2>Support Us</h2>{% if support_intro is defined -%}{{ support_intro | safe }}{%- else %}
+<div id='fundraising' class='announcement__fundraising'>
+<h1>Support Us</h1>{% if support_intro is defined -%}{{ support_intro | safe }}{%- else %}
 <p>
     Contrivers' Review is a non-profit publication that relies on your support.
     Please consider donating. Our staff is small and our overhead is low, so your
@@ -12,7 +12,7 @@
 </p>
 <ul>
     <li><a href=''>Kickstarter</a></li>
-    <li><a href=‘http://www.patreon.com/contriversrev'>Patreon</a></li>
+    <li><a href='http://www.patreon.com/contriversrev'>Patreon</a></li>
     <li>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
         <input type="hidden" name="cmd" value="_s-xclick">
@@ -21,7 +21,7 @@
         <input type="submit" value="Paypal">
         </form>
     </li>
-    <li><a href=''>Amazon</a></li>
+    <li><a href='http://www.amazon.com/?tag={{ site.amzn_tag }}'>Amazon</a></li>
 </ul>
 {% endif %}
 </div>
@@ -32,27 +32,27 @@
 <p class='form-blurb'>Please sign up for our mailing list. We announce new issues and other infrequent items of interest.</p>
 
 <form action="" class="validate" target="_blank" novalidate>
+    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;">
+        <input type="text" name="b_dd125dca9ae429922ce3f2ff4_22a9f9d26e" tabindex="-1" value="">
+    </div>
 
     <div class="mc-field-group">
         <label for="mce-EMAIL" >Email Address <span class="asterisk">*</span> </label>
         <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
     </div>
-    <div class="mc-field-group">
+    {#    <div class="mc-field-group">
         <label for="mce-FNAME">First Name </label>
         <input type="text" value="" name="FNAME" class="" id="mce-FNAME">
     </div>
     <div class="mc-field-group">
         <label for="mce-LNAME">Last Name </label>
         <input type="text" value="" name="LNAME" class="" id="mce-LNAME">
-    </div>
+    </div> #}
     <div id="mce-responses" class="clear">
         <div class="response" id="mce-error-response" style="display:none"></div>
         <div class="response" id="mce-success-response" style="display:none"></div>
     </div>    
-    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-    <div style="position: absolute; left: -5000px;">
-        <input type="text" name="b_dd125dca9ae429922ce3f2ff4_22a9f9d26e" tabindex="-1" value="">
-    </div>
     <div class="clear form-ctrl-group mc-field-group">
         <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
     </div>

@@ -73,21 +73,20 @@
     show_abstract=True, 
     show_author=True, 
     show_date=True, 
-    show_featured=False, 
+    show_featured=True, 
     show_issue=True,
-    show_tag=True,
-    class='') -%}
+    show_tag=True) %}
 <div class='block'>
   <div class='block-header'>
     {% if show_issue and article.issue %}<div class='block-header-button__issue'><a href='{{ url_for('www.issues', issue_id=article.issue.id) }}'>{{ article.issue.theme }}</a></div>{% endif %}
-    {% if show_date -%}<div class='block-header-button'>{{ render_date(article.publish_date) }}</div>{%- endif %}
-    {% if featured %}<div class='block-header-button__featured'><a href='{{ url_for('www.featured') }}'>Featured</a></div>{% endif %}
+    {% if show_date %}<div class='block-header-button'>{{ render_date(article.publish_date) }}</div>{% endif %}
+    {% if article.featured and show_featured %}<div class='block-header-button__featured'><a href='{{ url_for('www.featured') }}'>Featured</a></div>{% endif %}
     <div class='block-header-title'>{{ render_title(article) }}</div>
     {% if show_author -%}{{ render_authors(article.authors, class='block-header') }}{%- endif %}
   </div>
   {% if show_abstract -%}<div class='block-abstract'>{{ article.abstract | md | safe }}</div>{%- endif %}
   {% if show_tags %}
-  <div class='block-article-tags>
+  <div class='block-article-tags'>
   {% for tag in article.tags %}{{ render_tag_link(tag) }}{% endfor %}
   </div>
   {% endif %}
@@ -134,26 +133,23 @@
  #}
 
 {% macro render_issue_title(issue) %}
-<div class='block-header-title__issue'><a href='{{ url_for('www.issues', issue_id=issue.id) }}'>Issue {{ issue.issue_num }}: {{ issue.theme }}</a></div>
+<h1 class='block-header-title__issue'><a href='{{ url_for('www.issues', issue_id=issue.id) }}'>Issue {{ issue.issue_num }}: {{ issue.theme }}</a></h1>
 {% endmacro %}
 
 {% macro render_issue(issue, show_articles=True) %}
 <div class='block__issue'>
     {{ render_issue_title(issue) }}
-    {% if issue.publish_date is defined %}
-    {{ render_date(issue.publish_date) }}
-    {% endif %}
     {% if show_articles %}
     {% for article in issue.articles | sort(attribute='publish_date') %}
-    {{ render_article(article, show_issue=False) }}
+{{ render_article(article, show_issue=False) }}
     {% endfor %}
     {% endif %}
 </div>
 {%- endmacro %}
 
-{% macro render_issues(issue_list, class='') %}
+{% macro render_issues(issue_list, show_articles=True) %}
 {% for issue in issue_list | sort(attribute='issue_num', reverse=True) %}
-{{ render_issue(issue) }}
+{{ render_issue(issue, show_articles=show_articles) }}
 {% endfor %}
 {% endmacro %}
 
@@ -161,20 +157,12 @@
 {# Simple button style pagination #}
 {% macro render_page_buttons(pagination, endpoint, search) %}
 <div class='pagination'>
-  {% if pagination.has_prev -%}
-  <a href="{{ url_for(endpoint, page=pagination.prev_num) }}" class="pagination-element__prev"><i class='fa fa-angle-left'></i></a>
-  {%- else -%}
-  <a href='#' class='pagination-element__prev disabled'><i class='fa fa-angle-left'></i></a>
-  {% endif %}
-    <form class='pagination-element__search' method="Post" action="/search/">
-        {{ search.csrf_token }}
-        {{ search.search_term(size=50) }}
-    </form>
-  {% if pagination.has_next -%}
-  <a href="{{ url_for(endpoint, page=pagination.next_num) }}" class="pagination-element__next"><i class='fa fa-angle-right'></i></a>
-  {%- else -%}
-  <a href-'#' class='pagination-element__next disabled'><i class='fa fa-angle-right'></i></a>
-  {%- endif %}
+{% if pagination.has_prev %}<a href="{{ url_for(endpoint, page=pagination.prev_num) }}" class="pagination-element__prev"><i class='fa fa-angle-left'></i></a>{% else %}<span class='pagination-element__prev disabled'>&nbsp;</span>{% endif %}
+<form class='pagination-element__search' method="Post" action="/search/">
+{{ search.csrf_token }}
+{{ search.search_term(size=50, placeholder='Search Articles') }}
+</form>
+{% if pagination.has_next %}<a href="{{ url_for(endpoint, page=pagination.next_num) }}" class="pagination-element__next"><i class='fa fa-angle-right'></i></a>{% else %}<span class='pagination-element__next disabled'>&nbsp;</span>{% endif %}
 </div>
 {% endmacro %}
 
@@ -191,78 +179,67 @@
     </ol>
 {% endmacro %}
 
-
-{#
- # Flask pagination
- # from Armen Ronacher
- #}
-
-{% macro render_pagination(pagination, endpoint) %}
-  <div class='pagination'>
-  {#{%- if pagination.has_prev -%}<a href="{{ url_for(endpoint) }}">Prev</a>{%- endif -%}#}
-  {%- for page in pagination.iter_pages() %}
-    {% if page %}
-      {% if page != pagination.page %}
-        <a href="{{ url_for(endpoint, page=page) }}">{{ page }}</a>
-      {% else %}
-        <strong>{{ page }}</strong>
-      {% endif %}
-    {% else %}
-      <span class=ellipsis>…</span>
-    {% endif %}
-  {%- endfor %}
-  {#{%- if pagination.has_next -%}<a href="{{ url_for(endpoint) }}">Next</a>{%- endif -%}#}
-  </div>
-{% endmacro %}
-
-
 {% macro render_announcements(announce, class='') %}
 {% if announce != '' %}
 <div class='announcement {{ class }}'>{{ announce | md | safe }}</div>
 {% endif %}
 {% endmacro %}
 
+{% macro twitter_share_message(article) %}
+Currently reading {{ article.title }}.
+{% endmacro %}
+
+{% macro instapaper_link(request, article) %}
+http://www.instapaper.com/hello2?url={{ request.url | urlencode }}&title={{ article.title | urlencode }}&description={{ article.abstract | md | urlencode }}
+{% endmacro %}
+
 {% macro render_aside(article, site, request) %}
-<aside class='article-aside'>
-    <div class='aside-header menu-toggle'><i class='fa fa-bars'></i></div>
-    <ul class='article-aside-navbar'>
-        <li><a class="twitter-share-button"
-               href="https://twitter.com/share?url={{ request.url }}&via={{site.twitter_name }}&text=Currently reading {{ article.title }}">
-               <i class="fa fa-twitter"></i></a>
-        </li>   
-            
-            
-        <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
-        <li><a href=''>Instapaper</a></li>
+<aside class='article-aside'> {# article-aside #}
+    <ul class='dropdown-menu'> {# article-aside-navbar'> #}
+        <li class='menu-title'>Info</li>
 {% if article.issue %}
-        <li class='has-submenu'><a href="{{ url_for('www.issues', issue_id=article.issue.id, page=1) }}">Issue: {{ article.issue.theme }}</a>
-            <ul class='submenu'>
+        <li><a href="{{ url_for('www.issues', issue_id=article.issue.id, page=1) }}">Issue: {{ article.issue.theme }}</a>
+            <ul>
 {% for issue_article in article.issue.articles %}
 {% if article.id != issue_article.id %}
                 <li>{{ render_title(issue_article) }}</li>
-{% endif %}
-{% endfor %}
+{% endif %}{% endfor %}
             </ul>
-        </li>
+        </li>        
 {% endif %}
 {% if article.responses %}
-        <li class='has-submenu'>Responses
-            <ul class='submenu'>
+        <li>Responses
+            <ul>
                 {% for response in article.responses %}
-                <li>{{ render_title(response, class='sidebar-article-title') }}</li>
+                <li>{{ render_title(response) }}</li>
                 {% endfor %}
             </ul>
         </li>
 {% endif %}
-
 {% if article.respondees %}
-        <li class='has-submenu'>Respondees
-            <ul class='submenu'>
+        <li>Respondees
+            <ul>
                 {% for respondee in article.respondees %}
-                <li>{{ render_title(respondee, class='sidebar-article-title') }}</li>
+                <li>{{ render_title(respondee) }}</li>
                 {% endfor %}
             </ul>
-            {% endif %}
+        </li>
+{% endif %}
+        <li><a class="twitter-share-button"
+               href="https://twitter.com/share?url={{ request.url }}&via={{site.twitter_name }}&text={{ twitter_share_message(article) | urlencode }}"
+                alt="Share on Twitter"
+               >
+               <i class="fa fa-twitter"></i></a>
+        </li>   
+        <li>  
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url }}" target="_blank" alt="Share on Facebook"><i class="fa fa-facebook"></i></a></li>
+        <li><a href='{{ instapaper_link(request, article) }}' alt="Read Later on Instapaper"><i class='fa fa-instapaper'>I</i></a></li>
+{% if article.issue %}
+
+{% endif %}
+
+
+
         </li>
     </ul>
 </aside>

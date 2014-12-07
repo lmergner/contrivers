@@ -142,16 +142,31 @@ class Author(BaseMixin, Base):
     bio = Column('bio', String)
     hidden = Column('hidden', Boolean, default=False)
 
+    # Keep track of dates
+    # create_date = Column(
+    #     'create_date',
+    #     TzDateTime, nullable=False,
+    #     default=localize_datetime(datetime.datetime.now()))
+    # last_edited_date = Column(
+    #     'last_edited_date',
+    #     TzDateTime,
+    #     onupdate=localize_datetime(datetime.datetime.now()),
+    #     default=datetime.datetime.now())
+
     def __repr__(self):
         return "<{}({})>".format(self.__class__.__name__, self.email)
 
     def __hash__(self):
         return hash(self.__class__.__name__ + str(self.id) + self.email)
 
+    def count():
+        return len(self.writing)
+
     @property
     def serialize(self):
         _serialize = Serializer(fields=['id', 'email', 'twitter', 'bio', 'hidden', 'name'])
         return _serialize(self)
+
 
 
 class Issue(BaseMixin, Base):

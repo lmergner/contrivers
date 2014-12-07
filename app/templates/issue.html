@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% from 'macros.html' import render_issue %}
+
+{% block title %} - Issue {{ issue.issue_num }}: {{ issue.theme }}{% endblock title %}
+{% block header %}{{ super() }}{% endblock %}
+
+{% block content %}
+<div id='content' class='issues-page page'>
+{# issue title is rendered inside the issue block #}
+{{ render_issue(issue, show_articles=True) }}
+</div>
+{% endblock %}

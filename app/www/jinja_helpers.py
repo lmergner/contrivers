@@ -25,9 +25,15 @@ def markdown_factory(extensions=None):
         extensions = ['footnotes', 'headerid', 'smarty', 'toc']
     return markdown.Markdown(extensions=extensions)
 
+
 @www.app_template_filter()
 def md(txt):
     """Markdown Jinja2 template filter"""
     md = markdown_factory()
     return md.convert(txt)
+
+@www.app_template_test()
+def empty(ls):
+    iter(ls)
+    return True if len(ls) > 0 else False
 

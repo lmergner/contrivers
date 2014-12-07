@@ -13,6 +13,7 @@ with some test data.
 """
 
 import argparse
+from livereload import Server
 from app import create_app
 
 def setupToolbar(app, testing, redirect=True):
@@ -50,6 +51,12 @@ if __name__ == '__main__':
             action='store_true',
             help='disable the toolbar with debug on.')
 
+    parser.add_argument(
+            '--live-reload',
+            action='store_true',
+            help='Run with livereload server.'
+            )
+
     args = parser.parse_args()
 
     # Now setup and run the application
@@ -61,5 +68,10 @@ if __name__ == '__main__':
 
     host, port = args.host.split(':')
     port = int(port)
-    app.run(use_reloader=args.no_reload, host=host, port=port)
+    if not args.live_reload:
+        app.run(use_reloader=args.no_reload, host=host, port=port)
+    else:
+        server = Server(app.wsgi_app)
+        server.watch('app/')
+        server.serve(host=host, port=port)
 

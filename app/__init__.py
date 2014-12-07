@@ -3,13 +3,16 @@
 
 import os
 import config
+
 from core import (db, cache, login_manager)
 from core.models import *
+from core.app import ContriversFlask
+
 from cms.auth import auth, Admin
 from cms.admin import admin
 from www import www
 from cfg import SiteConfig
-from app import ContriversFlask
+
 
 __version__ = "0.2"
 __authors__ = ['Luke Thomas Mergner <lmergner@gmail.com']

@@ -2,13 +2,15 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://opg.me/ns#">
 
-<head>
-{%- block head %}
+<head>{% block head %}
     <meta charset="utf-8">
     <link rel="canonical" href="{{ request.url }}">
     {% if rss_url %}<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ rss_url }}" />{% endif %}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" >
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" >
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
     {% block twitter_card %}
     <meta property="og:site-name" content="{{ site.title }}"/>
     <meta name="twitter:card" content="{{ site.tagline }}">
@@ -25,8 +27,7 @@
     <link href="{{ url_for('static', filename='css/screen.css') }}" media="screen, projection" rel="stylesheet" type="text/css" />
     {%- endblock stylesheets %}
     <title>{{ site.title }}{% block title %}{% endblock title %}</title>
-{%- endblock head %}
-</head>
+{% endblock head %}</head>
 
 <body>
 
@@ -36,8 +37,8 @@
         <a href="{{ url_for('www.index') }}">
             <img 
                 src='{{ url_for('static', filename='images/window_banner.png') }}'
-                srcset='{{ url_for('static', filename='images/phone_banner.png') }} 480w, {{ url_for('static', filename='images/window_banner.png') }}'
-                alt='Contrivers Review site banner'
+                srcset="{{ url_for('static', filename='images/phone_banner.png') }} 480w, {{ url_for('static', filename='images/window_banner.png') }}"
+                alt='Contrivers Review Site Banner'
             />
         </a>
     </div>
@@ -67,41 +68,58 @@
     <div class='image-wrapper__banner-art'>
         <a href="{{ url_for('www.index') }}">
             <img 
-            src='/static/images/contrivers_icon_large.jpg' 
+              src="{{ url_for('static', filename='images/contrivers_icon_small.gif') }}"
+              srcset="{{ url_for('static', filename='images/contrivers_icon_small.gif') }} 480w, {{ url_for('static', filename='images/contrivers_icon_large.jpg') }}"
+              alt='Contrivers Review Brand Image'
             />
         </a> 
     </div>
     {% block advertising %}
-    {% if config['DEBUG'] or config['TESTING'] %}
     <div class='image-wrapper__advertising'>
+    {% if config['DEBUG'] or config['TESTING'] %}
         <img 
             src="//storage.googleapis.com/support-kms-prod/SNP_1DA7588EEB5450EE2A22C2B2F0A6458A61C0_2922342_en_v1" 
             style='max-width:160px;display:inline-block;height:auto;'/>
-    </div>
     {% else %}
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- Med Sidebar ad banner -->
-    <ins class="adsbygoogle"
-     style="display:inline-block;width:160px;height:auto"
-     data-ad-client="ca-pub-8811176003564180"
-     data-ad-slot="8096834152"></ins>
-    <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Med Sidebar ad banner -->
+        <ins class="adsbygoogle"
+         style="display:inline-block;width:160px;height:auto"
+         data-ad-client="ca-pub-8811176003564180"
+         data-ad-slot="8096834152"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     {% endif %}
+    </div>
     {% endblock %}
 </div>
 {% endblock %}
 
 <footer class="contrivers-footer"> 
-
-    <ul class="footer-nav">
-        <li class='footer-nav-item'><a href="{{ url_for('www.masthead') }}">Masthead</a></li>
-        <li class='footer-nav-item'><a href="{{ url_for('www.support') }}">Support</a></li>
-        <li class='footer-nav-item'><a href="{{ url_for('www.archive') }}">Archive</a></li>
-        <li class=''></li>
-    </ul>
+    <div class="footer-nav">
+        <h2 >Magazine</h2>
+        <ul>
+            <li ><a href="{{ url_for('www.issues') }}">Issues</a> (<a href="{{ url_for('www.rss_issues') }}">RSS</a>)</li>
+            <li ><a href="{{ url_for('www.featured') }}">Featured</a> (<a href="{{ url_for('www.rss_featured') }}">RSS</a>)</li>
+            <li ><a href="{{ url_for('www.archive') }}">Archive</a> (<a href="{{ url_for('www.rss_archive') }}">RSS</a>)</li>
+            <li ><a href="{{ url_for('www.articles') }}">Articles</a> (<a href="{{ url_for('www.rss_articles') }}">RSS</a>)</li>
+            <li ><a href="{{ url_for('www.reviews') }}">Reviews</a> (<a href="{{ url_for('www.rss_reviews') }}">RSS</a>)</li>
+            <li ><a href="{{ url_for('www.authors') }}">Authors</a></li>
+            <li ><a href="{{ url_for('www.tags' ) }}">Categories</a></li>
+            <li ><a href="{{ url_for('www.masthead') }}">Masthead</a></li>
+            <li ><a href="{{ url_for('www.support') }}">Support</a></li>
+            <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+        </ul>
+    </div>
     <ul class="copyright">
+        <li>
+            <p><em>Contrivers’ Review</em> is a non-profit digital publication in the
+            tradition of intellectual journals, publishing the best essays on
+            political and social theory. Its most immediate goal is to reconnect
+            the highly professionalized discourse of theory with broader and more
+            diverse audiences.<p>
+        </li>
         <li>
             <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.contrivers.org"
             property="cc:attributionName" rel="cc:attributionURL">&copy; 2014 Contrivers' Review</a> 
@@ -110,7 +128,7 @@
         </li>
 
         <li>
-            Images &copy; copyright by <a href='http://www.natesinnott.com/Muse%20Site/' target='blank'>Nathaniel Sinnott</a>.
+            Artwork &copy; copyright by <a href='http://www.natesinnott.com/Muse%20Site/' target='_blank'>Nathaniel Sinnott</a>.
         </li>
 
         <li>

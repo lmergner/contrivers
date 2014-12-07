@@ -13,12 +13,10 @@ admin = Admin()
 
 
 class AuthMixin(object):
-
+    """ Mixin to determine if user is authenticaed """
     def is_accessible(self):
-        current_app.logger.debug('admin.AuthMixin testing authentication for {}'.format(current_user))
-        # return current_user.is_authenticated()
-        return True
-
+        return current_user.is_authenticated()
+        
 
 class TagView(AuthMixin, ModelView):
     form_excluded_columns = ['articles', 'posts']
