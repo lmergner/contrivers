@@ -194,8 +194,8 @@ http://www.instapaper.com/hello2?url={{ request.url | urlencode }}&title={{ arti
 {% endmacro %}
 
 {% macro render_aside(article, site, request) %}
-<aside class='article-aside'> {# article-aside #}
-    <ul class='dropdown-menu'> {# article-aside-navbar'> #}
+<div class='article-menu'> 
+    <ul class='dropdown-menu'> 
         <li class='menu-title'>Info</li>
 {% if article.issue %}
         <li><a href="{{ url_for('www.issues', issue_id=article.issue.id, page=1) }}">Issue: {{ article.issue.theme }}</a>
@@ -225,24 +225,11 @@ http://www.instapaper.com/hello2?url={{ request.url | urlencode }}&title={{ arti
             </ul>
         </li>
 {% endif %}
-        <li><a class="twitter-share-button"
-               href="https://twitter.com/share?url={{ request.url }}&via={{site.twitter_name }}&text={{ twitter_share_message(article) | urlencode }}"
-                alt="Share on Twitter"
-               >
-               <i class="fa fa-twitter"></i></a>
-        </li>   
-        <li>  
-          <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url }}" target="_blank" alt="Share on Facebook"><i class="fa fa-facebook"></i></a></li>
-        <li><a href='{{ instapaper_link(request, article) }}' alt="Read Later on Instapaper"><i class='fa fa-instapaper'>I</i></a></li>
-{% if article.issue %}
-
-{% endif %}
-
-
-
-        </li>
+        <li class='article-menu__icon'><a class="twitter-share-button" href="https://twitter.com/share?url={{ request.url }}&via={{site.twitter_name }}&text={{ twitter_share_message(article) | urlencode }}" alt="Share on Twitter" ><i class="fa fa-twitter"></i></a></li>   
+        <li class='article-menu__icon'><a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url }}" target="_blank" alt="Share on Facebook"><i class="fa fa-facebook"></i></a></li>
+        <li class='article-menu__icon'><a href='{{ instapaper_link(request, article) }}' alt="Read Later on Instapaper"><i class='fa fa-instapaper'></i></a></li>
     </ul>
-</aside>
+</div>
 
 {% endmacro %}
 

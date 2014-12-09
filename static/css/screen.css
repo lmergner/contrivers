@@ -6,30 +6,69 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans);
 @import url(http://fonts.googleapis.com/css?family=Lora:400,700,400italic);
 /* line 5, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font: inherit; font-size: 100%; vertical-align: baseline; }
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
 
 /* line 22, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
-html { line-height: 1; }
+html {
+  line-height: 1;
+}
 
 /* line 24, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
-ol, ul { list-style: none; }
+ol, ul {
+  list-style: none;
+}
 
 /* line 26, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
-table { border-collapse: collapse; border-spacing: 0; }
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
 
 /* line 28, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
-caption, th, td { text-align: left; font-weight: normal; vertical-align: middle; }
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
 
 /* line 30, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
-q, blockquote { quotes: none; }
+q, blockquote {
+  quotes: none;
+}
 /* line 103, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
-q:before, q:after, blockquote:before, blockquote:after { content: ""; content: none; }
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
 
 /* line 32, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
-a img { border: none; }
+a img {
+  border: none;
+}
 
 /* line 116, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/reset/_utilities.scss */
-article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary { display: block; }
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
 
 /*doc
 ---
@@ -49,7 +88,7 @@ name: variables
 | green      | <div style='background: #319b55; height: 30px'></div> | 
 | blue       | <div style='background: #2d6f84; height: 30px'></div> | 
 | black      | <div style="background: #222222; height: 30px"></div> | 
-| grey    | <div style="background: #555566; height: 30px"></div> | 
+| gray       | <div style="background: #555566; height: 30px"></div> | 
 | gray-light | <div style='background: #eeeeee; height: 30px'></div> | 
 | white      | <div style="background: #ffffff; height: 30px"></div> | 
 */
@@ -91,7 +130,10 @@ name: base-typography
 Primary api for typography is `set-font`:
 
 @mixin set-font
- __face__: must be valid key in font-families map __size__: must be valid key in font-sizes map __color__: must be valid key in colors map
+
+    __face__: must be valid key in font-families map
+    __size__: must be valid key in font-sizes map
+    __color__: must be valid key in colors map
 
 All are optional and will not output if ommited so that styles can be inherited.
 
@@ -105,43 +147,50 @@ All are optional and will not output if ommited so that styles can be inherited.
 - [Managing responsive typography with Sass](http://maketea.co.uk/2014/11/05/managing-responsive-typography-with-sass.html)
 
 ```html_example
-<div id='test-typography'> <div class='alpha'>Alpha</div> <div class='beta'>Beta</div> <div class='gamma'>Gamma</div> <div class='delta'>Delta</div> <div class='epsilon'>Epsilon</div>
+<div id='test-typography'>
+    <div class='alpha'>Alpha</div>
+    <div class='beta'>Beta</div>
+    <div class='gamma'>Gamma</div>
+    <div class='delta'>Delta</div>
+    <div class='epsilon'>Epsilon</div>
 </div>
 ```
 */
 /* line 106, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/_vertical_rhythm.scss */
-html { font-size: 100%; line-height: 1.75em; }
+html {
+  font-size: 100%;
+  line-height: 1.75em;
+}
 
 /* line 69, ../sass/global/_typography.scss */
-.alpha { font-size: 2.625rem; line-height: 3.5rem; }
+.alpha {
+  font-size: 2.625rem;
+  line-height: 3.5rem;
+}
 
 /* line 69, ../sass/global/_typography.scss */
-.beta { font-size: 1.625rem; line-height: 3.5rem; }
+.beta {
+  font-size: 1.625rem;
+  line-height: 3.5rem;
+}
 
 /* line 69, ../sass/global/_typography.scss */
-.gamma { font-size: 1.25rem; line-height: 1.75rem; }
+.gamma {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
 
 /* line 69, ../sass/global/_typography.scss */
-.delta { font-size: 1rem; line-height: 1.75rem; }
+.delta {
+  font-size: 1rem;
+  line-height: 1.75rem;
+}
 
 /* line 69, ../sass/global/_typography.scss */
-.epsilon { font-size: 0.8125rem; line-height: 1.75rem; }
-
-/*doc
----
-title: Bleeding
-category: Global - Extends
----
-%bleeding
-
-```html_example
-<div class='container' style='border: 1px solid black;'> <div class='bleeding' style='color: #fff; height: 25px; background-color: gray;'>Bleeding div</div>
-</div>
-```
-
-*/
-/* line 17, ../sass/global/_extends.scss */
-.bleeding, .article-aside, .article-body blockquote { -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; margin-right: -2.85714%; margin-left: -2.85714%; padding-right: 2.85714%; padding-left: 2.85714%; }
+.epsilon {
+  font-size: 0.8125rem;
+  line-height: 1.75rem;
+}
 
 /*doc
 ---
@@ -151,12 +200,28 @@ category: Global - Extends
 %responsive-image
 
 ````html_example
-<div style="width: 350px; float: left;"> <p>With Responsive Image</p> <div style="border: 1px solid #888"> <img class="responsive-image" src="http://placekitten.com/g/300/200"> </div> </div> <div style="width: 350px; float: right;"> <p>Without Responsive Image</p> <div style="border: 1px solid #888"> <img src="http://placekitten.com/g/300/200"> </div>
+<div style="width: 350px; float: left;">
+    <p>With Responsive Image</p>
+    <div style="border: 1px solid #888">
+        <img class="responsive-image" src="http://placekitten.com/g/300/200">
+    </div>
+    </div>
+    <div style="width: 350px; float: right;">
+    <p>Without Responsive Image</p>
+    <div style="border: 1px solid #888">
+    <img src="http://placekitten.com/g/300/200">
+    </div>
 </div>
 ````
 */
-/* line 46, ../sass/global/_extends.scss */
-.responsive-image, .image-wrapper__banner-art img, header.contrivers-header img { display: block; width: 100%; height: auto; }
+/* line 25, ../sass/global/_extends.scss */
+.responsive-image,
+.image-wrapper__banner-art img,
+header.contrivers-header img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
 /*doc
 ---
@@ -169,8 +234,11 @@ category: Global - Extends
 <div class="italic-copy">This is Italic Copy</div>
 ````
 */
-/* line 65, ../sass/global/_extends.scss */
-.italic-copy { font-style: oblique; font-style: italic; }
+/* line 44, ../sass/global/_extends.scss */
+.italic-copy {
+  font-style: oblique;
+  font-style: italic;
+}
 
 /*doc
 ---
@@ -183,8 +251,12 @@ category: Global - Extends
 <div class="small-copy">This is Small Copy</div>
 ````
 */
-/* line 84, ../sass/global/_extends.scss */
-.footnote-ref, .small-copy { font-size: 11px; color: color(gray); }
+/* line 63, ../sass/global/_extends.scss */
+.footnote-ref,
+.small-copy {
+  font-size: 11px;
+  color: color(gray);
+}
 
 /*doc
 ---
@@ -198,12 +270,25 @@ category: Global - Extends
 by <span class="author"><a href=''>Luke Thomas Mergner</a>, <a href=''>Peter Sinnott</a>, Jr. & Dummy McStupid</span>
 ```
 */
-/* line 103, ../sass/global/_extends.scss */
-.block-header-attribution, .author { font-family: "Droid Serif", Georgia, serif; color: color(black); }
-/* line 106, ../sass/global/_extends.scss */
-.block-header-attribution a, .author a { color: inherit; text-decoration: inherit; cursor: inherit; }
+/* line 82, ../sass/global/_extends.scss */
+.block-header-attribution,
+.author {
+  font-family: "Droid Serif", Georgia, serif;
+  color: color(black);
+}
+/* line 85, ../sass/global/_extends.scss */
+.block-header-attribution a,
+.author a {
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+}
 /* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
-.block-header-attribution a:active, .block-header-attribution a:focus, .author a:active, .author a:focus { outline: none; }
+.block-header-attribution a:active, .block-header-attribution a:focus,
+.author a:active,
+.author a:focus {
+  outline: none;
+}
 
 /*doc
 ---
@@ -216,8 +301,13 @@ category: Global - Extends
 <time class='datetime' datetime="2001-05-15 19:00">May 15</time>
 ```
 */
-/* line 124, ../sass/global/_extends.scss */
-.datetime { font-family: "Droid Serif", Georgia, serif; font-size: 1rem; line-height: 1.75rem; color: color(gray); }
+/* line 103, ../sass/global/_extends.scss */
+.datetime {
+  font-family: "Droid Serif", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  color: color(gray);
+}
 
 /*doc 
 ---
@@ -231,11 +321,20 @@ category: Global - Extends
 <p>This is a <span class='accent'>paragraph</span> with an accented word.</p>
 ```
 */
-/* line 143, ../sass/global/_extends.scss */
-.accent { color: color(primary); }
+/* line 122, ../sass/global/_extends.scss */
+.accent {
+  color: color(primary);
+}
 
-/* line 149, ../sass/global/_extends.scss */
-strong, b, .strong { font-weight: 700; font-weight: bold; }
+/* line 128, ../sass/global/_extends.scss */
+.fa-instapaper:before, .dropdown-menu .dropdown-menu-title,
+.dropdown-menu .menu-title,
+strong,
+b,
+.strong {
+  font-weight: 700;
+  font-weight: bold;
+}
 
 /*doc
 ---
@@ -247,7 +346,10 @@ name: base-typography
 Primary api for typography is `set-font`:
 
 @mixin set-font
- __face__: must be valid key in font-families map __size__: must be valid key in font-sizes map __color__: must be valid key in colors map
+
+    __face__: must be valid key in font-families map
+    __size__: must be valid key in font-sizes map
+    __color__: must be valid key in colors map
 
 All are optional and will not output if ommited so that styles can be inherited.
 
@@ -261,27 +363,50 @@ All are optional and will not output if ommited so that styles can be inherited.
 - [Managing responsive typography with Sass](http://maketea.co.uk/2014/11/05/managing-responsive-typography-with-sass.html)
 
 ```html_example
-<div id='test-typography'> <div class='alpha'>Alpha</div> <div class='beta'>Beta</div> <div class='gamma'>Gamma</div> <div class='delta'>Delta</div> <div class='epsilon'>Epsilon</div>
+<div id='test-typography'>
+    <div class='alpha'>Alpha</div>
+    <div class='beta'>Beta</div>
+    <div class='gamma'>Gamma</div>
+    <div class='delta'>Delta</div>
+    <div class='epsilon'>Epsilon</div>
 </div>
 ```
 */
 /* line 106, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/_vertical_rhythm.scss */
-html { font-size: 100%; line-height: 1.75em; }
+html {
+  font-size: 100%;
+  line-height: 1.75em;
+}
 
 /* line 69, ../sass/global/_typography.scss */
-.alpha { font-size: 2.625rem; line-height: 3.5rem; }
+.alpha {
+  font-size: 2.625rem;
+  line-height: 3.5rem;
+}
 
 /* line 69, ../sass/global/_typography.scss */
-.beta { font-size: 1.625rem; line-height: 3.5rem; }
+.beta {
+  font-size: 1.625rem;
+  line-height: 3.5rem;
+}
 
 /* line 69, ../sass/global/_typography.scss */
-.gamma { font-size: 1.25rem; line-height: 1.75rem; }
+.gamma {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
 
 /* line 69, ../sass/global/_typography.scss */
-.delta { font-size: 1rem; line-height: 1.75rem; }
+.delta {
+  font-size: 1rem;
+  line-height: 1.75rem;
+}
 
 /* line 69, ../sass/global/_typography.scss */
-.epsilon { font-size: 0.8125rem; line-height: 1.75rem; }
+.epsilon {
+  font-size: 0.8125rem;
+  line-height: 1.75rem;
+}
 
 /*doc
 ---
@@ -301,7 +426,7 @@ name: variables
 | green      | <div style='background: #319b55; height: 30px'></div> | 
 | blue       | <div style='background: #2d6f84; height: 30px'></div> | 
 | black      | <div style="background: #222222; height: 30px"></div> | 
-| grey    | <div style="background: #555566; height: 30px"></div> | 
+| gray       | <div style="background: #555566; height: 30px"></div> | 
 | gray-light | <div style='background: #eeeeee; height: 30px'></div> | 
 | white      | <div style="background: #ffffff; height: 30px"></div> | 
 */
@@ -365,25 +490,212 @@ title: Paragraph
 category: Global - Paragraph
 ---
 
-@mixin paragraph-styles __$size__: delta __$trail__: true
+@mixin paragraph-styles
+    __$size__: delta
+    __$trail__: true
 
 
-@extend %paragraph-copy backwards compat with paragraph-styles mixin default
+@extend %paragraph-copy
+    backwards compat with paragraph-styles mixin default
 
 */
 /* line 18, ../sass/global/mixins/_paragraphs.scss */
-.announcement p, .announcement__fundraising p, .block__author .author-bio p, .article-body p { font-family: "Droid Serif", Georgia, serif; font-size: 1rem; line-height: 1.75rem; color: #222222; hyphens: manual; overflow: hidden; text-align: left; margin-bottom: 1.75rem; }
+.announcement p, .block__author .author-bio p, .article-body p {
+  font-family: "Droid Serif", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  color: #222222;
+  hyphens: manual;
+  text-align: left;
+  margin-bottom: 1.75rem;
+}
 
 /* line 2, ../sass/base/_html.scss */
-b, .strong { font-weight: bold; font-weight: 700; }
+b,
+.strong {
+  font-weight: bold;
+  font-weight: 700;
+}
 
 /* line 8, ../sass/base/_html.scss */
-i, em, .italics { font-style: oblique; font-style: italics; }
+i,
+em,
+.italics {
+  font-style: oblique;
+  font-style: italics;
+}
 
 /* line 15, ../sass/base/_html.scss */
-html { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; margin-left: 2px; margin-right: 2px; }
-@media (min-width: 481px) { /* line 15, ../sass/base/_html.scss */
-  html { margin-right: 2.85714%; margin-left: 2.85714%; } }
+html {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 21, ../sass/base/_html.scss */
+html h1 {
+  font-family: "Lora", Georgia, serif;
+  font-size: 2.625rem;
+  line-height: 3.5rem;
+  margin-top: 1.75rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 1.75rem;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1.75rem;
+}
+/* line 101, ../sass/global/_typography.scss */
+html h1 a {
+  text-decoration: none;
+}
+/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
+html h1 a:hover, html h1 a:focus {
+  text-decoration: underline;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 21, ../sass/base/_html.scss */
+  html h1 {
+    text-align: left;
+  }
+}
+@media (min-width: 481px) {
+  /* line 21, ../sass/base/_html.scss */
+  html h1 {
+    text-align: center;
+  }
+}
+/* line 21, ../sass/base/_html.scss */
+html h2 {
+  font-family: "Lora", Georgia, serif;
+  font-size: 1.625rem;
+  line-height: 3.5rem;
+  margin-top: 1.75rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 1.75rem;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1.75rem;
+}
+/* line 101, ../sass/global/_typography.scss */
+html h2 a {
+  text-decoration: none;
+}
+/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
+html h2 a:hover, html h2 a:focus {
+  text-decoration: underline;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 21, ../sass/base/_html.scss */
+  html h2 {
+    text-align: left;
+  }
+}
+@media (min-width: 481px) {
+  /* line 21, ../sass/base/_html.scss */
+  html h2 {
+    text-align: center;
+  }
+}
+/* line 21, ../sass/base/_html.scss */
+html h3 {
+  font-family: "Lora", Georgia, serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin-top: 1.75rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 1.75rem;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1.75rem;
+}
+/* line 101, ../sass/global/_typography.scss */
+html h3 a {
+  text-decoration: none;
+}
+/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
+html h3 a:hover, html h3 a:focus {
+  text-decoration: underline;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 21, ../sass/base/_html.scss */
+  html h3 {
+    text-align: left;
+  }
+}
+@media (min-width: 481px) {
+  /* line 21, ../sass/base/_html.scss */
+  html h3 {
+    text-align: center;
+  }
+}
+/* line 21, ../sass/base/_html.scss */
+html h4 {
+  font-family: "Lora", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  margin-top: 1.75rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 1.75rem;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1.75rem;
+}
+/* line 101, ../sass/global/_typography.scss */
+html h4 a {
+  text-decoration: none;
+}
+/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
+html h4 a:hover, html h4 a:focus {
+  text-decoration: underline;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 21, ../sass/base/_html.scss */
+  html h4 {
+    text-align: left;
+  }
+}
+@media (min-width: 481px) {
+  /* line 21, ../sass/base/_html.scss */
+  html h4 {
+    text-align: center;
+  }
+}
+/* line 21, ../sass/base/_html.scss */
+html h5 {
+  font-family: "Lora", Georgia, serif;
+  font-size: 0.8125rem;
+  line-height: 1.75rem;
+  margin-top: 1.75rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 1.75rem;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 1.75rem;
+}
+/* line 101, ../sass/global/_typography.scss */
+html h5 a {
+  text-decoration: none;
+}
+/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
+html h5 a:hover, html h5 a:focus {
+  text-decoration: underline;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 21, ../sass/base/_html.scss */
+  html h5 {
+    text-align: left;
+  }
+}
+@media (min-width: 481px) {
+  /* line 21, ../sass/base/_html.scss */
+  html h5 {
+    text-align: center;
+  }
+}
 
 /*doc 
 ---
@@ -394,22 +706,56 @@ category: Base
 <a href='#Link'>A Link</a>
 ```
 */
-/* line 41, ../sass/base/_html.scss */
-a { color: #D45A43; }
 /* line 43, ../sass/base/_html.scss */
-a:visited { color: #29261c; }
-/* line 44, ../sass/base/_html.scss */
-a:focus { color: #901F0A; }
+a {
+  color: #D45A43;
+}
 /* line 45, ../sass/base/_html.scss */
-a:hover { color: #F4826D; }
+a:visited {
+  color: #29261c;
+}
 /* line 46, ../sass/base/_html.scss */
-a:active { color: #901F0A; }
+a:focus {
+  color: #901F0A;
+}
+/* line 47, ../sass/base/_html.scss */
+a:hover {
+  color: #F4826D;
+}
+/* line 48, ../sass/base/_html.scss */
+a:active {
+  color: #901F0A;
+}
 
-/* line 50, ../sass/base/_html.scss */
-figcaption { display: none; }
+/* line 52, ../sass/base/_html.scss */
+figcaption {
+  display: none;
+}
 
-/* line 55, ../sass/base/_html.scss */
-.hidden { display: none; }
+/* line 57, ../sass/base/_html.scss */
+.hidden {
+  display: none;
+}
+
+/*doc
+---
+title: Icons
+category: Base - Icons
+---
+
+Font Awesome doesn't have an Instapaper icon
+
+```html_example
+<i class='fa fa-instapaper'></i>
+```
+
+*/
+/* line 17, ../sass/base/_icons.scss */
+.fa-instapaper:before {
+  font-family: "Droid Serif", Georgia, serif;
+  content: 'I';
+  display: block;
+}
 
 /*doc
 ---
@@ -422,64 +768,48 @@ but are not styled `block` elements.
 
 ```html_example
 
-<div style='max-width: 500px; margin: 1em auto;' class='announcement'> Browse our latest issue on <a href="#">the Digital Humanities</a>.
+<div style='max-width: 500px; margin: 1em auto;' class='announcement'>
+    Browse our latest issue on <a href="#">the Digital Humanities</a>.
 </div>
 
-<div style='max-width: 500px; margin: 1em auto;' class='announcement' > <h3>Fundraising</h3> <p><a href=''>Contrivers' Review</a> is currently fundraising for its first issue of 2015. Throughout the year, we'll be publishing  essays discussing the impact of technology on education, philosophy,  society, and politics. To help us, click <a href=''>here for more  information</a>.</p>
-</div>
-
-<div class='announcement__fundraising'> <h2>Support Us</h2> <p>Contrivers' Review is a non-profit publication that relies on your support. Please consider donating. Our staff is small and our overhead is low, so your money goes to paying writers a fair compensation for their efforts.</p> <ul> <li><a href=''>Kickstarter</a></li> <li><a href=‘http://www.patreon.com/contriversrev'>Patreon</a></li> <li> <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"> <input type="hidden" name="cmd" value="_s-xclick"> <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHVwYJKoZIhvcNAQcEoIIHSDCCB0QCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYAS/SrVamfhSWDUgjkdmDsF1ToenolCEDfwAJKRvR2JUDXOm8DrWQN+/w4mEo+ExMd5PRNrzjZkznDMvtGFCOB210b/GEIqc0b8bIfN5sgB5OJqbPPgjbdKfxTCYa8SniNOszo1zKd9Nt4V70VDpdgHLluu//4Um+xpv9V2FRTuLjELMAkGBSsOAwIaBQAwgdQGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIaUFQFR1I9umAgbCsi4nqG92M8VNvZmattCqC88skS8DRnS1wDX28LP3xnJ4gR/nygya5OCgqkHdzslJNY4ZiU2fNB07lk/PEI6m0/F5LQGRPhxCTJncFm7XovGbhOkXxmfRN5l968h6p4j5wrw/aTo7S7ROcWi74imYyORbZq+0SthNYJ/cYD8nQX6D3kOoROAzN+u4Ze6qyPjBjPyEODDFPYmGzuFdLUCpscDvDsgKAytFnGjk4iiM+QKCCA4cwggODMIIC7KADAgECAgEAMA0GCSqGSIb3DQEBBQUAMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTAeFw0wNDAyMTMxMDEzMTVaFw0zNTAyMTMxMDEzMTVaMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAwUdO3fxEzEtcnI7ZKZL412XvZPugoni7i7D7prCe0AtaHTc97CYgm7NsAtJyxNLixmhLV8pyIEaiHXWAh8fPKW+R017+EmXrr9EaquPmsVvTywAAE1PMNOKqo2kl4Gxiz9zZqIajOm1fZGWcGS0f5JQ2kBqNbvbg2/Za+GJ/qwUCAwEAAaOB7jCB6zAdBgNVHQ4EFgQUlp98u8ZvF71ZP1LXChvsENZklGswgbsGA1UdIwSBszCBsIAUlp98u8ZvF71ZP1LXChvsENZklGuhgZSkgZEwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tggEAMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQADgYEAgV86VpqAWuXvX6Oro4qJ1tYVIT5DgWpE692Ag422H7yRIr/9j/iKG4Thia/Oflx4TdL+IFJBAyPK9v6zZNZtBgPBynXb048hsP16l2vi0k5Q2JKiPDsEfBhGI+HnxLXEaUWAcVfCsQFvd2A1sxRr67ip5y2wwBelUecP3AjJ+YcxggGaMIIBlgIBATCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwCQYFKw4DAhoFAKBdMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTE0MTAxMDAyMjQyN1owIwYJKoZIhvcNAQkEMRYEFKxJMf6yIjbGaMTUsl/xa8k2ox+HMA0GCSqGSIb3DQEBAQUABIGAkDkJ9w/Z7X+Z3obyLuMN5qsL2bMMd8xOMvIJK4xSa1qyKHTAed7FiGuYiyX8IgJVmT3joqwnQl18sMiwNnHwhndWRU1KwQz5P4c2ZFSD0F+kc74a7mgg1t/jXOR5S+RzkLYmeIEf2yHhT3k1+piHJMt4skhE1VlmuXzpXeNayc8=-----END PKCS7----- "> <input type="submit" value="Paypal"> </form> </li> <li><a href=''>Amazon</a></li> </ul>
+<div style='max-width: 500px; margin: 1em auto;' class='announcement' >
+    <h3>Fundraising</h3>
+    <p><a href=''>Contrivers' Review</a> is currently fundraising for its
+    first issue of 2015. Throughout the year, we'll be publishing 
+    essays discussing the impact of technology on education, philosophy, 
+    society, and politics. To help us, click <a href=''>here for more 
+    information</a>.</p>
 </div>
 
 ```
 */
-/* line 49, ../sass/components/_announcements.scss */
-.announcement, .announcement__fundraising { -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; overflow: hidden; *zoom: 1; padding-top: 1.75rem; padding-bottom: 1.75rem; display: block; padding-left: 2.85714%; padding-right: 2.85714%; background-color: rgba(255, 214, 156, 0.6); border: 1px solid #595959; }
-
-/* line 65, ../sass/components/_announcements.scss */
-.announcement__fundraising input[type='submit'], .announcement__fundraising button[type='submit'] { -webkit-align-items: center; align-items: center; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; color: #222222; background-color: #ffd69c; display: inline-block; border: none; padding: 0.75em; text-decoration: none; padding: inherit; font-family: "Lora", Georgia, serif; font-size: 1.25rem; line-height: 1.75rem; margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; display: block; margin: 0 auto; background: transparent; width: 100%; height: 100%; }
-/* line 32, ../sass/global/mixins/_buttons.scss */
-.announcement__fundraising input[type='submit'] a, .announcement__fundraising button[type='submit'] a { color: inherit; text-decoration: inherit; cursor: inherit; color: black; }
-/* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
-.announcement__fundraising input[type='submit'] a:active, .announcement__fundraising input[type='submit'] a:focus, .announcement__fundraising button[type='submit'] a:active, .announcement__fundraising button[type='submit'] a:focus { outline: none; }
-/* line 101, ../sass/global/_typography.scss */
-.announcement__fundraising input[type='submit'] a, .announcement__fundraising button[type='submit'] a { text-decoration: none; }
-/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.announcement__fundraising input[type='submit'] a:hover, .announcement__fundraising input[type='submit'] a:focus, .announcement__fundraising button[type='submit'] a:hover, .announcement__fundraising button[type='submit'] a:focus { text-decoration: underline; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 65, ../sass/components/_announcements.scss */
-  .announcement__fundraising input[type='submit'], .announcement__fundraising button[type='submit'] { text-align: left; } }
-@media (min-width: 481px) { /* line 65, ../sass/components/_announcements.scss */
-  .announcement__fundraising input[type='submit'], .announcement__fundraising button[type='submit'] { text-align: center; } }
-/* line 73, ../sass/components/_announcements.scss */
-.announcement__fundraising input[type='submit']:hover, .announcement__fundraising button[type='submit']:hover { text-decoration: underline; }
-/* line 78, ../sass/components/_announcements.scss */
-.announcement__fundraising li { -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; background-color: #ffd69c; background-color: #ffd69c; font-family: "Lora", Georgia, serif; font-size: 1.25rem; line-height: 1.75rem; margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; display: block; margin: 0 auto; -moz-box-shadow: 0px 0px 5px #333333; -webkit-box-shadow: 0px 0px 5px #333333; box-shadow: 0px 0px 5px #333333; border: 1px solid #595959; }
-/* line 28, ../sass/global/mixins/_background-transitions.scss */
-.announcement__fundraising li:hover, .announcement__fundraising li:focus { background-color: #ffa11d; -moz-transition: "background-color" 1s ease-out; -o-transition: "background-color" 1s ease-out; -webkit-transition: "background-color" 1s ease-out; transition: "background-color" 1s ease-out; }
-/* line 101, ../sass/global/_typography.scss */
-.announcement__fundraising li a { text-decoration: none; }
-/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.announcement__fundraising li a:hover, .announcement__fundraising li a:focus { text-decoration: underline; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 78, ../sass/components/_announcements.scss */
-  .announcement__fundraising li { text-align: left; } }
-@media (min-width: 481px) { /* line 78, ../sass/components/_announcements.scss */
-  .announcement__fundraising li { text-align: center; } }
-/* line 84, ../sass/components/_announcements.scss */
-.announcement__fundraising li a { color: inherit; text-decoration: inherit; cursor: inherit; display: block; }
-/* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
-.announcement__fundraising li a:active, .announcement__fundraising li a:focus { outline: none; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 78, ../sass/components/_announcements.scss */
-  .announcement__fundraising li { clear: both; width: 100%; float: left; margin-left: 0; margin-right: 0; } }
-@media (min-width: 481px) { /* line 78, ../sass/components/_announcements.scss */
-  .announcement__fundraising li { width: 22.85714%; float: left; }
-  /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  .announcement__fundraising li:nth-child(4n + 1) { margin-left: 0; margin-right: -100%; clear: both; margin-left: 0; }
-  /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  .announcement__fundraising li:nth-child(4n + 2) { margin-left: 25.71429%; margin-right: -100%; clear: none; }
-  /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  .announcement__fundraising li:nth-child(4n + 3) { margin-left: 51.42857%; margin-right: -100%; clear: none; }
-  /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  .announcement__fundraising li:nth-child(4n + 4) { margin-left: 77.14286%; margin-right: -100%; clear: none; } }
+/* line 30, ../sass/components/_announcements.scss */
+.announcement {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  overflow: hidden;
+  *zoom: 1;
+  margin-bottom: 1.75rem;
+  display: block;
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+  background-color: rgba(255, 214, 156, 0.6);
+  padding: 1.75rem 1.38889%;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 30, ../sass/components/_announcements.scss */
+  .announcement {
+    border-top: 1px solid #595959;
+    border-bottom: 1px solid #595959;
+  }
+}
+@media (min-width: 481px) {
+  /* line 30, ../sass/components/_announcements.scss */
+  .announcement {
+    border: 1px solid #595959;
+  }
+}
 
 /*doc
 ---
@@ -496,9 +826,38 @@ borders.
 ```html_example
 <div id='content' class=''>
 
-<div class="block"> <div class="block-header"> <div class='block-header-button__issue'><a href=''>Political Economy</a></div>  <div class='block-header-button'><time datetime="2014-09-09T13:58">September 9, 2014</time></div> <div class='block-header-button__featured'><a href='/articles/featured/'>Featured</a></div> <h2 class="block-header-title article-title "><a href="">Seeing Like An App</a></h2> <div class="block-header-attribution">by&nbsp;<a class="block-header-author" href="/authors/1/">Luke Thomas Mergner</a>&nbsp;&amp;&nbsp;<a class="block-header-author" href="/authors/2/">Pete Sinnott, Jr.</a>&nbsp;</div> </div> <div class="block-abstract"> <p> Evgeny Morozov’s newest book is best read as marginalia rather than as any systematic contribution to a social theory of technology. It is a book very much of the moment, focused on challenging the mistakes of a narrow field of interlocutors, all of whom publish, like Morozov, on the fashionable topic of technology journalism.</p> </div>
+<div class="block">
+    <div class="block-header">
+        <div class='block-header-button__issue'><a href=''>Political Economy</a></div> 
+        <div class='block-header-button'><time datetime="2014-09-09T13:58">September 9, 2014</time></div>
+        <div class='block-header-button__featured'><a href='/articles/featured/'>Featured</a></div>
+        <h2 class="block-header-title article-title "><a href="">Seeing Like An App</a></h2>
+        <div class="block-header-attribution">by&nbsp;<a class="block-header-author" href="/authors/1/">Luke Thomas Mergner</a>&nbsp;&amp;&nbsp;<a class="block-header-author" href="/authors/2/">Pete Sinnott, Jr.</a>&nbsp;</div>
+    </div>
+    <div class="block-abstract">
+        <p> Evgeny Morozov’s newest book is best read as marginalia rather than
+        as any systematic contribution to a social theory of technology. It
+        is a book very much of the moment, focused on challenging the
+        mistakes of a narrow field of interlocutors, all of whom publish,
+        like Morozov, on the fashionable topic of technology journalism.</p>
+   </div>
 </div>
-<div class='block'> <div class="block-header"> <div class="block-header-button__issue"><a href="#">Intellectuals</a></div> <div class="block-header-button"><time datetime="2014-06-02T16:52">June  2, 2014</time></div> <h2 class="article-title block-header-title"> <a href="#">The Essayist and the Intellectual</a> </h2> <div class="block-header-attribution">by&nbsp;<a class="block-header-author" href="/authors/2/">Pete Sinnott, Jr.</a>&nbsp;</div> </div> <div class="block-abstract"> <p>In this essay, Pete Sinnott, Jr. provides a short, but important, history of the form of intellectual production, the essay. Both the producer and the product are uncertain, historical artifacts. How we understand intellectual work today is bound up in that history:  on one hand, of the author’s self-conscious introspection or lack thereof and, on the other hand, of the essay as it oscillates between science, art, and criticism.</p> </div>
+<div class='block'>
+   <div class="block-header">
+       <div class="block-header-button__issue"><a href="#">Intellectuals</a></div>
+       <div class="block-header-button"><time datetime="2014-06-02T16:52">June  2, 2014</time></div>
+       <h2 class="article-title block-header-title"> <a href="#">The Essayist and the Intellectual</a> </h2>
+       <div class="block-header-attribution">by&nbsp;<a class="block-header-author" href="/authors/2/">Pete Sinnott, Jr.</a>&nbsp;</div>
+   </div>
+   <div class="block-abstract">
+       <p>In this essay, Pete Sinnott, Jr. provides a
+       short, but important, history of the form of intellectual production, the
+       essay. Both the producer and the product are uncertain, historical
+       artifacts. How we understand intellectual work today is bound up in that
+       history:  on one hand, of the author’s self-conscious introspection or lack
+       thereof and, on the other hand, of the essay as it oscillates between
+       science, art, and criticism.</p>
+   </div>
 </div>
 
 </div> <!-- end content div -->
@@ -506,48 +865,151 @@ borders.
 
 */
 /* line 56, ../sass/components/_blocks.scss */
-.block, .block__author, .block__issue { margin-top: 1.75rem; border-bottom-width: 0.0625rem; border-bottom-style: solid; padding-bottom: 1.6875rem; }
+.block, .block__author, .block__issue {
+  margin-top: 1.75rem;
+  border-bottom-width: 0.0625rem;
+  border-bottom-style: solid;
+  padding-bottom: 1.6875rem;
+}
 /* line 59, ../sass/components/_blocks.scss */
-.block:last-child, .block__author:last-child, .block__issue:last-child { border: none; }
+.block:last-child, .block__author:last-child, .block__issue:last-child {
+  border: none;
+}
 
-@media (min-width: 481px) { /* line 65, ../sass/components/_blocks.scss */
-  .block-header { clear: left; } }
+@media (min-width: 481px) {
+  /* line 65, ../sass/components/_blocks.scss */
+  .block-header {
+    clear: left;
+  }
+}
 
 /* line 73, ../sass/components/_blocks.scss */
-.block-header-button, .block-header-button__featured, .block-header-button__issue { font-family: "Lora", Georgia, serif; font-size: 0.8125rem; line-height: 1.75rem; color: #595959; }
+.block-header-button, .block-header-button__featured, .block-header-button__issue {
+  font-family: "Lora", Georgia, serif;
+  font-size: 0.8125rem;
+  line-height: 1.75rem;
+  color: #595959;
+}
 /* line 75, ../sass/components/_blocks.scss */
-.block-header-button a, .block-header-button__featured a, .block-header-button__issue a { color: inherit; text-decoration: inherit; cursor: inherit; width: 100%; height: 100%; }
+.block-header-button a, .block-header-button__featured a, .block-header-button__issue a {
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+  width: 100%;
+  height: 100%;
+}
 /* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
-.block-header-button a:active, .block-header-button__featured a:active, .block-header-button__issue a:active, .block-header-button a:focus, .block-header-button__featured a:focus, .block-header-button__issue a:focus { outline: none; }
-@media (min-width: 481px) { /* line 73, ../sass/components/_blocks.scss */
-  .block-header-button, .block-header-button__featured, .block-header-button__issue { -webkit-align-items: center; align-items: center; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; color: white; background-color: #595959; display: inline-block; border: none; padding: 0.75em; text-decoration: none; background-color: #595959; /* The Fallback */ background-color: rgba(89, 89, 89, 0.6); display: inline-block; float: right; margin-left: 2px; }
-  /* line 32, ../sass/global/mixins/_buttons.scss */
-  .block-header-button a, .block-header-button__featured a, .block-header-button__issue a { color: inherit; text-decoration: inherit; cursor: inherit; color: white; }
+.block-header-button a:active, .block-header-button__featured a:active, .block-header-button__issue a:active, .block-header-button a:focus, .block-header-button__featured a:focus, .block-header-button__issue a:focus {
+  outline: none;
+}
+@media (min-width: 481px) {
+  /* line 73, ../sass/components/_blocks.scss */
+  .block-header-button, .block-header-button__featured, .block-header-button__issue {
+    -webkit-align-items: center;
+    align-items: center;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    color: white;
+    background-color: #595959;
+    display: inline-block;
+    border: none;
+    padding: 0.75em;
+    text-decoration: none;
+    background-color: #595959;
+    /* The Fallback */
+    background-color: rgba(89, 89, 89, 0.6);
+    display: inline-block;
+    float: right;
+    margin-left: 2px;
+  }
+  /* line 29, ../sass/global/mixins/_buttons.scss */
+  .block-header-button a, .block-header-button__featured a, .block-header-button__issue a {
+    color: inherit;
+    text-decoration: inherit;
+    cursor: inherit;
+    color: white;
+  }
   /* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
-  .block-header-button a:active, .block-header-button__featured a:active, .block-header-button__issue a:active, .block-header-button a:focus, .block-header-button__featured a:focus, .block-header-button__issue a:focus { outline: none; }
+  .block-header-button a:active, .block-header-button__featured a:active, .block-header-button__issue a:active, .block-header-button a:focus, .block-header-button__featured a:focus, .block-header-button__issue a:focus {
+    outline: none;
+  }
   /* line 17, ../sass/global/mixins/_background-transitions.scss */
-  .block-header-button:hover, .block-header-button__featured:hover, .block-header-button__issue:hover, .block-header-button:focus, .block-header-button__featured:focus, .block-header-button__issue:focus { background-color: #595959; -moz-transition: "background-color" 1s ease-out; -o-transition: "background-color" 1s ease-out; -webkit-transition: "background-color" 1s ease-out; transition: "background-color" 1s ease-out; } }
+  .block-header-button:hover, .block-header-button__featured:hover, .block-header-button__issue:hover, .block-header-button:focus, .block-header-button__featured:focus, .block-header-button__issue:focus {
+    background-color: #595959;
+    -moz-transition: "background-color" 1s ease-out;
+    -o-transition: "background-color" 1s ease-out;
+    -webkit-transition: "background-color" 1s ease-out;
+    transition: "background-color" 1s ease-out;
+  }
+}
 
-@media (min-width: 481px) { /* line 91, ../sass/components/_blocks.scss */
-  .block-header-button__featured { background-color: #d45a43; /* The Fallback */ background-color: rgba(212, 90, 67, 0.6); }
+@media (min-width: 481px) {
+  /* line 91, ../sass/components/_blocks.scss */
+  .block-header-button__featured {
+    background-color: #d45a43;
+    /* The Fallback */
+    background-color: rgba(212, 90, 67, 0.6);
+  }
   /* line 17, ../sass/global/mixins/_background-transitions.scss */
-  .block-header-button__featured:hover, .block-header-button__featured:focus { background-color: #d45a43; -moz-transition: "background-color" 1s ease-out; -o-transition: "background-color" 1s ease-out; -webkit-transition: "background-color" 1s ease-out; transition: "background-color" 1s ease-out; } }
+  .block-header-button__featured:hover, .block-header-button__featured:focus {
+    background-color: #d45a43;
+    -moz-transition: "background-color" 1s ease-out;
+    -o-transition: "background-color" 1s ease-out;
+    -webkit-transition: "background-color" 1s ease-out;
+    transition: "background-color" 1s ease-out;
+  }
+}
 
 /* line 106, ../sass/components/_blocks.scss */
-.block-header-title, .block-header-title__issue { font-family: "Lora", Georgia, serif; font-size: 1.625rem; line-height: 3.5rem; margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; display: block; margin: 0 auto; display: inline-block; }
+.block-header-title {
+  font-family: "Lora", Georgia, serif;
+  font-size: 1.625rem;
+  line-height: 3.5rem;
+  margin-top: 1.75rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 1.75rem;
+  display: block;
+  margin: 0 auto;
+  display: inline-block;
+}
 /* line 101, ../sass/global/_typography.scss */
-.block-header-title a, .block-header-title__issue a { text-decoration: none; }
+.block-header-title a {
+  text-decoration: none;
+}
 /* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.block-header-title a:hover, .block-header-title__issue a:hover, .block-header-title a:focus, .block-header-title__issue a:focus { text-decoration: underline; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 106, ../sass/components/_blocks.scss */
-  .block-header-title, .block-header-title__issue { text-align: left; } }
-@media (min-width: 481px) { /* line 106, ../sass/components/_blocks.scss */
-  .block-header-title, .block-header-title__issue { text-align: center; } }
+.block-header-title a:hover, .block-header-title a:focus {
+  text-decoration: underline;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 106, ../sass/components/_blocks.scss */
+  .block-header-title {
+    text-align: left;
+  }
+}
+@media (min-width: 481px) {
+  /* line 106, ../sass/components/_blocks.scss */
+  .block-header-title {
+    text-align: center;
+  }
+}
 
 /* line 111, ../sass/components/_blocks.scss */
-.block-abstract { margin-top: 0.875rem; font-size: 0.8125rem; line-height: 1.75rem; }
+.block-abstract {
+  margin-top: 0.875rem;
+  font-size: 0.8125rem;
+  line-height: 1.75rem;
+}
 /* line 18, ../sass/global/mixins/_paragraphs.scss */
-.block-abstract p { font-family: "Droid Serif", Georgia, serif; font-size: 1rem; line-height: 1.75rem; color: #222222; hyphens: manual; overflow: hidden; text-align: left; }
+.block-abstract p {
+  font-family: "Droid Serif", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  color: #222222;
+  hyphens: manual;
+  text-align: left;
+}
 
 /*doc
 ---
@@ -559,7 +1021,8 @@ category: Components - Blocks
 
 <div id='content' class='layout'>
 
-<div class="block__issue"> <h3 class="block-header-title__issue"><a href="">Issue 1: Intellectuals</a></h3>
+<div class="block__issue">
+    <h3 class="block-header-title__issue"><a href="">Issue 1: Intellectuals</a></h3>
 </div>
 
 </div>
@@ -567,20 +1030,25 @@ category: Components - Blocks
 
 */
 /* line 138, ../sass/components/_blocks.scss */
-.block__issue { border: none; }
+.block__issue {
+  border: none;
+}
 
 /* line 143, ../sass/components/_blocks.scss */
-.block-header-title__issue { -webkit-align-items: center; align-items: center; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; color: white; background-color: #d45a43; display: inline-block; border: none; padding: 0.75em; text-decoration: none; background-color: #d45a43; /* The Fallback */ background-color: #d45a43; margin-bottom: 1.75rem; display: block; }
-/* line 32, ../sass/global/mixins/_buttons.scss */
-.block-header-title__issue a { color: inherit; text-decoration: inherit; cursor: inherit; color: white; }
-/* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
-.block-header-title__issue a:active, .block-header-title__issue a:focus { outline: none; }
-/* line 17, ../sass/global/mixins/_background-transitions.scss */
-.block-header-title__issue:hover, .block-header-title__issue:focus { background-color: rgba(212, 90, 67, 0.6); -moz-transition: "background-color" 1s ease-out; -o-transition: "background-color" 1s ease-out; -webkit-transition: "background-color" 1s ease-out; transition: "background-color" 1s ease-out; }
-/* line 148, ../sass/components/_blocks.scss */
-.block-header-title__issue a { text-decoration: none; }
+.block-header-title__issue {
+  font-size: 2.625rem;
+  line-height: 3.5rem;
+  margin-bottom: 1.75rem;
+  display: block;
+}
+/* line 146, ../sass/components/_blocks.scss */
+.block-header-title__issue a {
+  text-decoration: none;
+}
 /* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.block-header-title__issue a:hover, .block-header-title__issue a:focus { text-decoration: underline; }
+.block-header-title__issue a:hover, .block-header-title__issue a:focus {
+  text-decoration: underline;
+}
 
 /*doc 
 ---
@@ -589,11 +1057,35 @@ category: Components - Blocks
 ---
 
 ```html_example
-<div class="block__author "> <div class="author-name"><a href="/authors/1/">Luke Thomas Mergner</a></div> <div class="author-twitter"><a href="http://www.twitter.com/lmergner"><i class="fa fa-twitter"></i> @lmergner</a></div> <div class="author-bio"></div> <div class="author-articles"> <div class="block"> <div class="block-header"> <div class="block-header-button"><time datetime="2014-09-09T13:58">September  9, 2014</time></div> <div class="block-header-title"><a href="/reviews/6/">Seeing Like An App</a></div> </div> <div class="block-abstract"><p>Evgeny Morozov’s newest book is best read as marginalia rather than as any systematic contribution to a social theory of technology. It is a book very much of the moment, focused on challenging the mistakes of a narrow field of interlocutors, all of whom publish, like Morozov, on the fashionable topic of technology journalism. </p></div> </div> <div class="block"> <div class="block-header"> <div class="block-header-button__issue"><a href="/issues/1/">Intellectuals</a></div> <div class="block-header-button"><time datetime="2014-06-10T15:06">June 10, 2014</time></div>
- <div class="block-header-title"><a href="/articles/4/">Further Reading</a></div>
- </div> <div class="block-abstract"><p>A bibliographical essay on several recent conversations related to the theme of intellectual production and responsibility.</p></div> </div><div class="block"> <div class="block-header"> <div class="block-header-button__issue"><a href="/issues/1/">Intellectuals</a></div> <div class="block-header-button"><time datetime="2014-06-02T16:50">June  2, 2014</time></div>
- <div class="block-header-title"><a href="/articles/1/">On the Intellectual Question</a></div>
- </div>
+<div class="block__author ">
+    <div class="author-name"><a href="/authors/1/">Luke Thomas Mergner</a></div>
+    <div class="author-twitter"><a href="http://www.twitter.com/lmergner"><i class="fa fa-twitter"></i> @lmergner</a></div>
+    <div class="author-bio"></div>
+    <div class="author-articles">
+        <div class="block">
+            <div class="block-header">
+                <div class="block-header-button"><time datetime="2014-09-09T13:58">September  9, 2014</time></div>
+                <div class="block-header-title"><a href="/reviews/6/">Seeing Like An App</a></div>
+            </div>
+            <div class="block-abstract"><p>Evgeny Morozov’s newest book is best read as marginalia rather than as any systematic contribution to a social theory of technology. It is a book very much of the moment, focused on challenging the mistakes of a narrow field of interlocutors, all of whom publish, like Morozov, on the fashionable topic of technology journalism. </p></div>
+            </div>
+        <div class="block">
+    <div class="block-header">
+    <div class="block-header-button__issue"><a href="/issues/1/">Intellectuals</a></div>
+    <div class="block-header-button"><time datetime="2014-06-10T15:06">June 10, 2014</time></div>
+
+    <div class="block-header-title"><a href="/articles/4/">Further Reading</a></div>
+
+    </div>
+    <div class="block-abstract"><p>A bibliographical essay on several recent conversations related to the theme of intellectual production and responsibility.</p></div>
+    </div><div class="block">
+    <div class="block-header">
+    <div class="block-header-button__issue"><a href="/issues/1/">Intellectuals</a></div>
+    <div class="block-header-button"><time datetime="2014-06-02T16:50">June  2, 2014</time></div>
+
+    <div class="block-header-title"><a href="/articles/1/">On the Intellectual Question</a></div>
+
+    </div>
 <div class="block-abstract"><p>Through a discussion of two important texts by Kant and Lenin, Luke Mergner explores how our ideas about public intellectuals are tied to different models of social and political authority. The public sphere is defined by the tension between democracy and intellectual authority. How can anyone claiming the role of the public intellectual find alternative critical languages when the egalitarian democratic spaces of the public sphere are withering away? </p></div>
 </div>
 </div>
@@ -601,18 +1093,36 @@ category: Components - Blocks
 ```
 
 */
-/* line 198, ../sass/components/_blocks.scss */
-.block__author .author-name { text-align: center; }
-/* line 200, ../sass/components/_blocks.scss */
-.block__author .author-name a { text-decoration: none; font-size: 1.625rem; line-height: 3.5rem; color: #222222; }
+/* line 195, ../sass/components/_blocks.scss */
+.block__author .author-name {
+  text-align: center;
+}
+/* line 197, ../sass/components/_blocks.scss */
+.block__author .author-name a {
+  text-decoration: none;
+  font-size: 1.625rem;
+  line-height: 3.5rem;
+  color: #222222;
+}
 /* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.block__author .author-name a:hover, .block__author .author-name a:focus { text-decoration: underline; }
-/* line 208, ../sass/components/_blocks.scss */
-.block__author .author-twitter { text-align: center; }
-/* line 210, ../sass/components/_blocks.scss */
-.block__author .author-twitter a { text-decoration: none; font-size: 1.25rem; line-height: 1.75rem; color: #222222; }
+.block__author .author-name a:hover, .block__author .author-name a:focus {
+  text-decoration: underline;
+}
+/* line 205, ../sass/components/_blocks.scss */
+.block__author .author-twitter {
+  text-align: center;
+}
+/* line 207, ../sass/components/_blocks.scss */
+.block__author .author-twitter a {
+  text-decoration: none;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: #222222;
+}
 /* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.block__author .author-twitter a:hover, .block__author .author-twitter a:focus { text-decoration: underline; }
+.block__author .author-twitter a:hover, .block__author .author-twitter a:focus {
+  text-decoration: underline;
+}
 
 /*doc
 ---
@@ -621,26 +1131,149 @@ category: Components - Blocks
 ---
 
 ```html_example
-<div class="block__tag"> <a href="">1. Intellectuals: 4 articles</a>
+<div class="block__tag">
+    <a href="">1. Intellectuals: 4 articles</a>
 </div>
 
-<div class="block__tag"> <a href="">2. Technology:       1 articles</a>
+<div class="block__tag">
+    <a href="">2. Technology:       1 articles</a>
 </div>
 ```
 
 */
-/* line 235, ../sass/components/_blocks.scss */
-.block__tag { width: 48.57143%; float: left; margin-top: 0.875rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 0.875rem; font-size: 1.25rem; line-height: 1.75rem; }
+/* line 232, ../sass/components/_blocks.scss */
+.block__tag {
+  width: 47.22222%;
+  float: left;
+  margin-top: 0.875rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 0.875rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
 /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-.block__tag:nth-child(2n + 1) { margin-left: 0; margin-right: -100%; clear: both; margin-left: 0; }
+.block__tag:nth-child(2n + 1) {
+  margin-left: 1.38889%;
+  margin-right: -100%;
+  clear: both;
+}
 /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-.block__tag:nth-child(2n + 2) { margin-left: 51.42857%; margin-right: -100%; clear: none; }
-/* line 239, ../sass/components/_blocks.scss */
-.block__tag a { text-decoration: none; display: block; height: 100%; weight: 100%; }
+.block__tag:nth-child(2n + 2) {
+  margin-left: 51.38889%;
+  margin-right: -100%;
+  clear: none;
+}
+/* line 236, ../sass/components/_blocks.scss */
+.block__tag a {
+  text-decoration: none;
+  display: block;
+  height: 100%;
+  weight: 100%;
+}
 /* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.block__tag a:hover, .block__tag a:focus { text-decoration: underline; }
-/* line 245, ../sass/components/_blocks.scss */
-.block__tag span { margin-right: 5px; }
+.block__tag a:hover, .block__tag a:focus {
+  text-decoration: underline;
+}
+/* line 242, ../sass/components/_blocks.scss */
+.block__tag span {
+  margin-right: 5px;
+}
+
+/*doc
+---
+title: Dropdown Menu
+category: Components - Dropdown Menu
+---
+
+```html_example
+<div style='min-height: 400px'>
+    <ul class='dropdown-menu'>
+        <li class='menu-title'>Info</li>
+        <li class=''><a href=''>Issue</a>
+            <ul class=''>
+                <li><a href=''>The Essayist and the Intellectual</a> </li> 
+                <li><a href="">On the Intellectual Question</a> </li>
+                <li><a href="">Further Reading</a> </li>
+            </ul>
+        </li>
+        <li class=''>Responses
+            <ul class=''>
+                <li><a href="">Another Response to Kovanda</a></li>
+            </ul>
+        </li>
+        <li class=''>Respondees
+            <ul class=''>
+                <li><a href=''>Dummy title</a></li>
+                <li><a href=''>Another Respondee</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+```
+
+*/
+/* line 37, ../sass/components/_dropdown_menu.scss */
+.dropdown-menu {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  list-style: none;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+/* line 49, ../sass/components/_dropdown_menu.scss */
+.dropdown-menu .dropdown-menu-title,
+.dropdown-menu .menu-title {
+  transition: none;
+  flex-order: -1;
+}
+/* line 56, ../sass/components/_dropdown_menu.scss */
+.dropdown-menu a {
+  display: block;
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+}
+/* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
+.dropdown-menu a:active, .dropdown-menu a:focus {
+  outline: none;
+}
+/* line 61, ../sass/components/_dropdown_menu.scss */
+.dropdown-menu li {
+  text-align: left;
+  position: relative;
+  padding: 0.25em 1.38889%;
+}
+/* line 66, ../sass/components/_dropdown_menu.scss */
+.dropdown-menu li a:hover ul, .dropdown-menu li:hover ul, .dropdown-menu li:focus ul {
+  left: 0;
+}
+/* line 72, ../sass/components/_dropdown_menu.scss */
+.dropdown-menu li ul {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 1em;
+  position: absolute;
+  left: -9999px;
+  margin-top: 7px;
+}
+/* line 78, ../sass/components/_dropdown_menu.scss */
+.dropdown-menu li ul li {
+  font-size: 0.75em;
+  display: block;
+  border-top: 1px solid #595959;
+  z-index: 9999;
+}
+/* line 84, ../sass/components/_dropdown_menu.scss */
+.dropdown-menu li ul li:first-of-type {
+  border-top: none;
+}
 
 /*doc
 ---
@@ -659,9 +1292,19 @@ the jinja template before the page is returned. On the client side, they are for
 
 <!-- The footnote should be picked up and styled by bigfoot.js -->
 
-<p> This is a paragraph, which has a footnote.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>
+<p>
+    This is a paragraph, which has a footnote.<sup id="fnref:1"><a
+    class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>
 </p>
-<div class="footnote"> <hr /> <ol> <li id="fn:1"> <p>This is a footnote.&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p> </li> </ol>
+<div class="footnote">
+    <hr />
+    <ol>
+        <li id="fn:1">
+            <p>This is a footnote.&#160;<a class="footnote-backref"
+            href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in
+            the text">&#8617;</a></p>
+        </li>
+    </ol>
 </div>
 
 </article>
@@ -669,14 +1312,49 @@ the jinja template before the page is returned. On the client side, they are for
 ```
 */
 /* line 38, ../sass/components/_footnotes.scss */
-.footnotes, .footnote { margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; font-family: "Droid Serif", Georgia, serif; font-size: 0.8125rem; line-height: 1.75rem; color: #222222; }
+.footnotes,
+.footnote {
+  margin-top: 1.75rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 1.75rem;
+  font-family: "Droid Serif", Georgia, serif;
+  font-size: 0.8125rem;
+  line-height: 1.75rem;
+  color: #222222;
+}
 /* line 42, ../sass/components/_footnotes.scss */
-.footnotes p, .footnote p { font-family: "Droid Serif", Georgia, serif; font-size: 0.8125rem; line-height: 1.75rem; color: #222222; hyphens: manual; overflow: hidden; text-align: left; margin-bottom: 0.4375rem; }
+.footnotes p,
+.footnote p {
+  font-family: "Droid Serif", Georgia, serif;
+  font-size: 0.8125rem;
+  line-height: 1.75rem;
+  color: #222222;
+  hyphens: manual;
+  overflow: hidden;
+  text-align: left;
+  margin-bottom: 0.4375rem;
+}
 /* line 49, ../sass/components/_footnotes.scss */
-.footnotes li, .footnote li { list-style-type: decimal; list-style-position: inside; }
+.footnotes li,
+.footnote li {
+  list-style-type: decimal;
+  list-style-position: inside;
+}
 
 /* line 55, ../sass/components/_footnotes.scss */
-.footnote-ref { vertical-align: super; text-decoration: none; }
+.footnote-ref {
+  vertical-align: super;
+  text-decoration: none;
+}
+
+/* line 62, ../sass/components/_footnotes.scss */
+.bigfoot-footnote__content p {
+  font-family: "Droid Serif", Georgia, serif;
+  font-size: 0.8125rem;
+  line-height: 1.75rem;
+  color: #222222;
+}
 
 /*doc
 ---
@@ -690,77 +1368,50 @@ borrowed from Mailchimp's default embed styles and [bootstrap-sass][].
 
 [bootstrap-sass]: https://github.com/twbs/bootstrap-sass
 
-```html_example
-<!-- Begin MailChimp Signup Form -->
-
-<div id="mc_embed_signup">
-
-<h1>Mailing List</h1>
-<div class='form-blurb'>Please sign up for our mailing list. We announce new issues and other infrequent items of interest.</div>
-
-<form action="" class="validate" target="_blank" novalidate>
- <div class="mc-field-group"> <label for="mce-EMAIL" >Email Address <span class="asterisk">*</span> </label> <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL"> </div> <div class="mc-field-group"> <label for="mce-FNAME">First Name </label> <input type="text" value="" name="FNAME" class="" id="mce-FNAME"> </div> <div class="mc-field-group"> <label for="mce-LNAME">Last Name </label> <input type="text" value="" name="LNAME" class="" id="mce-LNAME"> </div> <div id="mce-responses" class="clear"> <div class="response" id="mce-error-response" style="display:none"></div> <div class="response" id="mce-success-response" style="display:none"></div> </div>     <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--> <div style="position: absolute; left: -5000px;"> <input type="text" name="b_dd125dca9ae429922ce3f2ff4_22a9f9d26e" tabindex="-1" value=""> </div> <div class="clear form-ctrl-group mc-field-group"> <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"> </div> </div>
-</form>
-</div>
-
-<!--End mc_embed_signup-->
-
-```
 
 */
-/* line 57, ../sass/components/_forms.scss */
-input[type="search"] { -webkit-appearance: none; }
+/* line 27, ../sass/components/_forms.scss */
+input {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  font-family: "Droid Sans", sans-serif;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  color: "black";
+  border: 1px solid #595959;
+  background-color: "black";
+  line-height: 28px;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
+  display: block;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+}
 
-/* line 61, ../sass/components/_forms.scss */
-.required { color: #d45a43; }
+/* line 40, ../sass/components/_forms.scss */
+label {
+  font-family: "Droid Sans", sans-serif;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  color: "black";
+  line-height: 28px;
+  display: block;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
+}
 
-/* line 68, ../sass/components/_forms.scss */
-.field-group, #mc_embed_signup .mc-field-group { overflow: hidden; *zoom: 1; }
-/* line 72, ../sass/components/_forms.scss */
-.field-group label, #mc_embed_signup .mc-field-group label { line-height: 25px; }
-/* line 76, ../sass/components/_forms.scss */
-.field-group input, #mc_embed_signup .mc-field-group input { line-height: 25px; background-image: none; background-color: white; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; color: #222222; border: 1px solid #595959; text-align: left; width: 100%; -moz-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; -webkit-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
+/* line 49, ../sass/components/_forms.scss */
+.field-group, #mc_embed_signup .mc-field-group {
+  overflow: hidden;
+  *zoom: 1;
+  margin-bottom: 0.875rem;
+}
+/* line 52, ../sass/components/_forms.scss */
+.field-group:last-of-type, #mc_embed_signup .mc-field-group:last-of-type {
+  margin-bottom: 0;
+}
 
-/* line 89, ../sass/components/_forms.scss */
-#mc_embed_signup { margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; font-family: "Droid Sans", sans-serif; font-size: 1rem; line-height: 1.75rem; color: #222222; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; background-color: #eeeeee; border: 1px solid #595959; padding: 0 2.85714%; }
-/* line 97, ../sass/components/_forms.scss */
-#mc_embed_signup h1, #mc_embed_signup h2, #mc_embed_signup h3, #mc_embed_signup .form-header { font-family: "Lora", Georgia, serif; font-size: 1.625rem; line-height: 3.5rem; text-align: center; }
-/* line 103, ../sass/components/_forms.scss */
-#mc_embed_signup .form-blurb { font-family: "Droid Serif", Georgia, serif; font-size: 1rem; line-height: 1.75rem; margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; }
-/* line 108, ../sass/components/_forms.scss */
-#mc_embed_signup .mc-field-group { font-family: "Droid Sans", sans-serif; font-size: 1rem; line-height: 1.75rem; display: block; margin-bottom: 0.875rem; }
-@media (min-width: 481px) { /* line 114, ../sass/components/_forms.scss */
-  #mc_embed_signup .mc-field-group label { display: inline-block; text-align: right; white-space: nowrap; width: 31.42857%; float: left; margin-right: 2.85714%; }
-  /* line 116, ../sass/components/_forms.scss */
-  #mc_embed_signup .mc-field-group label:after { content: ': '; }
-  /* line 121, ../sass/components/_forms.scss */
-  #mc_embed_signup .mc-field-group input[type="text"], #mc_embed_signup .mc-field-group input[type="email"] { display: inline-block; width: 65.71429%; float: right; margin-right: 0; } }
-/* line 129, ../sass/components/_forms.scss */
-#mc_embed_signup input[type=submit] { -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; font-family: "Droid Sans", sans-serif; font-size: 1.25rem; line-height: 1.75rem; color: #222222; background-color: #319b55; /* The Fallback */ background-color: #319b55; display: inline-block; border: 1px solid #595959; padding: 0.5em; text-align: center; }
-/* line 17, ../sass/global/mixins/_background-transitions.scss */
-#mc_embed_signup input[type=submit]:hover, #mc_embed_signup input[type=submit]:focus { background-color: rgba(49, 155, 85, 0.6); -moz-transition: "background-color" 1s ease-out; -o-transition: "background-color" 1s ease-out; -webkit-transition: "background-color" 1s ease-out; transition: "background-color" 1s ease-out; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 129, ../sass/components/_forms.scss */
-  #mc_embed_signup input[type=submit] { width: 100%; } }
-@media (min-width: 481px) { /* line 129, ../sass/components/_forms.scss */
-  #mc_embed_signup input[type=submit] { width: 31.42857%; float: right; margin-right: 0; } }
-/* line 147, ../sass/components/_forms.scss */
-#mc_embed_signup .clear { clear: both; overflow: hidden; *zoom: 1; }
-/* line 152, ../sass/components/_forms.scss */
-#mc_embed_signup .asterisk { color: #d45a43; }
-
-/*doc
----
-title: Tooltips
-category: Components - Forms
----
-
-```html_example
-
-<div data-tooltip='This is a tooltip!'>Hover over me.</div>
-```
-
-
-*/
 /*doc
 ---
 title: Frames
@@ -773,9 +1424,21 @@ category: Components - Images
 
 */
 /* line 12, ../sass/components/_images.scss */
-.image-wrapper__banner-art, .image-frame { margin-bottom: 1.75rem; }
-@media (min-width: 481px) { /* line 12, ../sass/components/_images.scss */
-  .image-wrapper__banner-art, .image-frame { border: 1px solid #595959; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; padding: 2px; } }
+.image-wrapper__banner-art,
+.image-frame {
+  margin-bottom: 1.75rem;
+}
+@media (min-width: 481px) {
+  /* line 12, ../sass/components/_images.scss */
+  .image-wrapper__banner-art,
+  .image-frame {
+    border: 1px solid #595959;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    padding: 2px;
+  }
+}
 
 /*doc
 ---
@@ -786,20 +1449,34 @@ category: Components - Images
 TODO: Generate, and include links for, srcset appropriate images
 
 ```html_example
-<div class='image-wrapper__banner-art' style="width: 300px;"> <a href=''> <img  class='banner-art'  id='banner-art'  src='/images/contrivers-icon.jpg'  /> </a>
+<div class='image-wrapper__banner-art' style="width: 300px;">
+    <a href=''>
+        <img 
+            class='banner-art' 
+            id='banner-art' 
+            src='/images/contrivers-icon.jpg' 
+        />
+    </a>
 </div>
 
-<div class='image-wrapper__advertising' style='max-width: 160px'>  <img src="//storage.googleapis.com/support-kms-prod/SNP_1DA7588EEB5450EE2A22C2B2F0A6458A61C0_2922342_en_v1" height="auto" /> </div>
+<div class='image-wrapper__advertising' style='max-width: 160px'> 
+    <img
+    src="//storage.googleapis.com/support-kms-prod/SNP_1DA7588EEB5450EE2A22C2B2F0A6458A61C0_2922342_en_v1"
+    height="auto"
+    />
+ </div>
 ```
 
 */
 /* line 56, ../sass/components/_images.scss */
-.image-wrapper__banner-art img { margin: 0 auto; }
+.image-wrapper__banner-art img {
+  margin: 0 auto;
+}
 
 /*doc
 ---
 title: pagination
-category: Components - Pagination
+category: Layout - Pagination
 name: components-pagination
 ---
 
@@ -807,49 +1484,144 @@ Some queries are returned with paginated results.
 
 ```html_example
 
-<div id='content' class='container layout archive-page'> <div class='pagination'> <a class='pagination-element__prev' href='' onClick="alert('Previous!');"><i class='fa  fa-angle-left'></i></a> <form class='pagination-element__search' method='post' action='http://www.contrivers.org/search/titles'> <input class='' type='search' placeholder='Search Titles' /> </form> <a class='pagination-element__next' href='' onClick="alert('Next!');"><i class='fa  fa-angle-right'></i></a> </div>
- <div class='block'>An article block</div> <div class='block'>An article block</div>
+<div id='content' class='container layout archive-page'>
+    <div class='pagination'>
+        <a class='pagination-element__prev' href='' onClick="alert('Previous!');"><i class='fa  fa-angle-left'></i></a>
+        <form class='pagination-element__search' method='post' action='http://www.contrivers.org/search/titles'>
+            <input class='' type='search' placeholder='Search Titles' />
+        </form>
+        <a class='pagination-element__next' href='' onClick="alert('Next!');"><i class='fa  fa-angle-right'></i></a>
+    </div>
+
+    <div class='block'>An article block</div>
+    <div class='block'>An article block</div>
 
 </div>
 ```
 
 */
-/* line 29, ../sass/components/_pagination.scss */
-.pagination { overflow: hidden; *zoom: 1; background-color: rgba(255, 214, 156, 0.6); }
-@media (min-width: 0px) and (max-width: 481px) { /* line 29, ../sass/components/_pagination.scss */
-  .pagination { -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; margin-right: -2.85714%; margin-left: -2.85714%; padding-right: 2.85714%; padding-left: 2.85714%; } }
-@media (min-width: 481px) and (max-width: 960px) { /* line 29, ../sass/components/_pagination.scss */
-  .pagination { -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; margin-right: -2.85714%; margin-left: -2.85714%; padding-right: 2.85714%; padding-left: 2.85714%; border-bottom: 1px solid #595959; } }
-@media (min-width: 960px) { /* line 29, ../sass/components/_pagination.scss */
-  .pagination { -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; border-bottom: none; border: 1px solid #595959; } }
+/* line 33, ../sass/components/_pagination.scss */
+.pagination {
+  overflow: hidden;
+  *zoom: 1;
+  margin-bottom: 1.75rem;
+  margin: 0 auto;
+  background-color: rgba(255, 214, 156, 0.6);
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 33, ../sass/components/_pagination.scss */
+  .pagination {
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    margin-right: -1.38889%;
+    margin-left: -1.38889%;
+    padding-right: 1.38889%;
+    padding-left: 1.38889%;
+  }
+}
+@media (min-width: 481px) and (max-width: 960px) {
+  /* line 33, ../sass/components/_pagination.scss */
+  .pagination {
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    margin-right: -1.38889%;
+    margin-left: -1.38889%;
+    padding-right: 1.38889%;
+    padding-left: 1.38889%;
+    border-bottom: 1px solid #595959;
+  }
+}
+@media (min-width: 960px) {
+  /* line 33, ../sass/components/_pagination.scss */
+  .pagination {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    border-bottom: none;
+    border: 1px solid #595959;
+  }
+}
 
-/* line 48, ../sass/components/_pagination.scss */
-.pagination-element__search, .pagination-element__next, .pagination-element__prev { color: inherit; text-decoration: inherit; cursor: inherit; margin: 0 auto; text-align: center; padding: .5em 0; }
+/* line 53, ../sass/components/_pagination.scss */
+.pagination-element__search, .pagination-element__next, .pagination-element__prev {
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+  text-align: center;
+  padding: .5em 0;
+}
 /* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
-.pagination-element__search:active, .pagination-element__next:active, .pagination-element__prev:active, .pagination-element__search:focus, .pagination-element__next:focus, .pagination-element__prev:focus { outline: none; }
-/* line 50, ../sass/components/_pagination.scss */
-.pagination-element__search a, .pagination-element__next a, .pagination-element__prev a { color: #595959; }
-/* line 52, ../sass/components/_pagination.scss */
-.pagination-element__search .fa, .pagination-element__next .fa, .pagination-element__prev .fa { font-size: 2em; }
+.pagination-element__search:active, .pagination-element__next:active, .pagination-element__prev:active, .pagination-element__search:focus, .pagination-element__next:focus, .pagination-element__prev:focus {
+  outline: none;
+}
+/* line 55, ../sass/components/_pagination.scss */
+.pagination-element__search a, .pagination-element__next a, .pagination-element__prev a {
+  color: #595959;
+}
 /* line 57, ../sass/components/_pagination.scss */
-.disabled.pagination-element__search, .disabled.pagination-element__next, .disabled.pagination-element__prev { color: #eeeeee; }
+.pagination-element__search .fa, .pagination-element__next .fa, .pagination-element__prev .fa {
+  font-size: 3em;
+}
+/* line 61, ../sass/components/_pagination.scss */
+.disabled.pagination-element__search, .disabled.pagination-element__next, .disabled.pagination-element__prev {
+  color: #eeeeee;
+}
 
-/* line 62, ../sass/components/_pagination.scss */
-.pagination-element__search { display: none; }
-@media (min-width: 600px) { /* line 62, ../sass/components/_pagination.scss */
-  .pagination-element__search { width: 48.57143%; float: left; margin-right: 2.85714%; display: block; } }
-/* line 69, ../sass/components/_pagination.scss */
-.pagination-element__search input[type=search] { font-size: 1rem; line-height: 1.75rem; line-height: 25px; height: 30px; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; color: #222222; display: block; border: 1px solid #595959; text-align: center; width: 100%; margin: 0 auto; }
+/* line 66, ../sass/components/_pagination.scss */
+.pagination-element__search {
+  display: none;
+}
+@media (min-width: 600px) {
+  /* line 66, ../sass/components/_pagination.scss */
+  .pagination-element__search {
+    display: block;
+    width: 47.22222%;
+    float: left;
+    margin-left: 1.38889%;
+    margin-right: 1.38889%;
+  }
+}
+/* line 73, ../sass/components/_pagination.scss */
+.pagination-element__search input {
+  text-align: center;
+  width: 100%;
+}
 
-/* line 84, ../sass/components/_pagination.scss */
-.pagination-element__next { width: 40%; float: right; margin-right: 0; }
-@media (min-width: 600px) { /* line 84, ../sass/components/_pagination.scss */
-  .pagination-element__next { width: 22.85714%; float: right; margin-right: 0; } }
+/* line 79, ../sass/components/_pagination.scss */
+.pagination-element__next {
+  width: 38.88889%;
+  float: right;
+  margin-left: 1.38889%;
+  margin-right: 1.38889%;
+}
+@media (min-width: 600px) {
+  /* line 79, ../sass/components/_pagination.scss */
+  .pagination-element__next {
+    width: 22.22222%;
+    float: right;
+    margin-left: 1.38889%;
+    margin-right: 1.38889%;
+  }
+}
 
-/* line 92, ../sass/components/_pagination.scss */
-.pagination-element__prev { width: 40%; float: left; margin-right: 2.85714%; }
-@media (min-width: 600px) { /* line 92, ../sass/components/_pagination.scss */
-  .pagination-element__prev { width: 22.85714%; float: left; margin-right: 2.85714%; } }
+/* line 87, ../sass/components/_pagination.scss */
+.pagination-element__prev {
+  width: 38.88889%;
+  float: left;
+  margin-left: 1.38889%;
+  margin-right: 1.38889%;
+}
+@media (min-width: 600px) {
+  /* line 87, ../sass/components/_pagination.scss */
+  .pagination-element__prev {
+    width: 22.22222%;
+    float: left;
+    margin-left: 1.38889%;
+    margin-right: 1.38889%;
+  }
+}
 
 /*doc
 ---
@@ -862,7 +1634,14 @@ No styles for toc yet.
 
 ```html_example
 <div class='article-body'>
-<div class="toc"> <ul> <li><a href="#editorial-statement">Editorial Statement</a></li> <li><a href="#staff">Staff</a></li> <li><a href="#submissions">Submissions</a></li> <li><a href="#digital-publishing-and-labor-ethics">Digital Publishing and Labor Ethics</a></li> <li><a href="#contact">Contact</a></li> </ul>
+<div class="toc">
+    <ul>
+        <li><a href="#editorial-statement">Editorial Statement</a></li>
+        <li><a href="#staff">Staff</a></li>
+        <li><a href="#submissions">Submissions</a></li>
+        <li><a href="#digital-publishing-and-labor-ethics">Digital Publishing and Labor Ethics</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
 </div>
 <h2 id="editorial-statement">Editorial Statement</h2>
 <h2 id="staff">Staff</h2>
@@ -872,46 +1651,21 @@ No styles for toc yet.
 ```
 */
 /* line 29, ../sass/components/_toc.scss */
-.toc { padding: 1em; -webkit-align-items: center; align-items: center; }
+.toc {
+  padding: 1em;
+  -webkit-align-items: center;
+  align-items: center;
+}
 /* line 32, ../sass/components/_toc.scss */
-.toc ul { list-style-type: decimal; list-style-position: inside; }
+.toc ul {
+  list-style-type: decimal;
+  list-style-position: inside;
+}
 /* line 37, ../sass/components/_toc.scss */
-.toc li { font-size: 0.8125rem; line-height: 1.75rem; }
-
-/*doc
----
-title: Aside
-category: Layout - Articles
-name: layout-article-aside
----
-
-Article aside contains meta-information about the article and sharing tools.
-
-```html_example
-<div class='content' style='min-height: 400px'>
-
-<aside class="article-aside" data-eq-pts='stack: 0px, inline: 400px'> <div class='aside-header menu-toggle'><i class='fa fa-bars'></i></div> <ul class='article-aside-navbar'> <li><a href=""><i class='fa fa-twitter'></i></a></li> <li><a href=""><i class='fa fa-facebook'></i></a></li> <li><a href=''>Instapaper</a></li> <li class='has-submenu'><a href=''>Issue<span class='carat'></span></a> <ul class='submenu'> <li><a href=''>The Essayist and the Intellectual</a> </li>  <li><a href="">On the Intellectual Question</a> </li> <li><a href="">Further Reading</a> </li> </ul> </li> <li class='has-submenu'>Responses <ul class='submenu'> <li><a href="">Another Response to Kovanda</a></li> </ul> </li> <li class='has-submenu'>Respondees <ul class='submenu'> <li><a href=''>Dummy title</a></li> <li><a href=''>Another Respondee</a></li> </ul> </li> </ul>
-</aside>
-</div>
-```
-*/
-/* line 44, ../sass/layout/_article_aside.scss */
-.article-aside .fa-bars { font-size: 2em; color: #595959; }
-/* line 47, ../sass/layout/_article_aside.scss */
-.article-aside .fa-bars:active, .article-aside .fa-bars:hover { color: #222222; }
-
-/* line 50, ../sass/layout/_article_aside.scss */
-.article-aside { font-size: 1rem; line-height: 1.75rem; background-color: #ffd69c; font-family: "Droid Serif", Georgia, serif; border-bottom: 2px solid #595959; }
-/* line 57, ../sass/layout/_article_aside.scss */
-.article-aside a { color: inherit; text-decoration: inherit; cursor: inherit; }
-/* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
-.article-aside a:active, .article-aside a:focus { outline: none; }
-/* line 59, ../sass/layout/_article_aside.scss */
-.article-aside ul { text-align: center; width: 100%; }
-/* line 62, ../sass/layout/_article_aside.scss */
-.article-aside ul li { margin: 2px 0; padding: 5px; background-color: #ffd69c; }
-/* line 67, ../sass/layout/_article_aside.scss */
-.article-aside ul li:hover { background-color: #ffa11d; -moz-transition: "background-color" 1s ease-out; -o-transition: "background-color" 1s ease-out; -webkit-transition: "background-color" 1s ease-out; transition: "background-color" 1s ease-out; }
+.toc li {
+  font-size: 0.8125rem;
+  line-height: 1.75rem;
+}
 
 /*doc
 ---
@@ -923,17 +1677,63 @@ name: layout-article-example
 The article body.
 
 ```html_example
-<article class="article-body"> <div class="epigram align-center">“To be a scholar is, often, to be irrelevant.” </div> <p>These words were written by New York Times columnist Nicholas Kristof last February in an op-ed that caused a mini-storm on social media. The piece, titled “<a href="http://www.nytimes.com/2014/02/16/opinion/sunday/kristof-professors-we-need-you.html">Professors, We Need You!</a>” was Kristof’s polemic against what is by now an easy target - the insular and esoteric nature of academia, including my own field, political science. For Kristof, some of the sharpest minds in America have marginalized themselves in academia by speaking in jargon, by publishing in gated journals instead of mass-oriented venues, by neglecting diversity (meaning any discipline too dominated by the academic left to be taken seriously in national debates), and by socializing aspiring graduate students into a culture of conformity.</p> <p>The message behind this lament? Professional academics should be more intelligible, more empirical and rigorous (more policy, law, business, and economics), more open to disseminating ideas through blogs, Facebook, and Twitter. In other words, they should be less like medieval monks (Kristof’s designation) and more like public intellectuals. Just public intellectuals who, one can surmise, are also master stylists (intelligibility!), proficient in cutting-edge methods, and up to date on the latest academic literature.</p> <p>Maybe the irony was lost on Kristof that, as one of the leading columnists of the <em>Times</em>, which in turn is one of the leading venues for the ideology of technocratic progressivism in the US, he was calling for academics to fill the void left by the passing of the intellectual. Per Kristof, it’s not that we need less professionalization, as evidenced by his praise of quantitative disciplines that require a great deal of training. Rather, it is that these academics, as professionalized products of the university system, should also concern themselves with speaking to the broader segments of the population in the way that public-oriented intellectuals once could. </p> <p>What is the relationship between the professional academic and the intellectual? Kristof’s attack struck a nerve because, although closely linked, the mutual history of these figures over the course of the twentieth century has been the site of a tension. At stake was the nature of knowledge (specialized or public) and its place in the social order (placating or critical). Today, living with the outcomes of this historical development, we are forced to rethink the current relationship of professionalized knowledge to the public sphere, and whether a new form of social critique is possible in these current conditions.</p> <div class="footnote"> <hr> <ol> <li id="fn:1" class="footnote-processed"> <p>Both the <a href="http://www.aaup.org/report/tenure-and-teaching-intensive-appointments">American Association of University Professors</a> and the <a href="http://nces.ed.gov/programs/digest/">National Center for Education Statistics</a> have tracked data on employment in universities. See also the <a href="http://chronicle.com/article/On-Some-Campuses-a-Population/135484/">Chronicle of Higher Education</a>. &nbsp;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">↩</a></p> </li> <li id="fn:2" class="footnote-processed"> <p>Jurgen Habermas, <a href="http://www.amazon.com/dp/0262581086/?tag=contrivers-review-20"><em>The Structural Transformation of the Public Sphere</em></a>, trans. Thomas Burger  (Cambridge, MA: MIT Press, 1991), esp. ch. 4 passim.  &nbsp;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">↩</a></p> </li> </ol> </div> </article>
+<article class="article-body">
+    <div class="epigram align-center">“To be a scholar is, often, to be irrelevant.” </div>
+    <p>These words were written by New York Times columnist Nicholas Kristof last February in an op-ed that caused a mini-storm on social media. The piece, titled “<a href="http://www.nytimes.com/2014/02/16/opinion/sunday/kristof-professors-we-need-you.html">Professors, We Need You!</a>” was Kristof’s polemic against what is by now an easy target - the insular and esoteric nature of academia, including my own field, political science. For Kristof, some of the sharpest minds in America have marginalized themselves in academia by speaking in jargon, by publishing in gated journals instead of mass-oriented venues, by neglecting diversity (meaning any discipline too dominated by the academic left to be taken seriously in national debates), and by socializing aspiring graduate students into a culture of conformity.</p>
+    <p>The message behind this lament? Professional academics should be more intelligible, more empirical and rigorous (more policy, law, business, and economics), more open to disseminating ideas through blogs, Facebook, and Twitter. In other words, they should be less like medieval monks (Kristof’s designation) and more like public intellectuals. Just public intellectuals who, one can surmise, are also master stylists (intelligibility!), proficient in cutting-edge methods, and up to date on the latest academic literature.</p>
+    <p>Maybe the irony was lost on Kristof that, as one of the leading columnists of the <em>Times</em>, which in turn is one of the leading venues for the ideology of technocratic progressivism in the US, he was calling for academics to fill the void left by the passing of the intellectual. Per Kristof, it’s not that we need less professionalization, as evidenced by his praise of quantitative disciplines that require a great deal of training. Rather, it is that these academics, as professionalized products of the university system, should also concern themselves with speaking to the broader segments of the population in the way that public-oriented intellectuals once could. </p>
+    <p>What is the relationship between the professional academic and the intellectual? Kristof’s attack struck a nerve because, although closely linked, the mutual history of these figures over the course of the twentieth century has been the site of a tension. At stake was the nature of knowledge (specialized or public) and its place in the social order (placating or critical). Today, living with the outcomes of this historical development, we are forced to rethink the current relationship of professionalized knowledge to the public sphere, and whether a new form of social critique is possible in these current conditions.</p>
+    <div class="footnote">
+    <hr>
+    <ol>
+    <li id="fn:1" class="footnote-processed">
+    <p>Both the <a href="http://www.aaup.org/report/tenure-and-teaching-intensive-appointments">American Association of University Professors</a> and the <a href="http://nces.ed.gov/programs/digest/">National Center for Education Statistics</a> have tracked data on employment in universities. See also the <a href="http://chronicle.com/article/On-Some-Campuses-a-Population/135484/">Chronicle of Higher Education</a>. &nbsp;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">↩</a></p>
+    </li>
+    <li id="fn:2" class="footnote-processed">
+    <p>Jurgen Habermas, <a href="http://www.amazon.com/dp/0262581086/?tag=contrivers-review-20"><em>The Structural Transformation of the Public Sphere</em></a>, trans. Thomas Burger  (Cambridge, MA: MIT Press, 1991), esp. ch. 4 passim.  &nbsp;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">↩</a></p>
+    </li>
+    </ol>
+    </div>
+    </article>
 ```
 */
-/* line 43, ../sass/layout/_article_body.scss */
-.article-body .epigram, .article-body .pullquote, .article-body .book-reviewed { margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; padding: 2.85714%; margin-bottom: 1.75rem; }
-/* line 50, ../sass/layout/_article_body.scss */
-.article-body .epigram.align-center, .article-body .pullquote.align-center, .article-body .book-reviewed.align-center { margin: 0 auto; text-align: center; }
-/* line 55, ../sass/layout/_article_body.scss */
-.article-body .epigram.align-left, .article-body .pullquote.align-left, .article-body .book-reviewed.align-left { text-align: left; }
-/* line 60, ../sass/layout/_article_body.scss */
-.article-body blockquote { margin-left: 0; margin-right: 0; border-left-width: 0.625rem; border-left-style: solid; border-left-color: #d45a43; padding-left: 1.125rem; }
+/* line 38, ../sass/layout/_article_body.scss */
+.article-body {
+  overflow: visible;
+}
+/* line 44, ../sass/layout/_article_body.scss */
+.article-body .epigram,
+.article-body .pullquote,
+.article-body .book-reviewed {
+  margin-top: 1.75rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 1.75rem;
+  padding: 1.38889%;
+  margin-bottom: 1.75rem;
+}
+/* line 51, ../sass/layout/_article_body.scss */
+.article-body .epigram.align-center,
+.article-body .pullquote.align-center,
+.article-body .book-reviewed.align-center {
+  margin: 0 auto;
+  text-align: center;
+}
+/* line 56, ../sass/layout/_article_body.scss */
+.article-body .epigram.align-left,
+.article-body .pullquote.align-left,
+.article-body .book-reviewed.align-left {
+  text-align: left;
+}
+/* line 61, ../sass/layout/_article_body.scss */
+.article-body blockquote {
+  margin-left: 0;
+  margin-right: 0;
+  border-left-width: 0.625rem;
+  border-left-style: solid;
+  border-left-color: #d45a43;
+  padding-left: 1.125rem;
+}
 
 /*doc
 ---
@@ -943,27 +1743,170 @@ name: layout-article-title
 ---
 
 ```html-example
-<div class="article-header"> <h2 class="article-header-title "> <a href="/articles/3/">Social Criticism and the Academy</a> </h2> <div class="article-header-book-reviewed"> A review of <span class="book-reviewed-title"><a href="http://www.amazon.com/dp/1781683271/?tag=contrivers-review-20">Utopia or Bust</a></span><span class="book-reviewed-colon">:</span> <span class="book-reviewed-subtitle">A Guide to the Present Crisis</span> by <span class="book-reviewed-author">Benjamin Kunkel</span> <span class="book-reviewed-biblio">(Verso: Brooklyn, 2014)</span> </div> <div class="article-header-attribution"> <span class='attribution-by'>by</span> <a class='article-header-author' href="/authors/3/">Rafael Khachaturian</a>  <span class='attribution-ampersand ampersand'>&amp;</span> <a class='article-header-author' href=''>Dummy McStupid</a> </div>
+<div class="article-header">
+    <h2 class="article-header-title ">
+        <a href="/articles/3/">Social Criticism and the Academy</a>
+    </h2>
+    <div class="article-header-book-reviewed">
+        A review of <span class="book-reviewed-title"><a
+        href="http://www.amazon.com/dp/1781683271/?tag=contrivers-review-20">Utopia
+        or Bust</a></span><span class="book-reviewed-colon">:</span> <span
+        class="book-reviewed-subtitle">A Guide to the Present Crisis</span> by
+        <span class="book-reviewed-author">Benjamin Kunkel</span> <span
+        class="book-reviewed-biblio">(Verso: Brooklyn, 2014)</span>
+    </div>
+    <div class="article-header-attribution">
+        <span class='attribution-by'>by</span>
+        <a class='article-header-author' href="/authors/3/">Rafael Khachaturian</a> 
+        <span class='attribution-ampersand ampersand'>&amp;</span>
+        <a class='article-header-author' href=''>Dummy McStupid</a>
+    </div>
 </div>
 ```
 
 */
 /* line 33, ../sass/layout/_article_header.scss */
-.article-header { font-family: "Lora", Georgia, serif; font-size: 1.625rem; line-height: 3.5rem; margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; display: block; margin: 0 auto; }
+.article-header {
+  font-family: "Lora", Georgia, serif;
+  font-size: 1.625rem;
+  line-height: 3.5rem;
+  margin-top: 1.75rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 1.75rem;
+  display: block;
+  margin: 0 auto;
+}
 /* line 101, ../sass/global/_typography.scss */
-.article-header a { text-decoration: none; }
+.article-header a {
+  text-decoration: none;
+}
 /* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.article-header a:hover, .article-header a:focus { text-decoration: underline; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 33, ../sass/layout/_article_header.scss */
-  .article-header { text-align: left; } }
-@media (min-width: 481px) { /* line 33, ../sass/layout/_article_header.scss */
-  .article-header { text-align: center; } }
+.article-header a:hover, .article-header a:focus {
+  text-decoration: underline;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 33, ../sass/layout/_article_header.scss */
+  .article-header {
+    text-align: left;
+  }
+}
+@media (min-width: 481px) {
+  /* line 33, ../sass/layout/_article_header.scss */
+  .article-header {
+    text-align: center;
+  }
+}
 /* line 40, ../sass/layout/_article_header.scss */
-.article-header .article-header-attribution { font-family: "Lora", Georgia, serif; font-size: 1.25rem; line-height: 1.75rem; color: #595959; margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; }
+.article-header .article-header-attribution {
+  font-family: "Lora", Georgia, serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: #595959;
+  margin-top: 1.75rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 1.75rem;
+}
 /* line 41, ../sass/layout/_article_header.scss */
-.article-header .article-header-attribution span, .article-header .article-header-attribution a { display: inline-block; margin-left: .25em; }
+.article-header .article-header-attribution span, .article-header .article-header-attribution a {
+  display: inline-block;
+  margin-left: .25em;
+}
 /* line 49, ../sass/layout/_article_header.scss */
-.article-header .article-header-book-reviewed { font-family: "Droid Serif", Georgia, serif; font-size: 1rem; line-height: 1.75rem; color: #595959; }
+.article-header .article-header-book-reviewed {
+  font-family: "Droid Serif", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  color: #595959;
+}
+
+/*doc
+---
+title: Article Menu
+category: Layout - Article Menu 
+---
+
+Note: The Cortana theme apparently also uses .dropdown-menu.
+
+
+```html_example
+<div class='article-menu'>
+    <ul class='dropdown-menu'>
+        <li class='menu-title'>Info</li>
+        <li class=''><a href=''>Issue</a>
+            <ul class=''>
+                <li><a href=''>The Essayist and the Intellectual</a> </li> 
+                <li><a href="">On the Intellectual Question</a> </li>
+                <li><a href="">Further Reading</a> </li>
+            </ul>
+        </li>
+        <li class=''>Responses
+            <ul class=''>
+                <li><a href="">Another Response to Kovanda</a></li>
+            </ul>
+        </li>
+        <li class=''>Respondees
+            <ul class=''>
+                <li><a href=''>Dummy title</a></li>
+                <li><a href=''>Another Respondee</a></li>
+            </ul>
+        </li>
+        <li class='article-menu__icon'><a href=""><i class='fa fa-twitter'></i></a></li>
+        <li class='article-menu__icon'><a href=""><i class='fa fa-facebook'></i></a></li>
+        <li class='article-menu__icon'><a href='' alt='Instapaper'><i class='fa fa-instapaper'></i></a></li>
+        <li class='article-menu__icon'><a href='' alt='Download ebook'><i class='fa fa-book'></i></a></li>
+    </ul>
+</div>
+<article>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam
+lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec
+consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero
+egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem
+lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida
+lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor.
+Pellentesque auctor nisi id magna consequat sagittis. Curabitur dapibus enim
+sit amet elit pharetra tincidunt feugiat nisl imperdiet. Ut convallis libero in
+urna ultrices accumsan. Donec sed odio eros. Donec viverra mi quis quam
+pulvinar at malesuada arcu rhoncus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris
+vitae nisi at sem facilisis semper ac in est.</p>
+</article>
+```
+
+*/
+/* line 61, ../sass/layout/_article_nav.scss */
+.article-menu {
+  margin-bottom: 1.75rem;
+  font-family: "Droid Serif", Georgia, serif;
+  font-size: 1.5em;
+  color: #595959;
+}
+/* line 67, ../sass/layout/_article_nav.scss */
+.article-menu ul {
+  margin: 0 auto;
+  background-color: #ffe6c3;
+  border-bottom: 1px solid #595959;
+}
+/* line 73, ../sass/layout/_article_nav.scss */
+.article-menu li ul {
+  border-right: 1px solid #595959;
+  border-left: 1px solid #595959;
+}
+/* line 79, ../sass/layout/_article_nav.scss */
+.article-menu li:not(.menu-title):hover, .article-menu li:not(.menu-title):focus {
+  background-color: #ffd69c;
+  -moz-transition: "background-color" 1s ease-in;
+  -o-transition: "background-color" 1s ease-in;
+  -webkit-transition: "background-color" 1s ease-in;
+  transition: "background-color" 1s ease-in;
+}
+/* line 85, ../sass/layout/_article_nav.scss */
+.article-menu:after {
+  clear: both;
+  content: ' ';
+}
 
 /*doc
 ---
@@ -974,25 +1917,83 @@ name: layout-footer
 
 ```html_example
 <footer class="contrivers-footer"> 
- <ul class="footer-nav"> <li class='footer-nav-item'><a href=''>Masthead</a></li> <li class='footer-nav-item'><a href=''>Support</a></li> <li class='footer-nav-item'><a href=''>Articles</a></li> </ul> <ul class="copyright"> <li> <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.contrivers.org" property="cc:attributionName" rel="cc:attributionURL">&copy; 2014 Contrivers' Review</a>  under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License </a>. </li>
- <li> Artwork and Design &copy; by <a href='http://www.natesinnott.com/Muse%20Site/' target='blank'>Nathaniel Sinnott</a>. </li>
- <li> Contrivers' Review is a Python app built (mostly) with <a href='https://github.com/mitsuhiko/flask'>Flask</a>,  <a href='http://www.sqlalchemy.org/'>SQLAlchemy</a>, <a href='http://sass-lang.com/'>Sass</a>, and other open  source libraries. The code for this site is <a href='http://www.github.com/lmergner/contrivers/'>available at  Github</a>. </li> </ul>
+
+    <ul class="footer-nav">
+        <li class='footer-nav-item'><a href=''>Masthead</a></li>
+        <li class='footer-nav-item'><a href=''>Support</a></li>
+        <li class='footer-nav-item'><a href=''>Articles</a></li>
+    </ul>
+    <ul class="copyright">
+        <li>
+            <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.contrivers.org"
+            property="cc:attributionName" rel="cc:attributionURL">&copy; 2014 Contrivers' Review</a> 
+            under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons
+            Attribution-NonCommercial-NoDerivatives 4.0 International License </a>.
+        </li>
+
+        <li>
+            Artwork and Design &copy; by <a href='http://www.natesinnott.com/Muse%20Site/' target='blank'>Nathaniel Sinnott</a>.
+        </li>
+
+        <li>
+            Contrivers' Review is a Python app built (mostly) with <a href='https://github.com/mitsuhiko/flask'>Flask</a>, 
+            <a href='http://www.sqlalchemy.org/'>SQLAlchemy</a>, <a href='http://sass-lang.com/'>Sass</a>, and other open 
+            source libraries. The code for this site is <a href='http://www.github.com/lmergner/contrivers/'>available at 
+            Github</a>.
+        </li>
+        </ul>
 </footer>
 ```
 
 */
 /* line 47, ../sass/layout/_footer.scss */
-.contrivers-footer { -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; margin-right: -2.85714%; margin-left: -2.85714%; padding-right: 2.85714%; padding-left: 2.85714%; -moz-box-shadow: 0px 0px 5px #333333; -webkit-box-shadow: 0px 0px 5px #333333; box-shadow: 0px 0px 5px #333333; padding-top: 1.75rem; padding-bottom: 1.75rem; font-family: "Droid Serif", Georgia, serif; font-size: 1rem; line-height: 1.75rem; color: white; overflow: hidden; *zoom: 1; background-color: #595959; border-top: 2px solid #595959; clear: both; min-height: 50px; }
+.contrivers-footer {
+  -moz-box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+  font-family: "Droid Serif", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  color: white;
+  overflow: hidden;
+  *zoom: 1;
+  background-color: #595959;
+  border-top: 2px solid #595959;
+  clear: both;
+  min-height: 50px;
+}
 /* line 57, ../sass/layout/_footer.scss */
-.contrivers-footer a { color: white; }
+.contrivers-footer a {
+  color: white;
+}
 /* line 18, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_link-colors.scss */
-.contrivers-footer a:visited { color: white; }
-@media (min-width: 481px) { /* line 60, ../sass/layout/_footer.scss */
-  .contrivers-footer .copyright { width: 48.57143%; float: right; margin-right: 0; } }
+.contrivers-footer a:visited {
+  color: white;
+}
+@media (min-width: 481px) {
+  /* line 60, ../sass/layout/_footer.scss */
+  .contrivers-footer .copyright {
+    width: 47.22222%;
+    float: right;
+    margin-left: 1.38889%;
+    margin-right: 1.38889%;
+  }
+}
 /* line 62, ../sass/layout/_footer.scss */
-.contrivers-footer .copyright li { margin-bottom: 1.75rem; }
-@media (min-width: 481px) { /* line 64, ../sass/layout/_footer.scss */
-  .contrivers-footer .footer-nav { width: 48.57143%; float: left; margin-right: 2.85714%; } }
+.contrivers-footer .copyright li {
+  margin-bottom: 1.75rem;
+}
+@media (min-width: 481px) {
+  /* line 64, ../sass/layout/_footer.scss */
+  .contrivers-footer .footer-nav {
+    width: 47.22222%;
+    float: left;
+    margin-left: 1.38889%;
+    margin-right: 1.38889%;
+  }
+}
 
 /*doc
 ---
@@ -1006,7 +2007,25 @@ Main header styles.
 ```html_example
 <div class='container' style='min-height: 500px;'>
 
-<header class="contrivers-header" role="banner"> <div class="header-title">  <a href="#"> <img  src='../images/window_banner.png' srcset='../images/phone_banner.png 480w, ../images/window_banner.png 1x' /> </a> </div> <nav class="nav header-nav nav-collapse" > <ul role='menubar'> <li class="nav-item__link"><a href="#">Articles</a></li> <li class="nav-item__link"><a href="#">Reviews</a></li> <li class="nav-item__link"><a href="#">Support</a></li>  <li class="nav-item__link"><a href="#">Masthead</a></li> <li class="nav-item__icon"><a href="#"><i class="fa fa-search"></i></a></li> <li class="nav-item__icon"><a href="#"><i class="fa fa-twitter-square"></i></a></li> </ul> </nav>
+<header class="contrivers-header" role="banner">
+    <div class="header-title"> 
+        <a href="#">
+            <img 
+                src='../images/window_banner.png'
+                srcset='../images/phone_banner.png 480w, ../images/window_banner.png 1x'
+            />
+        </a>
+    </div>
+    <nav class="nav header-nav nav-collapse" >
+        <ul role='menubar'>
+            <li class="nav-item__link"><a href="#">Articles</a></li>
+            <li class="nav-item__link"><a href="#">Reviews</a></li>
+            <li class="nav-item__link"><a href="#">Support</a></li> 
+            <li class="nav-item__link"><a href="#">Masthead</a></li>
+            <li class="nav-item__icon"><a href="#"><i class="fa fa-search"></i></a></li>
+            <li class="nav-item__icon"><a href="#"><i class="fa fa-twitter-square"></i></a></li>
+        </ul>
+    </nav>
 </header>
 
 </div>
@@ -1014,61 +2033,201 @@ Main header styles.
 
 */
 /* line 39, ../sass/layout/_header.scss */
-header.contrivers-header { -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; margin-right: -2.85714%; margin-left: -2.85714%; padding-right: 2.85714%; padding-left: 2.85714%; overflow: hidden; *zoom: 1; -moz-box-shadow: 0px 0px 5px #333333; -webkit-box-shadow: 0px 0px 5px #333333; box-shadow: 0px 0px 5px #333333; background-color: #d45a43; border-bottom: 1px solid #595959; }
-/* line 46, ../sass/layout/_header.scss */
-header.contrivers-header a { color: inherit; text-decoration: inherit; cursor: inherit; }
+header.contrivers-header {
+  overflow: hidden;
+  *zoom: 1;
+  -moz-box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+  background-color: #d45a43;
+  border-bottom: 1px solid #595959;
+}
+/* line 45, ../sass/layout/_header.scss */
+header.contrivers-header a {
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+}
 /* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
-header.contrivers-header a:active, header.contrivers-header a:focus { outline: none; }
-@media (min-width: 481px) { /* line 39, ../sass/layout/_header.scss */
-  header.contrivers-header { padding-top: 1.75rem; padding-bottom: 1.75rem; } }
-/* line 55, ../sass/layout/_header.scss */
-header.contrivers-header .menu-toggle { float: right; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 57, ../sass/layout/_header.scss */
-  header.contrivers-header .header-title { width: 25%; float: left; margin-right: 2.85714%; font-size: 1.625rem; line-height: 3.5rem; } }
-@media (min-width: 481px) { /* line 57, ../sass/layout/_header.scss */
-  header.contrivers-header .header-title { font-size: 2.625rem; line-height: 3.5rem; } }
+header.contrivers-header a:active, header.contrivers-header a:focus {
+  outline: none;
+}
+@media (min-width: 481px) {
+  /* line 39, ../sass/layout/_header.scss */
+  header.contrivers-header {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+  }
+}
+/* line 54, ../sass/layout/_header.scss */
+header.contrivers-header .menu-toggle {
+  float: right;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 56, ../sass/layout/_header.scss */
+  header.contrivers-header .header-title {
+    width: 25%;
+    float: left;
+    margin-left: 1.38889%;
+    margin-right: 1.38889%;
+    font-size: 1.625rem;
+    line-height: 3.5rem;
+  }
+}
+@media (min-width: 481px) {
+  /* line 56, ../sass/layout/_header.scss */
+  header.contrivers-header .header-title {
+    font-size: 2.625rem;
+    line-height: 3.5rem;
+  }
+}
 
-/* line 69, ../sass/layout/_header.scss */
-.header-nav, .nav-collapse { clear: both; overflow: hidden; *zoom: 1; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 73, ../sass/layout/_header.scss */
-  .header-nav ul, .nav-collapse ul { margin-top: 0.25em; padding: 0; } }
+/* line 68, ../sass/layout/_header.scss */
+.header-nav,
+.nav-collapse {
+  clear: both;
+  overflow: hidden;
+  *zoom: 1;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 72, ../sass/layout/_header.scss */
+  .header-nav ul,
+  .nav-collapse ul {
+    margin-top: 0.25em;
+    padding: 0;
+  }
+}
 
-/* line 81, ../sass/layout/_header.scss */
-.nav-item__link, .nav-item__icon { font-size: 1.625rem; line-height: 3.5rem; text-align: center; }
-/* line 84, ../sass/layout/_header.scss */
-.nav-item__link a, .nav-item__icon a { display: block; text-decoration: none; color: #222222; width: 100%; height: 100%; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 81, ../sass/layout/_header.scss */
-  .nav-item__link, .nav-item__icon { border-top: 1px solid black; } }
-@media (min-width: 481px) { /* line 81, ../sass/layout/_header.scss */
-  .nav-item__link, .nav-item__icon { border-top: 1px solid black; width: 48.57143%; float: left; }
+/* line 80, ../sass/layout/_header.scss */
+.nav-item__link, .nav-item__icon {
+  text-align: center;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 80, ../sass/layout/_header.scss */
+  .nav-item__link, .nav-item__icon {
+    font-size: 1.625rem;
+    line-height: 3.5rem;
+  }
+}
+@media (min-width: 481px) {
+  /* line 80, ../sass/layout/_header.scss */
+  .nav-item__link, .nav-item__icon {
+    font-size: 1.625rem;
+    line-height: 3.5rem;
+  }
+}
+@media (min-width: 960px) {
+  /* line 80, ../sass/layout/_header.scss */
+  .nav-item__link, .nav-item__icon {
+    font-size: 1.625rem;
+    line-height: 3.5rem;
+  }
+}
+/* line 91, ../sass/layout/_header.scss */
+.nav-item__link a, .nav-item__icon a {
+  display: block;
+  text-decoration: none;
+  color: #222222;
+  width: 100%;
+  height: 100%;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 80, ../sass/layout/_header.scss */
+  .nav-item__link, .nav-item__icon {
+    border-top: 1px solid black;
+  }
+}
+@media (min-width: 481px) {
+  /* line 80, ../sass/layout/_header.scss */
+  .nav-item__link, .nav-item__icon {
+    border-top: 1px solid black;
+    width: 47.22222%;
+    float: left;
+  }
   /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  .nav-item__link:nth-child(2n + 1), .nav-item__icon:nth-child(2n + 1) { margin-left: 0; margin-right: -100%; clear: both; margin-left: 0; }
+  .nav-item__link:nth-child(2n + 1), .nav-item__icon:nth-child(2n + 1) {
+    margin-left: 1.38889%;
+    margin-right: -100%;
+    clear: both;
+  }
   /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  .nav-item__link:nth-child(2n + 2), .nav-item__icon:nth-child(2n + 2) { margin-left: 51.42857%; margin-right: -100%; clear: none; } }
-@media (min-width: 960px) { /* line 81, ../sass/layout/_header.scss */
-  .nav-item__link, .nav-item__icon { border: none; width: 14.28571%; float: left; }
+  .nav-item__link:nth-child(2n + 2), .nav-item__icon:nth-child(2n + 2) {
+    margin-left: 51.38889%;
+    margin-right: -100%;
+    clear: none;
+  }
+}
+@media (min-width: 960px) {
+  /* line 80, ../sass/layout/_header.scss */
+  .nav-item__link, .nav-item__icon {
+    border: none;
+    width: 13.88889%;
+    float: left;
+  }
   /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  .nav-item__link:nth-child(6n + 1), .nav-item__icon:nth-child(6n + 1) { margin-left: 0; margin-right: -100%; clear: both; margin-left: 0; }
+  .nav-item__link:nth-child(6n + 1), .nav-item__icon:nth-child(6n + 1) {
+    margin-left: 1.38889%;
+    margin-right: -100%;
+    clear: both;
+  }
   /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  .nav-item__link:nth-child(6n + 2), .nav-item__icon:nth-child(6n + 2) { margin-left: 17.14286%; margin-right: -100%; clear: none; }
+  .nav-item__link:nth-child(6n + 2), .nav-item__icon:nth-child(6n + 2) {
+    margin-left: 18.05556%;
+    margin-right: -100%;
+    clear: none;
+  }
   /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  .nav-item__link:nth-child(6n + 3), .nav-item__icon:nth-child(6n + 3) { margin-left: 34.28571%; margin-right: -100%; clear: none; }
+  .nav-item__link:nth-child(6n + 3), .nav-item__icon:nth-child(6n + 3) {
+    margin-left: 34.72222%;
+    margin-right: -100%;
+    clear: none;
+  }
   /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  .nav-item__link:nth-child(6n + 4), .nav-item__icon:nth-child(6n + 4) { margin-left: 51.42857%; margin-right: -100%; clear: none; }
+  .nav-item__link:nth-child(6n + 4), .nav-item__icon:nth-child(6n + 4) {
+    margin-left: 51.38889%;
+    margin-right: -100%;
+    clear: none;
+  }
   /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  .nav-item__link:nth-child(6n + 5), .nav-item__icon:nth-child(6n + 5) { margin-left: 68.57143%; margin-right: -100%; clear: none; }
+  .nav-item__link:nth-child(6n + 5), .nav-item__icon:nth-child(6n + 5) {
+    margin-left: 68.05556%;
+    margin-right: -100%;
+    clear: none;
+  }
   /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  .nav-item__link:nth-child(6n + 6), .nav-item__icon:nth-child(6n + 6) { margin-left: 85.71429%; margin-right: -100%; clear: none; } }
+  .nav-item__link:nth-child(6n + 6), .nav-item__icon:nth-child(6n + 6) {
+    margin-left: 84.72222%;
+    margin-right: -100%;
+    clear: none;
+  }
+}
 
-/* line 105, ../sass/layout/_header.scss */
-.nav-item__link { display: block; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 105, ../sass/layout/_header.scss */
-  .nav-item__link { width: 100%; } }
+/* line 112, ../sass/layout/_header.scss */
+.nav-item__link {
+  display: block;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 112, ../sass/layout/_header.scss */
+  .nav-item__link {
+    width: 97.22222%;
+  }
+}
 
-/* line 114, ../sass/layout/_header.scss */
-.nav-item__icon { display: inline-block; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 114, ../sass/layout/_header.scss */
-  .nav-item__icon { width: 48.57143%; } }
+/* line 121, ../sass/layout/_header.scss */
+.nav-item__icon {
+  display: inline-block;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 121, ../sass/layout/_header.scss */
+  .nav-item__icon {
+    width: 47.22222%;
+  }
+}
+
+/* line 2, ../sass/layout/_login.scss */
+.login-page {
+  margin-bottom: 1.75rem;
+}
 
 /*doc
 ---
@@ -1077,20 +2236,6 @@ category: Layout - Masthead
 name: layout-masthead
 ---
 The masthead static page. Does this need specific styles?
-*/
-/*doc
----
-title: Navigation
-category: Layout - Navbar
-name: layout-navbar
----
-
-```html_example
-<nav class="nav header-nav" > <ul role='menubar'> <li class="nav-item__link" role='menuitem'><a href="#">Articles</a></li> <li class="nav-item__link" role='menuitem'><a href="#">Reviews</a></li> <li class="nav-item__link" role='menuitem'><a href="#">Support</a></li>  <li class="nav-item__link" role='menuitem'><a href="#">Masthead</a></li> <li class="nav-item__search" role='menuitem'><a href="#"><i class="fa fa-search"></i></a></li> <li class="nav-item__twitter" role='menuitem'><a href="#"><i class="fa fa-twitter-square"></i></a></li> </ul>
-</nav>
-
-```
-
 */
 /*doc
 ---
@@ -1103,61 +2248,42 @@ Pages encapsulate a view or endpoint such as main-page, archive-page, article-pa
 For article styles, see `.article-body`
 
 */
-@media (min-width: 960px) { /* line 17, ../sass/layout/_page.scss */
-  .index-page, .masthead-page, .support-page, .archive-page, .issues-page, .author-page, .error-page, .tags-page, .search-page, .article-page, .page { margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; width: 74.28571%; float: left; margin-right: 2.85714%; } }
-/* line 25, ../sass/layout/_page.scss */
-.index-page h1, .masthead-page h1, .support-page h1, .archive-page h1, .issues-page h1, .author-page h1, .error-page h1, .tags-page h1, .search-page h1, .article-page h1, .page h1 { font-family: "Lora", Georgia, serif; font-size: 2.625rem; line-height: 3.5rem; margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; display: block; margin: 0 auto; margin-bottom: 1.75rem; }
-/* line 101, ../sass/global/_typography.scss */
-.index-page h1 a, .masthead-page h1 a, .support-page h1 a, .archive-page h1 a, .issues-page h1 a, .author-page h1 a, .error-page h1 a, .tags-page h1 a, .search-page h1 a, .article-page h1 a, .page h1 a { text-decoration: none; }
-/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.index-page h1 a:hover, .masthead-page h1 a:hover, .support-page h1 a:hover, .archive-page h1 a:hover, .issues-page h1 a:hover, .author-page h1 a:hover, .error-page h1 a:hover, .tags-page h1 a:hover, .search-page h1 a:hover, .article-page h1 a:hover, .index-page h1 a:focus, .masthead-page h1 a:focus, .support-page h1 a:focus, .archive-page h1 a:focus, .issues-page h1 a:focus, .author-page h1 a:focus, .error-page h1 a:focus, .tags-page h1 a:focus, .search-page h1 a:focus, .article-page h1 a:focus, .page h1 a:hover, .page h1 a:focus { text-decoration: underline; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 25, ../sass/layout/_page.scss */
-  .index-page h1, .masthead-page h1, .support-page h1, .archive-page h1, .issues-page h1, .author-page h1, .error-page h1, .tags-page h1, .search-page h1, .article-page h1, .page h1 { text-align: left; } }
-@media (min-width: 481px) { /* line 25, ../sass/layout/_page.scss */
-  .index-page h1, .masthead-page h1, .support-page h1, .archive-page h1, .issues-page h1, .author-page h1, .error-page h1, .tags-page h1, .search-page h1, .article-page h1, .page h1 { text-align: center; } }
-/* line 25, ../sass/layout/_page.scss */
-.index-page h2, .masthead-page h2, .support-page h2, .archive-page h2, .issues-page h2, .author-page h2, .error-page h2, .tags-page h2, .search-page h2, .article-page h2, .page h2 { font-family: "Lora", Georgia, serif; font-size: 1.625rem; line-height: 3.5rem; margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; display: block; margin: 0 auto; margin-bottom: 1.75rem; }
-/* line 101, ../sass/global/_typography.scss */
-.index-page h2 a, .masthead-page h2 a, .support-page h2 a, .archive-page h2 a, .issues-page h2 a, .author-page h2 a, .error-page h2 a, .tags-page h2 a, .search-page h2 a, .article-page h2 a, .page h2 a { text-decoration: none; }
-/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.index-page h2 a:hover, .masthead-page h2 a:hover, .support-page h2 a:hover, .archive-page h2 a:hover, .issues-page h2 a:hover, .author-page h2 a:hover, .error-page h2 a:hover, .tags-page h2 a:hover, .search-page h2 a:hover, .article-page h2 a:hover, .index-page h2 a:focus, .masthead-page h2 a:focus, .support-page h2 a:focus, .archive-page h2 a:focus, .issues-page h2 a:focus, .author-page h2 a:focus, .error-page h2 a:focus, .tags-page h2 a:focus, .search-page h2 a:focus, .article-page h2 a:focus, .page h2 a:hover, .page h2 a:focus { text-decoration: underline; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 25, ../sass/layout/_page.scss */
-  .index-page h2, .masthead-page h2, .support-page h2, .archive-page h2, .issues-page h2, .author-page h2, .error-page h2, .tags-page h2, .search-page h2, .article-page h2, .page h2 { text-align: left; } }
-@media (min-width: 481px) { /* line 25, ../sass/layout/_page.scss */
-  .index-page h2, .masthead-page h2, .support-page h2, .archive-page h2, .issues-page h2, .author-page h2, .error-page h2, .tags-page h2, .search-page h2, .article-page h2, .page h2 { text-align: center; } }
-/* line 25, ../sass/layout/_page.scss */
-.index-page h3, .masthead-page h3, .support-page h3, .archive-page h3, .issues-page h3, .author-page h3, .error-page h3, .tags-page h3, .search-page h3, .article-page h3, .page h3 { font-family: "Lora", Georgia, serif; font-size: 1.25rem; line-height: 1.75rem; margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; display: block; margin: 0 auto; margin-bottom: 1.75rem; }
-/* line 101, ../sass/global/_typography.scss */
-.index-page h3 a, .masthead-page h3 a, .support-page h3 a, .archive-page h3 a, .issues-page h3 a, .author-page h3 a, .error-page h3 a, .tags-page h3 a, .search-page h3 a, .article-page h3 a, .page h3 a { text-decoration: none; }
-/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.index-page h3 a:hover, .masthead-page h3 a:hover, .support-page h3 a:hover, .archive-page h3 a:hover, .issues-page h3 a:hover, .author-page h3 a:hover, .error-page h3 a:hover, .tags-page h3 a:hover, .search-page h3 a:hover, .article-page h3 a:hover, .index-page h3 a:focus, .masthead-page h3 a:focus, .support-page h3 a:focus, .archive-page h3 a:focus, .issues-page h3 a:focus, .author-page h3 a:focus, .error-page h3 a:focus, .tags-page h3 a:focus, .search-page h3 a:focus, .article-page h3 a:focus, .page h3 a:hover, .page h3 a:focus { text-decoration: underline; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 25, ../sass/layout/_page.scss */
-  .index-page h3, .masthead-page h3, .support-page h3, .archive-page h3, .issues-page h3, .author-page h3, .error-page h3, .tags-page h3, .search-page h3, .article-page h3, .page h3 { text-align: left; } }
-@media (min-width: 481px) { /* line 25, ../sass/layout/_page.scss */
-  .index-page h3, .masthead-page h3, .support-page h3, .archive-page h3, .issues-page h3, .author-page h3, .error-page h3, .tags-page h3, .search-page h3, .article-page h3, .page h3 { text-align: center; } }
-/* line 25, ../sass/layout/_page.scss */
-.index-page h4, .masthead-page h4, .support-page h4, .archive-page h4, .issues-page h4, .author-page h4, .error-page h4, .tags-page h4, .search-page h4, .article-page h4, .page h4 { font-family: "Lora", Georgia, serif; font-size: 1rem; line-height: 1.75rem; margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; display: block; margin: 0 auto; margin-bottom: 1.75rem; }
-/* line 101, ../sass/global/_typography.scss */
-.index-page h4 a, .masthead-page h4 a, .support-page h4 a, .archive-page h4 a, .issues-page h4 a, .author-page h4 a, .error-page h4 a, .tags-page h4 a, .search-page h4 a, .article-page h4 a, .page h4 a { text-decoration: none; }
-/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.index-page h4 a:hover, .masthead-page h4 a:hover, .support-page h4 a:hover, .archive-page h4 a:hover, .issues-page h4 a:hover, .author-page h4 a:hover, .error-page h4 a:hover, .tags-page h4 a:hover, .search-page h4 a:hover, .article-page h4 a:hover, .index-page h4 a:focus, .masthead-page h4 a:focus, .support-page h4 a:focus, .archive-page h4 a:focus, .issues-page h4 a:focus, .author-page h4 a:focus, .error-page h4 a:focus, .tags-page h4 a:focus, .search-page h4 a:focus, .article-page h4 a:focus, .page h4 a:hover, .page h4 a:focus { text-decoration: underline; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 25, ../sass/layout/_page.scss */
-  .index-page h4, .masthead-page h4, .support-page h4, .archive-page h4, .issues-page h4, .author-page h4, .error-page h4, .tags-page h4, .search-page h4, .article-page h4, .page h4 { text-align: left; } }
-@media (min-width: 481px) { /* line 25, ../sass/layout/_page.scss */
-  .index-page h4, .masthead-page h4, .support-page h4, .archive-page h4, .issues-page h4, .author-page h4, .error-page h4, .tags-page h4, .search-page h4, .article-page h4, .page h4 { text-align: center; } }
-/* line 25, ../sass/layout/_page.scss */
-.index-page h5, .masthead-page h5, .support-page h5, .archive-page h5, .issues-page h5, .author-page h5, .error-page h5, .tags-page h5, .search-page h5, .article-page h5, .page h5 { font-family: "Lora", Georgia, serif; font-size: 0.8125rem; line-height: 1.75rem; margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; display: block; margin: 0 auto; margin-bottom: 1.75rem; }
-/* line 101, ../sass/global/_typography.scss */
-.index-page h5 a, .masthead-page h5 a, .support-page h5 a, .archive-page h5 a, .issues-page h5 a, .author-page h5 a, .error-page h5 a, .tags-page h5 a, .search-page h5 a, .article-page h5 a, .page h5 a { text-decoration: none; }
-/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.index-page h5 a:hover, .masthead-page h5 a:hover, .support-page h5 a:hover, .archive-page h5 a:hover, .issues-page h5 a:hover, .author-page h5 a:hover, .error-page h5 a:hover, .tags-page h5 a:hover, .search-page h5 a:hover, .article-page h5 a:hover, .index-page h5 a:focus, .masthead-page h5 a:focus, .support-page h5 a:focus, .archive-page h5 a:focus, .issues-page h5 a:focus, .author-page h5 a:focus, .error-page h5 a:focus, .tags-page h5 a:focus, .search-page h5 a:focus, .article-page h5 a:focus, .page h5 a:hover, .page h5 a:focus { text-decoration: underline; }
-@media (min-width: 0px) and (max-width: 481px) { /* line 25, ../sass/layout/_page.scss */
-  .index-page h5, .masthead-page h5, .support-page h5, .archive-page h5, .issues-page h5, .author-page h5, .error-page h5, .tags-page h5, .search-page h5, .article-page h5, .page h5 { text-align: left; } }
-@media (min-width: 481px) { /* line 25, ../sass/layout/_page.scss */
-  .index-page h5, .masthead-page h5, .support-page h5, .archive-page h5, .issues-page h5, .author-page h5, .error-page h5, .tags-page h5, .search-page h5, .article-page h5, .page h5 { text-align: center; } }
+/* line 17, ../sass/layout/_page.scss */
+.index-page, .masthead-page, .support-page, .archive-page, .issues-page, .author-page, .error-page, .tags-page, .search-page, .article-page,
+#content,
+.page {
+  clear: both;
+  width: 97.22222%;
+  float: left;
+  margin-left: 1.38889%;
+  margin-right: 1.38889%;
+}
+@media (min-width: 960px) {
+  /* line 17, ../sass/layout/_page.scss */
+  .index-page, .masthead-page, .support-page, .archive-page, .issues-page, .author-page, .error-page, .tags-page, .search-page, .article-page,
+  #content,
+  .page {
+    width: 72.22222%;
+    float: left;
+    margin-left: 1.38889%;
+    margin-right: 1.38889%;
+    margin-top: 1.75rem;
+  }
+}
 
-/* line 41, ../sass/layout/_page.scss */
-article-page article { max-width: 65.71429%; margin: 0 auto; }
+/* line 36, ../sass/layout/_page.scss */
+.article-page {
+  clear: both;
+  width: 97.22222%;
+  float: left;
+  margin-left: 1.38889%;
+  margin-right: 1.38889%;
+}
+/* line 38, ../sass/layout/_page.scss */
+.article-page article {
+  max-width: 600px;
+  margin: 0 auto;
+}
 
 /*doc
 ---
@@ -1169,36 +2295,737 @@ name: layout-sidebar
 Site Sidebar used on the main index page.
 
 ```html_example
- <div class='contrivers-sidebar'> <div class='announcement'> <a href=''>Contrivers' Review</a> is currently fundraising for its first issue of 2015. Throughout the year, we'll be publishing  essays discussing the impact of technology on education, philosophy,  society, and politics. To help us, click <a href=''>here for more  information</a>. </div> <div class='image-wrapper__banner-art'> <a href=''> <img src='/images/contrivers-icon.jpg' /> </a>  </div> <div class='image-wrapper__advertising'> <img src="//storage.googleapis.com/support-kms-prod/SNP_1DA7588EEB5450EE2A22C2B2F0A6458A61C0_2922342_en_v1" height="auto" /> </div> </div>
+
+    <div class='contrivers-sidebar'>
+        <div class='announcement'>
+            <a href=''>Contrivers' Review</a> is currently fundraising for its
+            first issue of 2015. Throughout the year, we'll be publishing 
+            essays discussing the impact of technology on education, philosophy, 
+            society, and politics. To help us, click <a href=''>here for more 
+            information</a>.
+        </div>
+        <div class='image-wrapper__banner-art'>
+            <a href=''>
+                <img src='/images/contrivers-icon.jpg' />
+            </a> 
+        </div>
+        <div class='image-wrapper__advertising'>
+            <img src="//storage.googleapis.com/support-kms-prod/SNP_1DA7588EEB5450EE2A22C2B2F0A6458A61C0_2922342_en_v1" height="auto" />
+        </div>
+    </div>
 
 
 ```
 
 */
 /* line 35, ../sass/layout/_sidebar.scss */
-.contrivers-sidebar { display: none; }
-@media (min-width: 960px) { /* line 35, ../sass/layout/_sidebar.scss */
-  .contrivers-sidebar { margin-top: 1.75rem; padding-top: 0rem; padding-bottom: 0rem; margin-bottom: 1.75rem; display: block; width: 22.85714%; float: right; margin-right: 0; } }
+.contrivers-sidebar {
+  display: none;
+}
+@media (min-width: 960px) {
+  /* line 35, ../sass/layout/_sidebar.scss */
+  .contrivers-sidebar {
+    margin-top: 1.75rem;
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+    margin-bottom: 1.75rem;
+    display: block;
+    width: 22.22222%;
+    float: right;
+    margin-left: 1.38889%;
+    margin-right: 1.38889%;
+  }
+}
+
+/*doc 
+---
+title: Support
+category: Layout - Support
+---
+
+```html_example
+<div id="content" class="support-page">
+
+<div id="fundraising" class="announcement__fundraising">
+<h1>Support Us</h1>
+<p class='fundraising-blurb'>
+Contrivers' Review is a non-profit publication that relies on your support.
+Please consider donating. Our staff is small and our overhead is low, so your
+money goes to paying writers a fair compensation for their efforts.
+</p>
+<ul>
+<li><a href="">Kickstarter</a></li>
+<li><a href="‘http://www.patreon.com/contriversrev'">Patreon</a></li>
+<li>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHVwYJKoZIhvcNAQcEoIIHSDCCB0QCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYAS/SrVamfhSWDUgjkdmDsF1ToenolCEDfwAJKRvR2JUDXOm8DrWQN+/w4mEo+ExMd5PRNrzjZkznDMvtGFCOB210b/GEIqc0b8bIfN5sgB5OJqbPPgjbdKfxTCYa8SniNOszo1zKd9Nt4V70VDpdgHLluu//4Um+xpv9V2FRTuLjELMAkGBSsOAwIaBQAwgdQGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIaUFQFR1I9umAgbCsi4nqG92M8VNvZmattCqC88skS8DRnS1wDX28LP3xnJ4gR/nygya5OCgqkHdzslJNY4ZiU2fNB07lk/PEI6m0/F5LQGRPhxCTJncFm7XovGbhOkXxmfRN5l968h6p4j5wrw/aTo7S7ROcWi74imYyORbZq+0SthNYJ/cYD8nQX6D3kOoROAzN+u4Ze6qyPjBjPyEODDFPYmGzuFdLUCpscDvDsgKAytFnGjk4iiM+QKCCA4cwggODMIIC7KADAgECAgEAMA0GCSqGSIb3DQEBBQUAMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTAeFw0wNDAyMTMxMDEzMTVaFw0zNTAyMTMxMDEzMTVaMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAwUdO3fxEzEtcnI7ZKZL412XvZPugoni7i7D7prCe0AtaHTc97CYgm7NsAtJyxNLixmhLV8pyIEaiHXWAh8fPKW+R017+EmXrr9EaquPmsVvTywAAE1PMNOKqo2kl4Gxiz9zZqIajOm1fZGWcGS0f5JQ2kBqNbvbg2/Za+GJ/qwUCAwEAAaOB7jCB6zAdBgNVHQ4EFgQUlp98u8ZvF71ZP1LXChvsENZklGswgbsGA1UdIwSBszCBsIAUlp98u8ZvF71ZP1LXChvsENZklGuhgZSkgZEwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tggEAMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQADgYEAgV86VpqAWuXvX6Oro4qJ1tYVIT5DgWpE692Ag422H7yRIr/9j/iKG4Thia/Oflx4TdL+IFJBAyPK9v6zZNZtBgPBynXb048hsP16l2vi0k5Q2JKiPDsEfBhGI+HnxLXEaUWAcVfCsQFvd2A1sxRr67ip5y2wwBelUecP3AjJ+YcxggGaMIIBlgIBATCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwCQYFKw4DAhoFAKBdMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTE0MTAxMDAyMjQyN1owIwYJKoZIhvcNAQkEMRYEFKxJMf6yIjbGaMTUsl/xa8k2ox+HMA0GCSqGSIb3DQEBAQUABIGAkDkJ9w/Z7X+Z3obyLuMN5qsL2bMMd8xOMvIJK4xSa1qyKHTAed7FiGuYiyX8IgJVmT3joqwnQl18sMiwNnHwhndWRU1KwQz5P4c2ZFSD0F+kc74a7mgg1t/jXOR5S+RzkLYmeIEf2yHhT3k1+piHJMt4skhE1VlmuXzpXeNayc8=-----END PKCS7-----
+">
+<input type="submit" value="Paypal">
+</form>
+</li>
+<li><a href="">Amazon</a></li>
+</ul>
+
+</div>
+
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<h1>Mailing List</h1>
+<p class="form-blurb">Please sign up for our mailing list. We announce new issues and other infrequent items of interest.</p>
+
+<form action="" class="validate" target="_blank" novalidate="">
+<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+<div style="position: absolute; left: -5000px;">
+<input type="text" name="b_dd125dca9ae429922ce3f2ff4_22a9f9d26e" tabindex="-1" value="">
+</div>
+
+<div class="mc-field-group">
+<label for="mce-EMAIL">Email Address <span class="asterisk">*</span> </label>
+<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder='Email Address'>
+</div>
+
+<div id="mce-responses" class="clear">
+<div class="response" id="mce-error-response" style="display:none"></div>
+<div class="response" id="mce-success-response" style="display:none"></div>
+</div>    
+<div class="clear form-ctrl-group mc-field-group">
+<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+</div>
+</form>
+<!--End mc_embed_signup-->
+</div>
+
+</div>
+```
+*/
+/* line 64, ../sass/layout/_support.scss */
+#mc_embed_signup {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  overflow: hidden;
+  *zoom: 1;
+  margin-bottom: 1.75rem;
+  display: block;
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+  background-color: #eeeeee;
+  padding: 1.75rem 1.38889%;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 64, ../sass/layout/_support.scss */
+  #mc_embed_signup {
+    border-top: 1px solid #595959;
+    border-bottom: 1px solid #595959;
+  }
+}
+@media (min-width: 481px) {
+  /* line 64, ../sass/layout/_support.scss */
+  #mc_embed_signup {
+    border: 1px solid #595959;
+  }
+}
+/* line 67, ../sass/layout/_support.scss */
+#mc_embed_signup p,
+#mc_embed_signup .form-blurb {
+  font-family: "Droid Serif", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  margin-top: 1.75rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 1.75rem;
+}
+/* line 73, ../sass/layout/_support.scss */
+#mc_embed_signup label {
+  display: none;
+}
+/* line 77, ../sass/layout/_support.scss */
+#mc_embed_signup input[type=email] {
+  text-align: center;
+  width: 100%;
+}
+/* line 82, ../sass/layout/_support.scss */
+#mc_embed_signup input[type=submit] {
+  background-color: #595959;
+  /* The Fallback */
+  background-color: #595959;
+  color: white;
+  width: 100%;
+}
+/* line 17, ../sass/global/mixins/_background-transitions.scss */
+#mc_embed_signup input[type=submit]:hover, #mc_embed_signup input[type=submit]:focus {
+  background-color: rgba(89, 89, 89, 0.6);
+  -moz-transition: "background-color" 1s ease-out;
+  -o-transition: "background-color" 1s ease-out;
+  -webkit-transition: "background-color" 1s ease-out;
+  transition: "background-color" 1s ease-out;
+}
+/* line 95, ../sass/layout/_support.scss */
+#mc_embed_signup .asterisk {
+  color: #d45a43;
+}
+
+/* line 100, ../sass/layout/_support.scss */
+#fundraising {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  overflow: hidden;
+  *zoom: 1;
+  margin-bottom: 1.75rem;
+  display: block;
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+  background-color: #ffd69c;
+  padding: 1.75rem 1.38889%;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 100, ../sass/layout/_support.scss */
+  #fundraising {
+    border-top: 1px solid #595959;
+    border-bottom: 1px solid #595959;
+  }
+}
+@media (min-width: 481px) {
+  /* line 100, ../sass/layout/_support.scss */
+  #fundraising {
+    border: 1px solid #595959;
+  }
+}
+/* line 103, ../sass/layout/_support.scss */
+#fundraising p,
+#fundraising .fundraising-blurb {
+  font-family: "Droid Serif", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.75rem;
+  margin-top: 1.75rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 1.75rem;
+}
+/* line 109, ../sass/layout/_support.scss */
+#fundraising input[type='submit'],
+#fundraising button[type='submit'] {
+  -webkit-align-items: center;
+  align-items: center;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  color: #222222;
+  background-color: #ffd69c;
+  display: inline-block;
+  border: none;
+  padding: 0.75em;
+  text-decoration: none;
+  font-family: "Lora", Georgia, serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin-top: 1.75rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 1.75rem;
+  display: block;
+  margin: 0 auto;
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  margin: 0 auto;
+  padding: inherit;
+}
+/* line 29, ../sass/global/mixins/_buttons.scss */
+#fundraising input[type='submit'] a,
+#fundraising button[type='submit'] a {
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+  color: black;
+}
+/* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
+#fundraising input[type='submit'] a:active, #fundraising input[type='submit'] a:focus,
+#fundraising button[type='submit'] a:active,
+#fundraising button[type='submit'] a:focus {
+  outline: none;
+}
+/* line 101, ../sass/global/_typography.scss */
+#fundraising input[type='submit'] a,
+#fundraising button[type='submit'] a {
+  text-decoration: none;
+}
+/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
+#fundraising input[type='submit'] a:hover, #fundraising input[type='submit'] a:focus,
+#fundraising button[type='submit'] a:hover,
+#fundraising button[type='submit'] a:focus {
+  text-decoration: underline;
+}
+/* line 119, ../sass/layout/_support.scss */
+#fundraising input[type='submit']:hover,
+#fundraising button[type='submit']:hover {
+  text-decoration: underline;
+}
+/* line 124, ../sass/layout/_support.scss */
+#fundraising li {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  background-color: #ffd69c;
+  background-color: #ffd69c;
+  font-family: "Lora", Georgia, serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  margin-top: 1.75rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
+  margin-bottom: 1.75rem;
+  display: block;
+  margin: 0 auto;
+  -moz-box-shadow: 0px 0px 5px #333333;
+  -webkit-box-shadow: 0px 0px 5px #333333;
+  box-shadow: 0px 0px 5px #333333;
+  border: 1px solid #595959;
+  text-align: center;
+  padding: 0.5em 0;
+}
+/* line 28, ../sass/global/mixins/_background-transitions.scss */
+#fundraising li:hover, #fundraising li:focus {
+  background-color: #ffa11d;
+  -moz-transition: "background-color" 1s ease-out;
+  -o-transition: "background-color" 1s ease-out;
+  -webkit-transition: "background-color" 1s ease-out;
+  transition: "background-color" 1s ease-out;
+}
+/* line 101, ../sass/global/_typography.scss */
+#fundraising li a {
+  text-decoration: none;
+}
+/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
+#fundraising li a:hover, #fundraising li a:focus {
+  text-decoration: underline;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 124, ../sass/layout/_support.scss */
+  #fundraising li {
+    text-align: left;
+  }
+}
+@media (min-width: 481px) {
+  /* line 124, ../sass/layout/_support.scss */
+  #fundraising li {
+    text-align: center;
+  }
+}
+/* line 132, ../sass/layout/_support.scss */
+#fundraising li a {
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+  display: block;
+  text-align: center;
+}
+/* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
+#fundraising li a:active, #fundraising li a:focus {
+  outline: none;
+}
+@media (min-width: 0px) and (max-width: 481px) {
+  /* line 124, ../sass/layout/_support.scss */
+  #fundraising li {
+    clear: both;
+    width: 97.22222%;
+    float: left;
+    margin-left: 1.38889%;
+    margin-right: 1.38889%;
+    margin-top: 0.875rem;
+    margin-bottom: 0.875rem;
+  }
+}
+@media (min-width: 481px) {
+  /* line 124, ../sass/layout/_support.scss */
+  #fundraising li {
+    width: 22.22222%;
+    float: left;
+  }
+  /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
+  #fundraising li:nth-child(4n + 1) {
+    margin-left: 1.38889%;
+    margin-right: -100%;
+    clear: both;
+  }
+  /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
+  #fundraising li:nth-child(4n + 2) {
+    margin-left: 26.38889%;
+    margin-right: -100%;
+    clear: none;
+  }
+  /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
+  #fundraising li:nth-child(4n + 3) {
+    margin-left: 51.38889%;
+    margin-right: -100%;
+    clear: none;
+  }
+  /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
+  #fundraising li:nth-child(4n + 4) {
+    margin-left: 76.38889%;
+    margin-right: -100%;
+    clear: none;
+  }
+}
 
 /*! responsive-nav.js 1.0.32 by @viljamis */
 /* line 6, ../sass/contrib/responsive-nav/_responsive-nav.scss */
-.nav-collapse ul { width: 100%; display: block; list-style: none; }
+.nav-collapse ul {
+  width: 100%;
+  display: block;
+  list-style: none;
+}
 
 /* line 17, ../sass/contrib/responsive-nav/_responsive-nav.scss */
-.js .nav-collapse { clip: rect(0 0 0 0); max-height: 0; position: absolute; display: block; overflow: hidden; zoom: 1; }
+.js .nav-collapse {
+  clip: rect(0 0 0 0);
+  max-height: 0;
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  zoom: 1;
+}
 
 /* line 26, ../sass/contrib/responsive-nav/_responsive-nav.scss */
-.nav-collapse.opened { max-height: 9999px; }
+.nav-collapse.opened {
+  max-height: 9999px;
+}
 
 /* line 30, ../sass/contrib/responsive-nav/_responsive-nav.scss */
-.disable-pointer-events { pointer-events: none !important; }
+.disable-pointer-events {
+  pointer-events: none !important;
+}
 
 /* line 34, ../sass/contrib/responsive-nav/_responsive-nav.scss */
-.nav-toggle { -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -o-user-select: none; user-select: none; }
+.nav-toggle {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
 
-@media (min-width: 481px) { /* line 50, ../sass/contrib/responsive-nav/_responsive-nav.scss */
-  .js .nav-collapse { position: relative; }
+@media (min-width: 481px) {
+  /* line 50, ../sass/contrib/responsive-nav/_responsive-nav.scss */
+  .js .nav-collapse {
+    position: relative;
+  }
+
   /* line 53, ../sass/contrib/responsive-nav/_responsive-nav.scss */
-  .js .nav-collapse.closed { max-height: none; }
+  .js .nav-collapse.closed {
+    max-height: none;
+  }
+
   /* line 56, ../sass/contrib/responsive-nav/_responsive-nav.scss */
-  .nav-toggle { display: none; } }
+  .nav-toggle {
+    display: none;
+  }
+}
+/*doc
+---
+title: Index Example
+category: Examples - Index
+---
+
+```html_example
+
+<body>
+<div class='container'>
+
+
+<header 
+    class='contrivers-header'
+    data-eq-pts='phone:0, tablet: 480, header: 650, window: 960' >
+    <div class='header-group__title' >
+        <a class='header-title' href="/">
+            Contrivers&#39; Review
+            
+        </a>
+    </div>
+    <div class='header-group__nav'>
+        <a href='/'>
+            <div class='header-tagline '>Theory, Politics, Criticism</div>
+        </a>
+        <nav 
+            class='nav navbar header-nav contriversNav'
+            data-eq-pts='mobile:0,epsilon:335' >
+            <ul>
+                <li class='nav-item__link'><a href="/articles/" >Articles</a></li>
+                <li class='nav-item__link'><a href="/reviews/">Reviews</a></li>
+                <li class='nav-item__link'><a href="/support/">Support</a></li> 
+                <li class='nav-item__link'><a href="/masthead/">Masthead</a></li>
+                <li class='nav-item__search'><a href='/search/'><i class="fa fa-search"></i></a></li>
+                <li class="nav-item__twitter"><a href="https://twitter.com/contriversrev" ><i class="fa fa-twitter-square"></i></a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+<div id='content' class='layout main-page'>
+    <div class='block' data-eq-pts="small: 0, medium: 400">
+        <div class='block-header'>
+        
+        <div class='block-header-button'><time datetime='2014-09-09T13:58'>September  9, 2014</time></div>
+        <div class='block-header-button__featured'><a href='/articles/featured/'>Featured</a></div>
+        <h2 class='article-title block-header-title'>
+            <a href="/reviews/6/">Seeing Like An App</a>
+        </h2>
+    <div class='block-header-authors-attribution'>
+    <span class='block-header-authors-attribution-by'>by</span>
+        <a class='block-header-authors-author' href="/authors/1/">Luke Thomas Mergner</a></div>
+    </div>
+    <div class='block-abstract'><p>Evgeny Morozov’s newest book is best read as marginalia rather than as any systematic contribution to a social theory of technology. It is a book very much of the moment, focused on challenging the mistakes of a narrow field of interlocutors, all of whom publish, like Morozov, on the fashionable topic of technology journalism. </p></div>
+</div>
+
+
+
+    
+    <div class='block' data-eq-pts="small: 0, medium: 400">
+  <div class='block-header'>
+    <div class='block-header-button__issue'><a href='/issues/1/'>Intellectuals</a></div>
+    <div class='block-header-button'><time datetime='2014-06-02T16:52'>June  2, 2014</time></div>
+    
+    <h2 class='article-title block-header-title'>
+        <a href="/articles/2/">The Essayist and the Intellectual</a>
+    </h2>
+    <div class='block-header-authors-attribution'>
+<span class='block-header-authors-attribution-by'>by</span>
+<a class='block-header-authors-author' href="/authors/2/">Pete Sinnott, Jr.</a></div>
+  </div>
+  <div class='block-abstract'><p>In this essay, Pete Sinnott, Jr. provides a short, but important, history of the form of intellectual production, the essay. Both the producer and the product are uncertain, historical artifacts. How we understand intellectual work today is bound up in that history:  on one hand, of the author’s self-conscious introspection or lack thereof and, on the other hand, of the essay as it oscillates between science, art, and criticism.</p></div>
+</div>
+    
+    <div class='block' data-eq-pts="small: 0, medium: 400">
+  <div class='block-header'>
+    <div class='block-header-button__issue'><a href='/issues/1/'>Intellectuals</a></div>
+    <div class='block-header-button'><time datetime='2014-06-02T16:52'>June  2, 2014</time></div>
+    
+    <h2 class='article-title block-header-title'>
+        <a href="/articles/3/">Social Criticism and the Academy</a>
+    </h2>
+    <div class='block-header-authors-attribution'>
+<span class='block-header-authors-attribution-by'>by</span>
+<a class='block-header-authors-author' href="/authors/3/">Rafael Khachaturian</a></div>
+  </div>
+  <div class='block-abstract'><p>What is the relationship between the professional academic and the intellectual, especially for those on the left? Rafael Khachaturian offers a possible answer to this question, exploring the vexed role Marxism played in the past and what answers it suggests for the future. The answer won’t be found in nostalgia for the old public intellectual, nor in the modern day “specialists without spirit,” as Max Weber called them, but in the re-emergence of social criticism.</p></div>
+</div>
+    
+    <div class='block' data-eq-pts="small: 0, medium: 400">
+  <div class='block-header'>
+    <div class='block-header-button__issue'><a href='/issues/1/'>Intellectuals</a></div>
+    <div class='block-header-button'><time datetime='2014-06-02T16:50'>June  2, 2014</time></div>
+    
+    <h2 class='article-title block-header-title'>
+        <a href="/articles/1/">On the Intellectual Question</a>
+    </h2>
+    <div class='block-header-authors-attribution'>
+<span class='block-header-authors-attribution-by'>by</span>
+<a class='block-header-authors-author' href="/authors/1/">Luke Thomas Mergner</a></div>
+  </div>
+  <div class='block-abstract'><p>Through a discussion of two important texts by Kant and Lenin, Luke Mergner explores how our ideas about public intellectuals are tied to different models of social and political authority. The public sphere is defined by the tension between democracy and intellectual authority. How can anyone claiming the role of the public intellectual find alternative critical languages when the egalitarian democratic spaces of the public sphere are withering away? </p></div>
+</div>
+    
+    <div class='block' data-eq-pts="small: 0, medium: 400">
+  <div class='block-header'>
+    <div class='block-header-button__issue'><a href='/issues/1/'>Intellectuals</a></div>
+    <div class='block-header-button'><time datetime='2014-06-10T15:06'>June 10, 2014</time></div>
+    
+    <h2 class='article-title block-header-title'>
+        <a href="/articles/4/">Further Reading</a>
+    </h2>
+    <div class='block-header-authors-attribution'>
+<span class='block-header-authors-attribution-by'>by</span>
+<a class='block-header-authors-author' href="/authors/1/">Luke Thomas Mergner</a><span class='block-header-authors-ampersand'>&amp;</span><a class='block-header-authors-author' href="/authors/2/">Pete Sinnott, Jr.</a></div>
+  </div>
+  <div class='block-abstract'><p>A bibliographical essay on several recent conversations related to the theme of intellectual production and responsibility.</p></div>
+</div>
+    
+
+
+
+</div end content div>
+<div class='contrivers-sidebar'>
+
+    <div class='announcement '>Please read our current Issue on Intellectuals</div>
+
+
+    <div class='banner-art-wrapper'>
+        <a href="/">
+            <img 
+            src='/images/contrivers-icon.jpg' 
+            />
+        </a> 
+    </div>
+    
+    
+    <div class='advertising-wrapper'>
+        <img
+        src="//storage.googleapis.com/support-kms-prod/SNP_1DA7588EEB5450EE2A22C2B2F0A6458A61C0_2922342_en_v1"
+        height="auto"
+        />
+    </div>
+    
+    
+</div>
+
+
+<footer class="contrivers-footer"> 
+
+    <ul class="footer-nav">
+        <li class='footer-nav-item'><a href=''>Masthead</a></li>
+        <li class='footer-nav-item'><a href=''>Support</a></li>
+        <li class='footer-nav-item'><a href=''>Articles</a></li>
+    </ul>
+    <ul class="copyright">
+        <li>
+            <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.contrivers.org"
+            property="cc:attributionName" rel="cc:attributionURL">&copy; 2014 Contrivers' Review</a> 
+            under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons
+            Attribution-NonCommercial-NoDerivatives 4.0 International License </a>.
+        </li>
+
+        <li>
+            Images &copy; copyright by <a href='http://www.natesinnott.com/Muse%20Site/' target='blank'>Nathaniel Sinnott</a>.
+        </li>
+
+        <li>
+            Contrivers' Review is a Python app built (mostly) with <a href='https://github.com/mitsuhiko/flask'>Flask</a>, 
+            <a href='http://www.sqlalchemy.org/'>SQLAlchemy</a>, <a href='http://sass-lang.com/'>Sass</a>, and other open 
+            source libraries. The code for this site is <a href='http://www.github.com/lmergner/contrivers/'>available at 
+            <i class='fa fa-github'></i> Github</a>.
+        </li>
+        </ul>
+</footer>
+</div container>
+
+```
+
+*/
+/*doc
+---
+title: Markdown
+category: Examples - Markdown
+---
+
+## Markdown Styles
+
+Example html taken from [markdown.css](http://mrcoles.com/demo/markdown-css/)
+
+```html_example
+
+<h1>HTML that looks like markdown</h1>
+
+<p>When this section is styled by <code>markdown.css</code> it looks like plain-text, despite being HTML. Inspect it with firebug or click on &lt;HTML/&gt; to see the markup.</p>
+
+<p>A <strong>strong tag</strong> and an <em>em tag</em> get styled like so.</p>
+<p>How about a link to <a href="http://mrcoles.com">my site</a>?</p>
+
+<h2>H2 header</h2>
+
+<h3>Lists</h3>
+<ul>
+    <li>they look like this</li>
+    <li>it’s how you’d format them in pure markdown, if you took the time to indent when it wrapped to a new line.</li>
+</ul>
+
+<h3>Ordered lists</h3>
+<ol>
+    <li>here’s one line from a numbered list</li>
+    <li>here’s another</li>
+    <li>in markdown, the actual numbers don’t matter—you can toggle this with the class <a href="#" onclick="$('body').toggleClass('markdown-ones');return false"><code>markdown-ones</code></a></li>
+</ol>
+
+<h3>Block quotes</h3>
+<blockquote>
+    This is a blockquote that extends<br>
+    to multiple lines.<br><br>
+    With repeating email-style angle brackets.
+</blockquote>
+
+
+<h3>Code blocks</h3>
+<pre><code>(function() {
+    console.log('code blocks indent four spaces');
+})()</code></pre>
+
+<h3>Different headers</h3>
+
+<h4>h4 header</h4>
+<h5>h5 header</h5>
+<h6>h6 header</h6>
+
+<hr>
+
+<p>That’s an hr above. It just works!</p>
+
+<p>
+    However, images will still look like images. Deal with it.
+</p>
+
+<p>
+    <img alt="kitten" src="http://placekitten.com/g/180/200">
+</p>
+
+
+<hr />
+<h3>Blockquotes</h3>
+<p>This is what a sample blockquote looks like:</p>
+<blockquote>
+<p>"Then listen to me." Franz then related to his friend the history of his
+excursion to the Island of Monte Cristo and of his finding a party of
+smugglers there, and the two Corsican bandits with them. He dwelt with
+considerable force and energy on the almost magical hospitality he had
+received from the count, and the magnificence of his entertainment in the
+grotto of the "Thousand and One Nights." He recounted, with circumstantial
+exactitude, all the particulars of the supper, the hashish, the statues, the
+dream, and how, at his awakening, there remained no proof or trace of all
+these events, save the small yacht, seen in the distant horizon driving under
+full sail toward Porto-Vecchio.</p>
+<p>Then he detailed the conversation overheard by him at the Colosseum,
+between the count and Vampa, in which the count had promised to obtain the
+release of the bandit Peppino, - an engagement which, as our readers are
+aware, he most faithfully fulfilled. At last he arrived at the adventure of
+the preceding night, and the embarrassment in which he found himself placed
+by not having sufficient cash by six or seven hundred piastres to make up the
+sum required, and finally of his application to the count and the picturesque
+and satisfactory result that followed.</p>
+</blockquote>
+ fourth list element is lazy.</li>
+</ol>
+<h3>Forms and Buttons</h3>
+<p>Here's a sample form:</p>
+<form>
+  <input type="text" size="30" />
+  <br>
+  <label>
+      <input type="checkbox" />
+      <span>This is text accompanying the checkbox</span>
+  </label><br>
+  <label>
+      <input type="checkbox" />
+      <span>More text with a different checkbox</span>
+  </label>
+  <br><br>
+  <select>
+    <option>Select an option</option>
+    <option>One</option>
+    <option>Two</option>
+  </select>
+  <br>
+
+<button type="submit">Sample Button</button>
+</form>
+https://github.com/mrcoles/markdown-css">github</a>
+</p>
+```
+
+*/
+
+/*# sourceMappingURL=screen.css.map */
