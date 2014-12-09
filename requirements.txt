@@ -15,10 +15,9 @@ feedgen
 boto
 requests
 
+psycopg2
 SQLAlchemy
 Flask-SQLAlchemy
-alembic
-psycopg2
 
 redis
 hiredis
