@@ -62,22 +62,11 @@ man
 
 # prefer sass files over css
 htmlcov
-node_modules
 include
 .Python
 
 dump.rdb
-instance
-vagrant
-.vagrant
-local
-gunicorn.conf
 gems
 .env
-
-.bundle
-changelog.taskpaper
-credentials.json
 images/**.{xcf,tiff}
-bower_components
 *.map
