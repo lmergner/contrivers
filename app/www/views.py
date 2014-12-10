@@ -158,9 +158,12 @@ def authors(author_id, page):
             author=author,
             rss_url=url_for('.rss_author', author_id=author.id, _external=True))
     else:
+        query =  db.session.query(Author).filter_by(hidden=False).filter(Author.writing.any())
+        pages = page_query(None, page, query = query)
+
         return render_template(
             'authors.html',
-            paginated=page_query(Author, page),
+            paginated = pages,
             endpoint='.authors',
             page_type='authors',
             sort_by='name')
@@ -178,14 +181,15 @@ def rss_author(author_id):
 @www.route('/categories/<int:tag_id>/', defaults={'page': 1})
 def tags(tag_id, page):
     if tag_id is not None:
-        tag = id_query(Tag, tag_id)
+        tag = db.session.query(Tag).get(tag_id)
+        # TODO: Make a paginated query for tag.writings
         return render_template(
             'tag.html',
             tag=tag,
             page_type='tags',
             rss_url=url_for('.rss_tag', tag_id=tag.id, _external=True))
     else:
-        results = page_query(None, page, query=db.session.query(Tag).order_by(Tag.count.desc()))
+        results = page_query(None, page, db.session.query(Tag).filter(Tag.writing.any()))
         return render_template(
             'tags.html',
             paginated=results)
@@ -273,7 +277,7 @@ def favicon():
 
 @www.route('/sitemap.xml')
 def sitemap():
-    """ Create a sitemap 
+    """ Create a sitemap
     http://www.sitemaps.org/protocol.html
     """
     pages = []
@@ -303,6 +307,6 @@ def sitemap():
 
     sitemap_xml = render_template('sitemap.xml', pages=pages)
     response= make_response(sitemap_xml)
-    response.headers["Content-Type"] = "application/xml"    
+    response.headers["Content-Type"] = "application/xml"
 
     return response

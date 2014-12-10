@@ -1,15 +1,11 @@
 {% extends 'layout.html' -%}
 {% from 'macros.html' import render_author_block %}
 
-{# render_author_block takes a single author, so iterate and filter out the hidden ones. #}
-
 {% block content %}
 <div id='content' class='author-page page'>
-{% if page_title is defined %}<h1>{{ page_title }}</h1>{% else %}<h1>Authors</h1>{% endif %}
+<h1>Author</h1>
 {% for author in paginated.items %}
-{% if not author.hidden %}
 {{ render_author_block(author, show_articles=False) }}
-{% endif %}
 {% endfor %}
 </div>
 {% endblock %}

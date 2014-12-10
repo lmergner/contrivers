@@ -1,9 +1,7 @@
 {% extends 'layout.html' %}
 {% from 'macros.html' import render_authors, render_title, render_reviewed_book, render_aside %}
 
-{% block head %}
-{{ super() }}
-
+{% block open_graph %}
     <!-- Article Specific Head -->
     <meta property="og:title" content="{{ article.title }}" />
     <meta property="og:type" content="article" />
@@ -12,7 +10,15 @@
     <meta property="article:author" content="{{ author.name }}" />
     {%- endfor %}
     <meta property="article:published_date" content="{{ article.publish_date.strftime("%Y-%m-%d %H:%M:%S") }}" />
-{% endblock head %}
+{% endblock %}
+
+{% block twitter_card %}
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@{{ site.twitter_name }}">
+    <meta name="twitter:title" content="{{ article.title | truncate(70) }}">
+    <meta name="twitter:description" content="{{ article.abstract | truncate(100) }}">
+{% endblock %}
+
 {% block stylesheets %}
 {{ super() }}
     <link href="{{ url_for('static', filename='css/contrib/bigfoot/bigfoot.css') }}" media='screen, projection' rel='stylesheet' type='text/css' />

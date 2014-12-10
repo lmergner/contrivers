@@ -68,10 +68,10 @@ if __name__ == '__main__':
 
     host, port = args.host.split(':')
     port = int(port)
-    if not args.live_reload:
-        app.run(use_reloader=args.no_reload, host=host, port=port)
-    else:
+    if args.live_reload:
         server = Server(app.wsgi_app)
         server.watch('app/')
         server.serve(host=host, port=port)
+    else:
+        app.run(use_reloader=args.no_reload, host=host, port=port)
 

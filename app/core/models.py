@@ -1,9 +1,13 @@
 #!/usr/bin/env python
+#-*- coding: utf-8 -*-
 """
 journal.models
 ==============
 
-SQLAlchemy ORM models with some polymorphic stuff
+SQLAlchemy ORM models
+
+
+Writing is polymorphic with Articles and Reviews
 """
 
 import datetime
@@ -123,13 +127,13 @@ class Tag(BaseMixin, Base):
         _serialize = Serializer(fields=['tag', 'id'])
         return _serialize(self)
 
-    @hybrid_property
-    def count(self):
-        return len(self.writing)
+    # @hybrid_property
+    # def count(self):
+    #     return len(self.writing)
 
-    @count.expression
-    def _count_expression(cls):
-        return db.select([db.func.count(tag_to_writing.c.writing_id).label("writing_count")]).where(tag_to_writing.c.tag_id == cls.id).label("writing_count")
+    # @count.expression
+    # def _count_expression(cls):
+    #     return db.select([db.func.count(tag_to_writing.c.writing_id).label("writing_count")]).where(tag_to_writing.c.tag_id == cls.id).label("writing_count")
 
 
 class Author(BaseMixin, Base):
@@ -235,7 +239,7 @@ class Writing(BaseMixin, Base):
         backref=backref('writing', lazy='dynamic'))
 
     tags = relationship('Tag', secondary=tag_to_writing,
-        backref=backref('writing', lazy='subquery'))
+        backref=backref('writing', lazy='dynamic'))
 
     images = relationship('Image', secondary=image_to_writing,
         backref=backref('writing', lazy='subquery'))
@@ -264,20 +268,6 @@ class Writing(BaseMixin, Base):
     def __repr__(self):
         repr_date = self.publish_date if self.publish_date is None else ''
         return "<{}({} {})>".format(self.__class__.__name__, self.title, repr_date)
-
-
-
-# Replace the ORM event with a Postgres trigger
-
-# http://stackoverflow.com/questions/7888846/trigger-in-sqlachemy
-# http://docs.sqlalchemy.org/en/rel_0_9/core/ddl.html#sqlalchemy.schema.DDL
-
-tsv_ddl = DDL(
-    "CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE " +\
-    "ON writing FOR EACH ROW EXECUTE PROCEDURE " +\
-    "tsvector_update_trigger(tsvector, 'pg_catalog.english', title, text);"
-)
-event.listen(Writing.__table__, 'after_create', tsv_ddl.execute_if(dialect='postgresql'))
 
 #
 # Writing inherited models
