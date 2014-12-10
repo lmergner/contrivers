@@ -274,7 +274,7 @@ by <span class="author"><a href=''>Luke Thomas Mergner</a>, <a href=''>Peter Sin
 .block-header-attribution,
 .author {
   font-family: "Droid Serif", Georgia, serif;
-  color: color(black);
+  color: color("black");
 }
 /* line 85, ../sass/global/_extends.scss */
 .block-header-attribution a,
@@ -327,8 +327,8 @@ category: Global - Extends
 }
 
 /* line 128, ../sass/global/_extends.scss */
-.fa-instapaper:before, .dropdown-menu .dropdown-menu-title,
-.dropdown-menu .menu-title,
+.fa-instapaper:before, .article-menu ul .dropdown-menu-title,
+.article-menu ul .menu-title,
 strong,
 b,
 .strong {
@@ -485,6 +485,9 @@ credits: [Micah Godbolt](https://github.com/micahgodbolt/sassbitesdemo/blob/mast
 
 */
 /*doc
+
+*/
+/*doc
 ---
 title: Paragraph
 category: Global - Paragraph
@@ -506,6 +509,7 @@ category: Global - Paragraph
   line-height: 1.75rem;
   color: #222222;
   hyphens: manual;
+  text-overflow: hidden;
   text-align: left;
   margin-bottom: 1.75rem;
 }
@@ -697,6 +701,18 @@ html h5 a:hover, html h5 a:focus {
   }
 }
 
+/* line 29, ../sass/base/_html.scss */
+article,
+aside,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  display: block;
+}
+
 /*doc 
 ---
 title: Links
@@ -706,33 +722,33 @@ category: Base
 <a href='#Link'>A Link</a>
 ```
 */
-/* line 43, ../sass/base/_html.scss */
+/* line 51, ../sass/base/_html.scss */
 a {
   color: #D45A43;
 }
-/* line 45, ../sass/base/_html.scss */
+/* line 53, ../sass/base/_html.scss */
 a:visited {
   color: #29261c;
 }
-/* line 46, ../sass/base/_html.scss */
+/* line 54, ../sass/base/_html.scss */
 a:focus {
   color: #901F0A;
 }
-/* line 47, ../sass/base/_html.scss */
+/* line 55, ../sass/base/_html.scss */
 a:hover {
   color: #F4826D;
 }
-/* line 48, ../sass/base/_html.scss */
+/* line 56, ../sass/base/_html.scss */
 a:active {
   color: #901F0A;
 }
 
-/* line 52, ../sass/base/_html.scss */
+/* line 60, ../sass/base/_html.scss */
 figcaption {
   display: none;
 }
 
-/* line 57, ../sass/base/_html.scss */
+/* line 65, ../sass/base/_html.scss */
 .hidden {
   display: none;
 }
@@ -865,33 +881,38 @@ borders.
 
 */
 /* line 56, ../sass/components/_blocks.scss */
-.block, .block__author, .block__issue {
-  margin-top: 1.75rem;
+.block, .block__author, .block__issue, .block__tag {
   border-bottom-width: 0.0625rem;
   border-bottom-style: solid;
   padding-bottom: 1.6875rem;
 }
-/* line 59, ../sass/components/_blocks.scss */
-.block:last-child, .block__author:last-child, .block__issue:last-child {
+/* line 58, ../sass/components/_blocks.scss */
+.block:last-child, .block__author:last-child, .block__issue:last-child, .block__tag:last-child {
   border: none;
+}
+/* line 61, ../sass/components/_blocks.scss */
+.block:not(:first-of-type), .block__author:not(:first-of-type), .block__issue:not(:first-of-type), .block__tag:not(:first-of-type) {
+  margin-top: 1.75rem;
 }
 
 @media (min-width: 481px) {
-  /* line 65, ../sass/components/_blocks.scss */
-  .block-header {
+  /* line 67, ../sass/components/_blocks.scss */
+  .block-header, .block__author-header {
     clear: left;
   }
 }
 
-/* line 73, ../sass/components/_blocks.scss */
-.block-header-button, .block-header-button__featured, .block-header-button__issue {
+/* line 75, ../sass/components/_blocks.scss */
+.block-header-button, .block-header-button__featured, .block-header-button__issue, .block__author .author-twitter,
+.block__author .author-rss {
   font-family: "Lora", Georgia, serif;
   font-size: 0.8125rem;
   line-height: 1.75rem;
   color: #595959;
 }
-/* line 75, ../sass/components/_blocks.scss */
-.block-header-button a, .block-header-button__featured a, .block-header-button__issue a {
+/* line 77, ../sass/components/_blocks.scss */
+.block-header-button a, .block-header-button__featured a, .block-header-button__issue a, .block__author .author-twitter a,
+.block__author .author-rss a {
   color: inherit;
   text-decoration: inherit;
   cursor: inherit;
@@ -899,12 +920,15 @@ borders.
   height: 100%;
 }
 /* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
-.block-header-button a:active, .block-header-button__featured a:active, .block-header-button__issue a:active, .block-header-button a:focus, .block-header-button__featured a:focus, .block-header-button__issue a:focus {
+.block-header-button a:active, .block-header-button__featured a:active, .block-header-button__issue a:active, .block__author .author-twitter a:active,
+.block__author .author-rss a:active, .block-header-button a:focus, .block-header-button__featured a:focus, .block-header-button__issue a:focus, .block__author .author-twitter a:focus,
+.block__author .author-rss a:focus {
   outline: none;
 }
 @media (min-width: 481px) {
-  /* line 73, ../sass/components/_blocks.scss */
-  .block-header-button, .block-header-button__featured, .block-header-button__issue {
+  /* line 75, ../sass/components/_blocks.scss */
+  .block-header-button, .block-header-button__featured, .block-header-button__issue, .block__author .author-twitter,
+  .block__author .author-rss {
     -webkit-align-items: center;
     align-items: center;
     -moz-border-radius: 2px;
@@ -924,18 +948,24 @@ borders.
     margin-left: 2px;
   }
   /* line 29, ../sass/global/mixins/_buttons.scss */
-  .block-header-button a, .block-header-button__featured a, .block-header-button__issue a {
+  .block-header-button a, .block-header-button__featured a, .block-header-button__issue a, .block__author .author-twitter a,
+  .block__author .author-rss a {
+    display: block;
     color: inherit;
     text-decoration: inherit;
     cursor: inherit;
     color: white;
   }
   /* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
-  .block-header-button a:active, .block-header-button__featured a:active, .block-header-button__issue a:active, .block-header-button a:focus, .block-header-button__featured a:focus, .block-header-button__issue a:focus {
+  .block-header-button a:active, .block-header-button__featured a:active, .block-header-button__issue a:active, .block__author .author-twitter a:active,
+  .block__author .author-rss a:active, .block-header-button a:focus, .block-header-button__featured a:focus, .block-header-button__issue a:focus, .block__author .author-twitter a:focus,
+  .block__author .author-rss a:focus {
     outline: none;
   }
   /* line 17, ../sass/global/mixins/_background-transitions.scss */
-  .block-header-button:hover, .block-header-button__featured:hover, .block-header-button__issue:hover, .block-header-button:focus, .block-header-button__featured:focus, .block-header-button__issue:focus {
+  .block-header-button:hover, .block-header-button__featured:hover, .block-header-button__issue:hover, .block__author .author-twitter:hover,
+  .block__author .author-rss:hover, .block-header-button:focus, .block-header-button__featured:focus, .block-header-button__issue:focus, .block__author .author-twitter:focus,
+  .block__author .author-rss:focus {
     background-color: #595959;
     -moz-transition: "background-color" 1s ease-out;
     -o-transition: "background-color" 1s ease-out;
@@ -945,7 +975,7 @@ borders.
 }
 
 @media (min-width: 481px) {
-  /* line 91, ../sass/components/_blocks.scss */
+  /* line 93, ../sass/components/_blocks.scss */
   .block-header-button__featured {
     background-color: #d45a43;
     /* The Fallback */
@@ -961,8 +991,8 @@ borders.
   }
 }
 
-/* line 106, ../sass/components/_blocks.scss */
-.block-header-title {
+/* line 108, ../sass/components/_blocks.scss */
+.block-header-title, .block__author .author-name {
   font-family: "Lora", Georgia, serif;
   font-size: 1.625rem;
   line-height: 3.5rem;
@@ -975,27 +1005,27 @@ borders.
   display: inline-block;
 }
 /* line 101, ../sass/global/_typography.scss */
-.block-header-title a {
+.block-header-title a, .block__author .author-name a {
   text-decoration: none;
 }
 /* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.block-header-title a:hover, .block-header-title a:focus {
+.block-header-title a:hover, .block__author .author-name a:hover, .block-header-title a:focus, .block__author .author-name a:focus {
   text-decoration: underline;
 }
 @media (min-width: 0px) and (max-width: 481px) {
-  /* line 106, ../sass/components/_blocks.scss */
-  .block-header-title {
+  /* line 108, ../sass/components/_blocks.scss */
+  .block-header-title, .block__author .author-name {
     text-align: left;
   }
 }
 @media (min-width: 481px) {
-  /* line 106, ../sass/components/_blocks.scss */
-  .block-header-title {
+  /* line 108, ../sass/components/_blocks.scss */
+  .block-header-title, .block__author .author-name {
     text-align: center;
   }
 }
 
-/* line 111, ../sass/components/_blocks.scss */
+/* line 113, ../sass/components/_blocks.scss */
 .block-abstract {
   margin-top: 0.875rem;
   font-size: 0.8125rem;
@@ -1008,6 +1038,7 @@ borders.
   line-height: 1.75rem;
   color: #222222;
   hyphens: manual;
+  text-overflow: hidden;
   text-align: left;
 }
 
@@ -1029,19 +1060,19 @@ category: Components - Blocks
 ```
 
 */
-/* line 138, ../sass/components/_blocks.scss */
+/* line 140, ../sass/components/_blocks.scss */
 .block__issue {
   border: none;
 }
 
-/* line 143, ../sass/components/_blocks.scss */
+/* line 145, ../sass/components/_blocks.scss */
 .block-header-title__issue {
   font-size: 2.625rem;
   line-height: 3.5rem;
   margin-bottom: 1.75rem;
   display: block;
 }
-/* line 146, ../sass/components/_blocks.scss */
+/* line 148, ../sass/components/_blocks.scss */
 .block-header-title__issue a {
   text-decoration: none;
 }
@@ -1093,37 +1124,6 @@ category: Components - Blocks
 ```
 
 */
-/* line 195, ../sass/components/_blocks.scss */
-.block__author .author-name {
-  text-align: center;
-}
-/* line 197, ../sass/components/_blocks.scss */
-.block__author .author-name a {
-  text-decoration: none;
-  font-size: 1.625rem;
-  line-height: 3.5rem;
-  color: #222222;
-}
-/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.block__author .author-name a:hover, .block__author .author-name a:focus {
-  text-decoration: underline;
-}
-/* line 205, ../sass/components/_blocks.scss */
-.block__author .author-twitter {
-  text-align: center;
-}
-/* line 207, ../sass/components/_blocks.scss */
-.block__author .author-twitter a {
-  text-decoration: none;
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  color: #222222;
-}
-/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.block__author .author-twitter a:hover, .block__author .author-twitter a:focus {
-  text-decoration: underline;
-}
-
 /*doc
 ---
 title: Tag Block
@@ -1141,138 +1141,16 @@ category: Components - Blocks
 ```
 
 */
-/* line 232, ../sass/components/_blocks.scss */
-.block__tag {
-  width: 47.22222%;
-  float: left;
-  margin-top: 0.875rem;
-  padding-top: 0rem;
-  padding-bottom: 0rem;
-  margin-bottom: 0.875rem;
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-/* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-.block__tag:nth-child(2n + 1) {
-  margin-left: 1.38889%;
-  margin-right: -100%;
+/* line 235, ../sass/components/_blocks.scss */
+.block__tag .block__tag-title {
+  overflow: hidden;
+  *zoom: 1;
   clear: both;
-}
-/* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-.block__tag:nth-child(2n + 2) {
-  margin-left: 51.38889%;
-  margin-right: -100%;
-  clear: none;
-}
-/* line 236, ../sass/components/_blocks.scss */
-.block__tag a {
-  text-decoration: none;
-  display: block;
-  height: 100%;
-  weight: 100%;
-}
-/* line 4, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_hover-link.scss */
-.block__tag a:hover, .block__tag a:focus {
-  text-decoration: underline;
-}
-/* line 242, ../sass/components/_blocks.scss */
-.block__tag span {
-  margin-right: 5px;
-}
-
-/*doc
----
-title: Dropdown Menu
-category: Components - Dropdown Menu
----
-
-```html_example
-<div style='min-height: 400px'>
-    <ul class='dropdown-menu'>
-        <li class='menu-title'>Info</li>
-        <li class=''><a href=''>Issue</a>
-            <ul class=''>
-                <li><a href=''>The Essayist and the Intellectual</a> </li> 
-                <li><a href="">On the Intellectual Question</a> </li>
-                <li><a href="">Further Reading</a> </li>
-            </ul>
-        </li>
-        <li class=''>Responses
-            <ul class=''>
-                <li><a href="">Another Response to Kovanda</a></li>
-            </ul>
-        </li>
-        <li class=''>Respondees
-            <ul class=''>
-                <li><a href=''>Dummy title</a></li>
-                <li><a href=''>Another Respondee</a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
-
-```
-
-*/
-/* line 37, ../sass/components/_dropdown_menu.scss */
-.dropdown-menu {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  list-style: none;
-  width: 100%;
-  text-align: left;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-/* line 49, ../sass/components/_dropdown_menu.scss */
-.dropdown-menu .dropdown-menu-title,
-.dropdown-menu .menu-title {
-  transition: none;
-  flex-order: -1;
-}
-/* line 56, ../sass/components/_dropdown_menu.scss */
-.dropdown-menu a {
-  display: block;
-  color: inherit;
-  text-decoration: inherit;
-  cursor: inherit;
-}
-/* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
-.dropdown-menu a:active, .dropdown-menu a:focus {
-  outline: none;
-}
-/* line 61, ../sass/components/_dropdown_menu.scss */
-.dropdown-menu li {
-  text-align: left;
-  position: relative;
-  padding: 0.25em 1.38889%;
-}
-/* line 66, ../sass/components/_dropdown_menu.scss */
-.dropdown-menu li a:hover ul, .dropdown-menu li:hover ul, .dropdown-menu li:focus ul {
-  left: 0;
-}
-/* line 72, ../sass/components/_dropdown_menu.scss */
-.dropdown-menu li ul {
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
-  font-size: 1em;
-  position: absolute;
-  left: -9999px;
-  margin-top: 7px;
-}
-/* line 78, ../sass/components/_dropdown_menu.scss */
-.dropdown-menu li ul li {
-  font-size: 0.75em;
-  display: block;
-  border-top: 1px solid #595959;
-  z-index: 9999;
-}
-/* line 84, ../sass/components/_dropdown_menu.scss */
-.dropdown-menu li ul li:first-of-type {
-  border-top: none;
+  width: 97.22222%;
+  float: left;
+  margin-left: 1.38889%;
+  margin-right: 1.38889%;
+  text-align: center;
 }
 
 /*doc
@@ -1883,18 +1761,85 @@ vitae nisi at sem facilisis semper ac in est.</p>
   font-size: 1.5em;
   color: #595959;
 }
-/* line 67, ../sass/layout/_article_nav.scss */
+/* line 10, ../sass/global/mixins/_dropdown_menu.scss */
+.article-menu ul {
+  white-space: nowrap;
+  overflow: visible;
+  list-style: none;
+  text-align: left;
+  display: inline-block;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  -webkit-justify-content: center;
+  align-items: center;
+  -webkit-align-items: center;
+}
+/* line 28, ../sass/global/mixins/_dropdown_menu.scss */
+.article-menu ul .dropdown-menu-title,
+.article-menu ul .menu-title {
+  transition: none;
+  flex-order: -1;
+}
+/* line 35, ../sass/global/mixins/_dropdown_menu.scss */
+.article-menu ul a {
+  color: inherit;
+  text-decoration: inherit;
+  cursor: inherit;
+  display: block;
+  width: 100%;
+}
+/* line 6, ../../../.rvm/gems/ruby-2.1.3/gems/compass-core-1.0.1/stylesheets/compass/typography/links/_unstyled-link.scss */
+.article-menu ul a:active, .article-menu ul a:focus {
+  outline: none;
+}
+/* line 41, ../sass/global/mixins/_dropdown_menu.scss */
+.article-menu ul li {
+  text-align: left;
+  position: relative;
+  padding: 0.25em 1.38889%;
+}
+/* line 46, ../sass/global/mixins/_dropdown_menu.scss */
+.article-menu ul li a:hover ul, .article-menu ul li:hover ul, .article-menu ul li:focus ul {
+  left: 0;
+}
+/* line 52, ../sass/global/mixins/_dropdown_menu.scss */
+.article-menu ul li ul {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  font-size: 1em;
+  position: absolute;
+  left: -9999px;
+  margin-top: 7px;
+}
+/* line 59, ../sass/global/mixins/_dropdown_menu.scss */
+.article-menu ul li ul li {
+  font-size: 0.75em;
+  display: block;
+  border-top: 1px solid #595959;
+  z-index: 9999;
+  width: 100%;
+}
+/* line 66, ../sass/global/mixins/_dropdown_menu.scss */
+.article-menu ul li ul li:first-of-type {
+  border-top: none;
+}
+/* line 68, ../sass/layout/_article_nav.scss */
 .article-menu ul {
   margin: 0 auto;
   background-color: #ffe6c3;
   border-bottom: 1px solid #595959;
 }
-/* line 73, ../sass/layout/_article_nav.scss */
+/* line 74, ../sass/layout/_article_nav.scss */
 .article-menu li ul {
   border-right: 1px solid #595959;
   border-left: 1px solid #595959;
 }
-/* line 79, ../sass/layout/_article_nav.scss */
+/* line 80, ../sass/layout/_article_nav.scss */
 .article-menu li:not(.menu-title):hover, .article-menu li:not(.menu-title):focus {
   background-color: #ffd69c;
   -moz-transition: "background-color" 1s ease-in;
@@ -1902,7 +1847,7 @@ vitae nisi at sem facilisis semper ac in est.</p>
   -webkit-transition: "background-color" 1s ease-in;
   transition: "background-color" 1s ease-in;
 }
-/* line 85, ../sass/layout/_article_nav.scss */
+/* line 86, ../sass/layout/_article_nav.scss */
 .article-menu:after {
   clear: both;
   content: ' ';
@@ -2538,6 +2483,7 @@ money goes to paying writers a fair compensation for their efforts.
 /* line 29, ../sass/global/mixins/_buttons.scss */
 #fundraising input[type='submit'] a,
 #fundraising button[type='submit'] a {
+  display: block;
   color: inherit;
   text-decoration: inherit;
   cursor: inherit;

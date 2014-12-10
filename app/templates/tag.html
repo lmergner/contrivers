@@ -8,7 +8,7 @@
 <div id='content' class='tags-page page'>
 <h1 class='page-title'>Category: {{ tag.tag }}</h1>
 
-{{ render_articles(tag.writing) }}
+{{ render_articles(tag.writing, show_author=True, show_abstract=True, show_featured=True) }}
 
 </div>
 {% endblock %}

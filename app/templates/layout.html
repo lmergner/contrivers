@@ -5,20 +5,22 @@
 <head>{% block head %}
     <meta charset="utf-8">
     <link rel="canonical" href="{{ request.url }}">
-    {% if rss_url %}<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ rss_url }}" />{% endif %}
+    {% if rss_url is defined %}<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ rss_url }}" />{% endif %}
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" >
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" >
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
-    {% block twitter_card %}
+    {% block open_graph %}
     <meta property="og:site-name" content="{{ site.title }}"/>
-    <meta name="twitter:card" content="{{ site.tagline }}">
+    {% endblock %}
+
+    {% block twitter_card %}
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@{{ site.twitter_name }}">
-    <meta name="twitter:creator" content="@{{ site.twitter_name }}">
     <meta name="twitter:title" content="{{ site.title }}">
     <meta name="twitter:description" content="{{ site.description }}">
-    <meta name="twitter:image" content="{% if site.twitter_image is defined %}{{ site.twitter_image }}{% endif %}">
+    <meta name="twitter:image" content="{{ url_for('static', filename='images/contrivers_icon_small.gif') }}">
     {% endblock %}
 
     {% block stylesheets -%}

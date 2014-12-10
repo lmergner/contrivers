@@ -21,12 +21,16 @@
  # render_author_block() => block list of authors with childe article blocks
  #}
 
-{%- macro render_author_block(author, show_articles=True, show_abstract=False, class='') -%}
-<div class='block author-block {{ class }}'>
-    <div class='author-name'>
-      <a href='{{ url_for('www.authors', author_id=author.id)}}'>{{ author.name }}</a></div>
-    <div class='author-twitter'>{% if author.twitter %}<a href='http://www.twitter.com/{{ author.twitter }}'><i class="fa fa-twitter"></i> @{{ author.twitter }}</a>{% else %}{% endif %}</div>
-    <div class='author-bio'>{% if author.bio %}{{ author.bio | md | safe }}{% endif %}</div>
+{%- macro render_author_block(author, show_articles=True, show_abstract=False, show_name=True) -%}
+<div class='block__author'>
+<div class='block__author-header'>
+    {% if show_name %}<div class='author-name'>
+      <a href='{{ url_for('www.authors', author_id=author.id)}}'>{{ author.name }}</a>
+    </div>{% endif %}
+    {% if author.twitter %}<div class='author-twitter'><a href='http://www.twitter.com/{{ author.twitter }}'><i class="fa fa-twitter"></i></a></div>{% endif %}
+    <div class='author-rss'><a href="{{ url_for('www.rss_author', author_id=author.id) }}"><i class='fa fa-rss'></i></a></div>
+    {% if author.bio %}<div class='author-bio'>{{ author.bio | md | safe }}</div>{% endif %}
+</div>
     {% if show_articles %}
     <div class='author-articles'>
 {{ render_articles(author.writing, show_abstract=show_abstract, show_author=False) }}

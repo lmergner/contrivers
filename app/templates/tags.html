@@ -1,18 +1,20 @@
 {% extends 'layout.html' %}
-{% from 'macros.html' import render_page_buttons, render_articles %}
+{% from 'macros.html' import render_page_buttons, render_articles, render_tag_link %}
 
 {% block title %} - Categories{% endblock title %}
 {% block header %}{{ super() }}{% endblock %}
 
 {% block content %}
 <div id='content' class='tags-page page'>
-
-{{ render_page_buttons(paginated, '.search', search) }}
 <h1 class='page-title'>Categories</h1>
+
 {% for tag in paginated.items %}
+{% if tag.writing is defined %}
 <div class='block__tag'>
-{{ loop.index }}. <a href="{{ url_for('www.tags', tag_id=tag.id) }}"> {{ tag.tag }}</a> [{{ tag.count }} articles]
+    <h2 class='block__tag-title'>{{ render_tag_link(tag) }}</h2>
+    {{ render_articles(tag.writing, show_abstract=False, show_author=True) }}
 </div>
+{% endif %}
 {% endfor %}
 </div>
 {% endblock %}
