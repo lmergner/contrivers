@@ -8,8 +8,7 @@ from core import (db, cache, login_manager)
 from core.models import *
 from core.app import ContriversFlask
 
-from cms.auth import auth, Admin
-from cms.admin import admin
+from cms import cms, admin
 from www import www
 from cfg import SiteConfig
 
@@ -21,7 +20,7 @@ __all__ = ['create_app']
 
 default_blueprints = (
     www,
-    auth,
+    cms,
 )
 
 

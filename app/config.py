@@ -10,7 +10,6 @@ class Config(object):
     CACHE_TYPE = 'redis'
     CACHE_KEY_PREFIX = 'contrivers-review'
     CACHE_DEFAULT_TIMEOUT = 60 * 15 # invalidate cache every 15 minutes
-    MOBILE_COOKIE = 'mobile'
     S3_BUCKET_NAME = 'contrivers-assets'
     USE_S3 = True
 
@@ -27,6 +26,8 @@ class TestConfig(Config):
     USE_S3_DEBUG = True
     FLASK_ASSETS_USE_S3 = False
     ASSETS_DEBUG = True
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', None)
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', None)
 
 
 class ProductionConfig(Config):

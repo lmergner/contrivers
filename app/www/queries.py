@@ -96,7 +96,7 @@ def page_query(model, page, query=None):
 def index_query():
     try:
         featured = db.session.query(_poly).order_by('publish_date').filter_by(featured=True, hidden=False).all()
-        curr_issue = Issue.query.order_by(Issue.issue_num.desc()).first_or_404()
+        curr_issue = db.session.query(Issue).order_by(Issue.issue_num.desc()).first()
         return featured, curr_issue
     except NoResultFound, e:
         current_app.logger.error(e)

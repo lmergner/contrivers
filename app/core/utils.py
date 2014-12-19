@@ -6,7 +6,6 @@
 
 """
 import codecs
-from urllib import urlencode
 import requests
 from boto.s3.connection import S3Connection
 # from .ext import cache
@@ -24,43 +23,12 @@ def ropen(url):
 
 def uopen(path):
     """
-    Open a file using the python 2 codec.
+    Open a file using the python 2 codec library
 
     :param path: the path to the file.
     """
     with codecs.open(path, mode='r', encoding='utf-8') as f:
         return f.read()
-
-
-def clip_string(string, length):
-    """
-    Take a string, truncate it, and append an ellipsis.
-    """
-    if len(string) <= length:
-        return string
-    else:
-        ellipsis = u"\u2026"
-        ustring = string[0:length]
-        return ustring
-
-
-def instapaper_url(url, title, abstract):
-    """
-    Build in instapaper url.
-
-    :params url:
-    :params title:
-    :params abstract:
-    :returns string: an url that saves the article to instapaper serice
-
-    check django docs for urlencode with unicode
-    """
-    base = 'http://www.instapaper.com/hello2?'
-    params = {
-        'url': url,
-        'title': title,
-        'abstract': clip_string(abstract, 99)}
-    return base + urlencode(params)
 
 
 # @cache.memoize()

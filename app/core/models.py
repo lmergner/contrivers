@@ -21,12 +21,12 @@ from pytz import timezone
 
 from flask import url_for
 from sqlalchemy import (
-    Integer, String, Column, ForeignKey,
+    Integer, String, Column, ForeignKey, func,
     Table, Boolean, DateTime, event, Float, DDL)
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship, backref, with_polymorphic
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.postgresql import JSON, TSVECTOR
 from sqlalchemy.types import TypeDecorator
-from sqlalchemy.orm import with_polymorphic
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from .ext import db
@@ -67,6 +67,8 @@ class TzDateTime(TypeDecorator):
     impl = DateTime
 
     def process_result_value(self, value, dialect):
+        if value is None:
+            return None
         return localize_datetime(value)
 
 def localize_datetime(dt):
@@ -179,6 +181,24 @@ class Issue(BaseMixin, Base):
     issue_num = Column('issue_num', Integer, unique=True)
     theme = Column('theme', String)
     articles = relationship('Writing', backref='issue')
+
+    def __init__(self, autonumber=False, *args, **kwargs):
+        if autonumber:
+            kwargs['issue_num'] = self.auto_number()
+        super(Issue, self).__init__(*args, **kwargs)
+
+    def auto_number(self):
+        """
+        Return 1 + max issue_num
+
+        We do not use a postgres sequence because we may want
+        more control over the issue_num than a sequence would provide
+        """
+        max_num = db.session.query(func.max(Issue.issue_num)).scalar()
+        if max_num is not None:
+            return max_num + 1
+        else:
+            return 1
 
     def __unicode__(self):
         return self.theme.decode('utf-8')
@@ -319,6 +339,8 @@ class Book(BaseMixin, Base):
     pages = Column(Integer)
     price = Column(Float)
     review_id = Column(Integer, ForeignKey('review.id'))
+    # translator
+    # editor
 
     def __unicode__(self):
         return self.title.decode('utf-8')

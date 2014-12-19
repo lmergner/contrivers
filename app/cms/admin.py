@@ -16,7 +16,7 @@ class AuthMixin(object):
     """ Mixin to determine if user is authenticaed """
     def is_accessible(self):
         return current_user.is_authenticated()
-        
+
 
 class TagView(AuthMixin, ModelView):
     form_excluded_columns = ['articles', 'posts']
@@ -29,7 +29,7 @@ class IssueView(AuthMixin, ModelView):
 
 class WritingView(AuthMixin, ModelView):
     column_exclude_list = ['text', 'abstract', 'tsvector']
-    column_sortable_list = ['title', 'create_date', 'featured', 'hidden', 'respondee']
+    column_sortable_list = ['title', 'create_date', 'featured', 'hidden', 'respondees']
     column_hide_backrefs = True
     form_excluded_columns = ['create_date', 'type']
     form_overrides = dict(

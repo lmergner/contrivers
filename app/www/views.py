@@ -60,6 +60,11 @@ def featured(page):
 def rss_featured():
     abort(404)
 
+@www.route('/article/<int:id>')
+@www.route('/article/', defaults={'id': None})
+def redirect_article(id):
+    return redirect(url_for('.articles', article_id=id))
+
 @www.route('/articles/', defaults={'article_id': None, 'page': 1})
 @www.route('/articles/<int:article_id>/', defaults={'page': 1})
 @www.route('/articles/p/<int:page>/', defaults={'article_id': None})

@@ -6,5 +6,10 @@ app.cms
 Authentication and management modules and blueprints.
 """
 
-from auth import auth
-from admin import admin
+from flask import Blueprint
+from .admin import admin
+
+__all__ = ('cms', 'admin')
+
+cms = Blueprint('cms', __name__, template_folder='./templates')
+import views
