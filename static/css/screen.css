@@ -1260,8 +1260,8 @@ input {
   border: 1px solid #595959;
   background-color: "black";
   line-height: 28px;
-  padding-top: 0.75em;
-  padding-bottom: 0.75em;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
   display: block;
   -webkit-appearance: none;
   box-sizing: border-box;
@@ -1275,8 +1275,8 @@ label {
   color: "black";
   line-height: 28px;
   display: block;
-  padding-top: 0.75em;
-  padding-bottom: 0.75em;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
 }
 
 /* line 49, ../sass/components/_forms.scss */
@@ -1408,6 +1408,7 @@ Some queries are returned with paginated results.
     margin-left: -1.38889%;
     padding-right: 1.38889%;
     padding-left: 1.38889%;
+    margin-bottom: 1.75rem;
     border-bottom: 1px solid #595959;
   }
 }
@@ -1422,7 +1423,7 @@ Some queries are returned with paginated results.
   }
 }
 
-/* line 53, ../sass/components/_pagination.scss */
+/* line 54, ../sass/components/_pagination.scss */
 .pagination-element__search, .pagination-element__next, .pagination-element__prev {
   color: inherit;
   text-decoration: inherit;
@@ -1434,25 +1435,25 @@ Some queries are returned with paginated results.
 .pagination-element__search:active, .pagination-element__next:active, .pagination-element__prev:active, .pagination-element__search:focus, .pagination-element__next:focus, .pagination-element__prev:focus {
   outline: none;
 }
-/* line 55, ../sass/components/_pagination.scss */
+/* line 56, ../sass/components/_pagination.scss */
 .pagination-element__search a, .pagination-element__next a, .pagination-element__prev a {
   color: #595959;
 }
-/* line 57, ../sass/components/_pagination.scss */
+/* line 58, ../sass/components/_pagination.scss */
 .pagination-element__search .fa, .pagination-element__next .fa, .pagination-element__prev .fa {
   font-size: 3em;
 }
-/* line 61, ../sass/components/_pagination.scss */
+/* line 62, ../sass/components/_pagination.scss */
 .disabled.pagination-element__search, .disabled.pagination-element__next, .disabled.pagination-element__prev {
   color: #eeeeee;
 }
 
-/* line 66, ../sass/components/_pagination.scss */
+/* line 67, ../sass/components/_pagination.scss */
 .pagination-element__search {
   display: none;
 }
 @media (min-width: 600px) {
-  /* line 66, ../sass/components/_pagination.scss */
+  /* line 67, ../sass/components/_pagination.scss */
   .pagination-element__search {
     display: block;
     width: 47.22222%;
@@ -1461,13 +1462,13 @@ Some queries are returned with paginated results.
     margin-right: 1.38889%;
   }
 }
-/* line 73, ../sass/components/_pagination.scss */
+/* line 74, ../sass/components/_pagination.scss */
 .pagination-element__search input {
   text-align: center;
   width: 100%;
 }
 
-/* line 79, ../sass/components/_pagination.scss */
+/* line 80, ../sass/components/_pagination.scss */
 .pagination-element__next {
   width: 38.88889%;
   float: right;
@@ -1475,7 +1476,7 @@ Some queries are returned with paginated results.
   margin-right: 1.38889%;
 }
 @media (min-width: 600px) {
-  /* line 79, ../sass/components/_pagination.scss */
+  /* line 80, ../sass/components/_pagination.scss */
   .pagination-element__next {
     width: 22.22222%;
     float: right;
@@ -1484,7 +1485,7 @@ Some queries are returned with paginated results.
   }
 }
 
-/* line 87, ../sass/components/_pagination.scss */
+/* line 88, ../sass/components/_pagination.scss */
 .pagination-element__prev {
   width: 38.88889%;
   float: left;
@@ -1492,7 +1493,7 @@ Some queries are returned with paginated results.
   margin-right: 1.38889%;
 }
 @media (min-width: 600px) {
-  /* line 87, ../sass/components/_pagination.scss */
+  /* line 88, ../sass/components/_pagination.scss */
   .pagination-element__prev {
     width: 22.22222%;
     float: left;
@@ -2194,8 +2195,6 @@ For article styles, see `.article-body`
 
 */
 /* line 17, ../sass/layout/_page.scss */
-.index-page, .masthead-page, .support-page, .archive-page, .issues-page, .author-page, .error-page, .tags-page, .search-page, .article-page,
-#content,
 .page {
   clear: both;
   width: 97.22222%;
@@ -2205,18 +2204,27 @@ For article styles, see `.article-body`
 }
 @media (min-width: 960px) {
   /* line 17, ../sass/layout/_page.scss */
-  .index-page, .masthead-page, .support-page, .archive-page, .issues-page, .author-page, .error-page, .tags-page, .search-page, .article-page,
-  #content,
   .page {
+    margin-top: 1.75rem;
     width: 72.22222%;
     float: left;
     margin-left: 1.38889%;
     margin-right: 1.38889%;
+  }
+}
+/* line 26, ../sass/layout/_page.scss */
+.page .block__issue {
+  margin-top: 1.75rem;
+}
+
+@media (min-width: 481px) {
+  /* line 31, ../sass/layout/_page.scss */
+  .index-page {
     margin-top: 1.75rem;
   }
 }
 
-/* line 36, ../sass/layout/_page.scss */
+/* line 37, ../sass/layout/_page.scss */
 .article-page {
   clear: both;
   width: 97.22222%;
@@ -2224,7 +2232,7 @@ For article styles, see `.article-body`
   margin-left: 1.38889%;
   margin-right: 1.38889%;
 }
-/* line 38, ../sass/layout/_page.scss */
+/* line 39, ../sass/layout/_page.scss */
 .article-page article {
   max-width: 600px;
   margin: 0 auto;
@@ -2357,6 +2365,7 @@ money goes to paying writers a fair compensation for their efforts.
   padding-bottom: 1.75rem;
   background-color: #eeeeee;
   padding: 1.75rem 1.38889%;
+  margin-top: 1.75rem;
 }
 @media (min-width: 0px) and (max-width: 481px) {
   /* line 64, ../sass/layout/_support.scss */
@@ -2371,7 +2380,7 @@ money goes to paying writers a fair compensation for their efforts.
     border: 1px solid #595959;
   }
 }
-/* line 67, ../sass/layout/_support.scss */
+/* line 68, ../sass/layout/_support.scss */
 #mc_embed_signup p,
 #mc_embed_signup .form-blurb {
   font-family: "Droid Serif", Georgia, serif;
@@ -2382,16 +2391,16 @@ money goes to paying writers a fair compensation for their efforts.
   padding-bottom: 0rem;
   margin-bottom: 1.75rem;
 }
-/* line 73, ../sass/layout/_support.scss */
+/* line 74, ../sass/layout/_support.scss */
 #mc_embed_signup label {
   display: none;
 }
-/* line 77, ../sass/layout/_support.scss */
+/* line 78, ../sass/layout/_support.scss */
 #mc_embed_signup input[type=email] {
   text-align: center;
   width: 100%;
 }
-/* line 82, ../sass/layout/_support.scss */
+/* line 83, ../sass/layout/_support.scss */
 #mc_embed_signup input[type=submit] {
   background-color: #595959;
   /* The Fallback */
@@ -2407,12 +2416,12 @@ money goes to paying writers a fair compensation for their efforts.
   -webkit-transition: "background-color" 1s ease-out;
   transition: "background-color" 1s ease-out;
 }
-/* line 95, ../sass/layout/_support.scss */
+/* line 96, ../sass/layout/_support.scss */
 #mc_embed_signup .asterisk {
   color: #d45a43;
 }
 
-/* line 100, ../sass/layout/_support.scss */
+/* line 101, ../sass/layout/_support.scss */
 #fundraising {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -2425,21 +2434,22 @@ money goes to paying writers a fair compensation for their efforts.
   padding-bottom: 1.75rem;
   background-color: #ffd69c;
   padding: 1.75rem 1.38889%;
+  margin-top: 1.75rem;
 }
 @media (min-width: 0px) and (max-width: 481px) {
-  /* line 100, ../sass/layout/_support.scss */
+  /* line 101, ../sass/layout/_support.scss */
   #fundraising {
     border-top: 1px solid #595959;
     border-bottom: 1px solid #595959;
   }
 }
 @media (min-width: 481px) {
-  /* line 100, ../sass/layout/_support.scss */
+  /* line 101, ../sass/layout/_support.scss */
   #fundraising {
     border: 1px solid #595959;
   }
 }
-/* line 103, ../sass/layout/_support.scss */
+/* line 105, ../sass/layout/_support.scss */
 #fundraising p,
 #fundraising .fundraising-blurb {
   font-family: "Droid Serif", Georgia, serif;
@@ -2450,7 +2460,7 @@ money goes to paying writers a fair compensation for their efforts.
   padding-bottom: 0rem;
   margin-bottom: 1.75rem;
 }
-/* line 109, ../sass/layout/_support.scss */
+/* line 111, ../sass/layout/_support.scss */
 #fundraising input[type='submit'],
 #fundraising button[type='submit'] {
   -webkit-align-items: center;
@@ -2506,12 +2516,12 @@ money goes to paying writers a fair compensation for their efforts.
 #fundraising button[type='submit'] a:focus {
   text-decoration: underline;
 }
-/* line 119, ../sass/layout/_support.scss */
+/* line 121, ../sass/layout/_support.scss */
 #fundraising input[type='submit']:hover,
 #fundraising button[type='submit']:hover {
   text-decoration: underline;
 }
-/* line 124, ../sass/layout/_support.scss */
+/* line 126, ../sass/layout/_support.scss */
 #fundraising li {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -2551,18 +2561,18 @@ money goes to paying writers a fair compensation for their efforts.
   text-decoration: underline;
 }
 @media (min-width: 0px) and (max-width: 481px) {
-  /* line 124, ../sass/layout/_support.scss */
+  /* line 126, ../sass/layout/_support.scss */
   #fundraising li {
     text-align: left;
   }
 }
 @media (min-width: 481px) {
-  /* line 124, ../sass/layout/_support.scss */
+  /* line 126, ../sass/layout/_support.scss */
   #fundraising li {
     text-align: center;
   }
 }
-/* line 132, ../sass/layout/_support.scss */
+/* line 134, ../sass/layout/_support.scss */
 #fundraising li a {
   color: inherit;
   text-decoration: inherit;
@@ -2575,7 +2585,7 @@ money goes to paying writers a fair compensation for their efforts.
   outline: none;
 }
 @media (min-width: 0px) and (max-width: 481px) {
-  /* line 124, ../sass/layout/_support.scss */
+  /* line 126, ../sass/layout/_support.scss */
   #fundraising li {
     clear: both;
     width: 97.22222%;
@@ -2587,46 +2597,46 @@ money goes to paying writers a fair compensation for their efforts.
   }
 }
 @media (min-width: 481px) {
-  /* line 124, ../sass/layout/_support.scss */
+  /* line 126, ../sass/layout/_support.scss */
   #fundraising li {
-    width: 22.22222%;
+    width: 30.55556%;
     float: left;
   }
   /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  #fundraising li:nth-child(4n + 1) {
+  #fundraising li:nth-child(3n + 1) {
     margin-left: 1.38889%;
     margin-right: -100%;
     clear: both;
   }
   /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  #fundraising li:nth-child(4n + 2) {
-    margin-left: 26.38889%;
+  #fundraising li:nth-child(3n + 2) {
+    margin-left: 34.72222%;
     margin-right: -100%;
     clear: none;
   }
   /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  #fundraising li:nth-child(4n + 3) {
-    margin-left: 51.38889%;
-    margin-right: -100%;
-    clear: none;
-  }
-  /* line 66, ../../../.rvm/gems/ruby-2.1.3/gems/susy-2.1.3/sass/susy/language/susy/_gallery.scss */
-  #fundraising li:nth-child(4n + 4) {
-    margin-left: 76.38889%;
+  #fundraising li:nth-child(3n + 3) {
+    margin-left: 68.05556%;
     margin-right: -100%;
     clear: none;
   }
 }
 
 /*! responsive-nav.js 1.0.32 by @viljamis */
-/* line 6, ../sass/contrib/responsive-nav/_responsive-nav.scss */
+/* line 4, ../sass/contrib/responsive-nav/_responsive-nav.scss */
 .nav-collapse ul {
   width: 100%;
   display: block;
   list-style: none;
 }
 
-/* line 17, ../sass/contrib/responsive-nav/_responsive-nav.scss */
+/* line 15, ../sass/contrib/responsive-nav/_responsive-nav.scss */
+.nav-toggle {
+  float: right;
+  margin-right: 5px;
+}
+
+/* line 20, ../sass/contrib/responsive-nav/_responsive-nav.scss */
 .js .nav-collapse {
   clip: rect(0 0 0 0);
   max-height: 0;
@@ -2636,17 +2646,17 @@ money goes to paying writers a fair compensation for their efforts.
   zoom: 1;
 }
 
-/* line 26, ../sass/contrib/responsive-nav/_responsive-nav.scss */
+/* line 29, ../sass/contrib/responsive-nav/_responsive-nav.scss */
 .nav-collapse.opened {
   max-height: 9999px;
 }
 
-/* line 30, ../sass/contrib/responsive-nav/_responsive-nav.scss */
+/* line 33, ../sass/contrib/responsive-nav/_responsive-nav.scss */
 .disable-pointer-events {
   pointer-events: none !important;
 }
 
-/* line 34, ../sass/contrib/responsive-nav/_responsive-nav.scss */
+/* line 37, ../sass/contrib/responsive-nav/_responsive-nav.scss */
 .nav-toggle {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -2658,17 +2668,17 @@ money goes to paying writers a fair compensation for their efforts.
 }
 
 @media (min-width: 481px) {
-  /* line 50, ../sass/contrib/responsive-nav/_responsive-nav.scss */
+  /* line 53, ../sass/contrib/responsive-nav/_responsive-nav.scss */
   .js .nav-collapse {
     position: relative;
   }
 
-  /* line 53, ../sass/contrib/responsive-nav/_responsive-nav.scss */
+  /* line 56, ../sass/contrib/responsive-nav/_responsive-nav.scss */
   .js .nav-collapse.closed {
     max-height: none;
   }
 
-  /* line 56, ../sass/contrib/responsive-nav/_responsive-nav.scss */
+  /* line 59, ../sass/contrib/responsive-nav/_responsive-nav.scss */
   .nav-toggle {
     display: none;
   }
