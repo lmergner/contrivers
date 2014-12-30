@@ -1,0 +1,16 @@
+{% macro render_title(title) %}
+        <dc:title id="{{ title.id }}">{{ title.string }}</dc:title>
+        <meta refines="{{ title.id }}" property="title-type">{{ title.type }}</meta>
+{% endmacro %}
+
+{% macro render_manifest_item(item) %}
+        <item   id="{{ item.idref }}"
+                href="{{ item.href }}"
+                media-type="{{ item.media_type }}" />
+{% endmacro %}
+
+{% macro render_spine(item) %}
+        <itemref    idref="{{ item.idref }}" 
+                    linear="{{ item.linear }}" 
+                    properties="{{ item.properties }}" />
+{% endmacro %}

@@ -1,0 +1,34 @@
+{% from 'macros.j2' import render_title, render_manifest_item, render_spine %}
+<package version="3.0" xmlns="http://www.idpf.org/2007/opf">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en" dir="ltr">
+        <dc:identifier id="pub-identifier">{{ ebook.identifer }}</dc:identifier>
+        <meta property="dcterms:modified">{{ ebook.modified_timestamp }}</meta>
+        <dc:language id="pub-language>en</dc:language>
+
+        {{ render_title(ebook.title) }}
+        <dc:date id="pub-date">{{ ebook.publish_date }}</dc:date>
+        <dc:creator id="pub-creator">{{ ebook.creator }}</dc:creator>
+        <dc:description id="pub-description">{{ ebook.description }}</dc:description>
+        <dc:publisher id="pub-publisher">{{ ebook.publisher }}</dc:publisher>
+        <dc:source id="pub-source">{{ ebook.source }}</dc:source>
+      {#<dc:contributer>
+        <dc:coverage>
+        <dc:format>
+        <dc:relation>
+        <dc:rights>
+        <dc:subject>
+        <dc:type> #}
+    </metadata>
+
+    <manifest>
+{% for item in ebook.manifest %}
+{{ render_manifest_item(item) }}
+{% endfor %}
+    </manfest>
+
+    <spine>
+{% for item in ebook.manifest %}
+{{ render_spine(item) }}
+{% endfor %}
+    </spine>
+</package>
