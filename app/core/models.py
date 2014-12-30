@@ -1,52 +1,43 @@
-#!/usr/bin/env python
 #-*- coding: utf-8 -*-
 """
-journal.models
-==============
+    app.core.models
+    ---------------
 
-SQLAlchemy ORM models
+    SQLAlchemy ORM models
 
 
-Writing is polymorphic with Articles and Reviews
+    Writing is polymorphic with Articles and Reviews
 """
 
 import datetime
-import re
-import json
-import logging
-
-import markdown
-import translitcodec
+# import translitcodec
 from pytz import timezone
 
 from flask import url_for
 from sqlalchemy import (
     Integer, String, Column, ForeignKey, func,
-    Table, Boolean, DateTime, event, Float, DDL)
-from sqlalchemy.orm import relationship, backref, with_polymorphic
-from sqlalchemy.ext.declarative import declarative_base
+    Table, Boolean, DateTime, Float,
+    DDL, UniqueConstraint)
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy.dialects.postgresql import JSON, TSVECTOR
 from sqlalchemy.types import TypeDecorator
-from sqlalchemy.ext.hybrid import hybrid_property
+# from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy.ext.hybrid import hybrid_property
 
 from .ext import db
-from .serializers import *
 
 # from sqlalchemy.ext.declarative import declarative_base
 # Base = declarative_base()
 
+
 # alias for Flask-SQLAlchemy
 Base = db.Model
 
-__all__ = [
+__all__ = (
     'Tag', 'Author', 'Writing',
     'Image', 'Book', 'Template',
-    'Article', 'Review', 'Issue']
-
-logger = logging.getLogger(__name__)
-logger.addHandler(logging.StreamHandler())
-logger.setLevel(logging.INFO)
-
+    'Article', 'Review', 'Issue'
+)
 
 def _make_url_from_type(obj):
     """ Make a valid url based on the polymorphic identity
@@ -60,7 +51,7 @@ def _make_url_from_type(obj):
     _kw = obj.type + '_id'
     _id = obj.id
     kwargs = {_kw: _id}
-    return url_for(_end, **kwargs)
+    return url_for(_end, _external=True, **kwargs)
 
 # TimeZone Aware Datetime Objects
 class TzDateTime(TypeDecorator):
@@ -121,21 +112,10 @@ class Tag(BaseMixin, Base):
     def __repr__(self):
         return "<{}({})>".format(self.__class__.__name__, self.tag)
 
-    def __hash__(self):
-        return hash(''.join([self.__class__.__name__, str(self.id), self.tag]))
-
     @property
     def serialize(self):
-        _serialize = Serializer(fields=['tag', 'id'])
-        return _serialize(self)
-
-    # @hybrid_property
-    # def count(self):
-    #     return len(self.writing)
-
-    # @count.expression
-    # def _count_expression(cls):
-    #     return db.select([db.func.count(tag_to_writing.c.writing_id).label("writing_count")]).where(tag_to_writing.c.tag_id == cls.id).label("writing_count")
+        return { 'id': self.id, 'tag': self.tag,
+                'articles': [article.id for article in self.writing] }
 
 
 class Author(BaseMixin, Base):
@@ -162,17 +142,16 @@ class Author(BaseMixin, Base):
     def __repr__(self):
         return "<{}({})>".format(self.__class__.__name__, self.email)
 
-    def __hash__(self):
-        return hash(self.__class__.__name__ + str(self.id) + self.email)
-
-    def count():
+    def count(self):
         return len(self.writing)
 
     @property
     def serialize(self):
-        _serialize = Serializer(fields=['id', 'email', 'twitter', 'bio', 'hidden', 'name'])
-        return _serialize(self)
-
+        return {
+            'id': self.id, 'name': self.name, 'email': self.email,
+            'twitter': self.twitter, 'bio': self.bio, 'hidden': self.hidden,
+            'articles': [article.id for article in self.writing]
+            }
 
 
 class Issue(BaseMixin, Base):
@@ -200,6 +179,9 @@ class Issue(BaseMixin, Base):
         else:
             return 1
 
+    def make_url(self):
+        return url_for('www.issues', issue_id=self.id)
+
     def __unicode__(self):
         return self.theme.decode('utf-8')
 
@@ -216,7 +198,6 @@ class Writing(BaseMixin, Base):
     """Base sqla class of all writing objects."""
 
     __tablename__ = 'writing'
-
     id = Column(Integer, primary_key=True)
     type = Column(String, nullable=False)
     __mapper_args__ = {
@@ -240,8 +221,11 @@ class Writing(BaseMixin, Base):
     # title, text, summary
     title = Column(String, nullable=False)
     text = Column(String)
-    tsvector = Column(TSVECTOR)
     abstract = Column('summary', String)
+
+    # PostgreSQL Full Text Search field
+    # http://www.postgresql.org/docs/current/static/datatype-textsearch.html
+    tsvector = Column(TSVECTOR)
 
     # track some tags that say if the piece is
     # publishable or if it should be highlighted in
@@ -265,7 +249,7 @@ class Writing(BaseMixin, Base):
         backref=backref('writing', lazy='subquery'))
 
     #
-    # Response -> Adjancy List Relationship
+    # Response -> Adjacency List Relationship
     #
 
     responses = relationship("Writing",
@@ -274,10 +258,6 @@ class Writing(BaseMixin, Base):
                     secondaryjoin=id==writing_to_writing.c.respondee_id,
                     backref='respondees'
                 )
-
-    def __hash__(self):
-        _key = ''.join([self.__class__.__name__, str(self.id), self.title])
-        return hash(_key)
 
     def make_url(self):
         return _make_url_from_type(self)
@@ -300,12 +280,23 @@ class Article(Writing):
 
     @property
     def serialize(self):
-        _serialize = Serializer(fields=[
-            'title', 'authors', 'text', 'publish_date', 'id',
-            'create_date', 'last_edited_date', 'featured', 'hidden',
-            'issue_id', 'abstract', 'tags', 'images', 'responses', 'respondees'
-        ])
-        return _serialize(self)
+        return {
+            'id': self.id,
+            'title': self.title,
+            'authors': [{'id': author.id, 'name': author.name} for author in self.authors],
+            'text': self.text,
+            'publish_date': self.publish_date.isoformat(),
+            'create_date': self.create_date.isoformat(),
+            'last_edited_date': self.last_edited_date.isoformat(),
+            'featured': self.featured,
+            'hidden': self.hidden,
+            'issue_id': self.issue_id,
+            'abstract': self.abstract,
+            'tags': [tag.id for tag in self.tags],
+            'images': None,
+            'responses': [article.id for article in self.responses],
+            'respondees': [article.id for article in self.respondees]
+        }
 
 
 class Review(Writing):
@@ -316,13 +307,24 @@ class Review(Writing):
 
     @property
     def serialize(self):
-        _serialize = Serializer(fields=[
-            'title', 'authors', 'text', 'publish_date', 'id',
-            'create_date', 'last_edited_date',
-            'featured', 'hidden', 'issue', 'abstract',
-            'tags', 'images', 'responses', 'respondees', 'book_reviewed'
-        ])
-        return _serialize(self)
+        return {
+            'id': self.id,
+            'title': self.title,
+            'authors': [author.id for author in self.authors],
+            'text': self.text,
+            'publish_date': self.publish_date.isoformat(),
+            'create_date': self.create_date.isoformat(),
+            'last_edited_date': self.last_edited_date.isoformat(),
+            'featured': self.featured,
+            'hidden': self.hidden,
+            'issue_id': self.issue_id,
+            'abstract': self.abstract,
+            'tags': [tag.id for tag in self.tags],
+            'images': None,
+            'responses': [article.id for article in self.responses],
+            'respondees': [article.id for article in self.respondees],
+            'book_reviewed': self.book_reviewed.serialize
+        }
 
 
 class Book(BaseMixin, Base):
@@ -339,15 +341,24 @@ class Book(BaseMixin, Base):
     pages = Column(Integer)
     price = Column(Float)
     review_id = Column(Integer, ForeignKey('review.id'))
-    # translator
-    # editor
+    # translator = Column(String)
+    # editors = Column(String)
+    # edition = Column(String)
+
+    UniqueConstraint(title, subtitle, author)
 
     def __unicode__(self):
         return self.title.decode('utf-8')
 
     @property
     def serialize(self):
-        pass
+        return {
+            'id': self.id, 'title': self.title, 'author': self.author,
+            'publisher': self.publisher, 'city': self.city, 'year': self.year,
+            'isbn_10': self.isbn_10, 'isbn_13': self.isbn_13, 'pages': self.pages,
+            'price': self.price, 'reviews': self.review_id
+        }
+
 
 
 class Template(BaseMixin, Base):
@@ -373,3 +384,9 @@ class KeyValueStore(Base):
     @property
     def serialize(self):
         return self.value
+
+__models__ = (
+    Tag, Author, Writing,
+    Book, Template,
+    Article, Review, Issue
+)

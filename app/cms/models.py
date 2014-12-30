@@ -65,6 +65,7 @@ class Admin(Base, UserMixin):
 #     last_name = Column('last_name', String)
 #     email = Column('email', String, nullable=False, unique=True)
 #     address_id = Column('address_id', Integer, ForeignKey('addresses.id'))
+    # last_contacted = Column(DateTime)
 
 
 # class Company(Base):
@@ -73,3 +74,5 @@ class Admin(Base, UserMixin):
 #     name = Column('name', String, nullable=False, unique=True)
 #     address_id = Column('address_id', Integer, ForeignKey('addresses.id'))
 #     phone = Column('phone', String)
+
+__models__ = (Admin)

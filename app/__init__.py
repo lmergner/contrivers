@@ -3,13 +3,13 @@
 
 import os
 import config
+import importlib
 
 from core import (db, cache, login_manager)
-from core.models import *
+# from core.models import *
 from core.app import ContriversFlask
 
-from cms import cms, admin
-from www import www
+from cms import admin
 from cfg import SiteConfig
 
 
@@ -19,9 +19,12 @@ __authors__ = ['Luke Thomas Mergner <lmergner@gmail.com']
 __all__ = ['create_app']
 
 default_blueprints = (
-    www,
-    cms,
+    'www',
+    'cms',
+    # 'api',
 )
+
+default_extensions = ()
 
 
 def create_app(
@@ -79,7 +82,9 @@ def create_app(
     # Register our blueprints
     if blueprints is None:
         blueprints = default_blueprints
-    for blueprint in blueprints:
+
+    for blueprint_str in blueprints:
+        blueprint = getattr(importlib.import_module('app.' + blueprint_str), blueprint_str)
         app.logger.debug('Registering blueprint {}'.format(blueprint.name))
         app.register_blueprint(blueprint)
 

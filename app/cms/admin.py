@@ -44,10 +44,10 @@ class ReviewView(WritingView):
     pass
 
 class AuthorView(AuthMixin, ModelView):
-    pass
+    column_exclude_list = ['bio', 'twitter', 'email']
 
 class BookView(AuthMixin, ModelView):
-    pass
+    column_exclude_list = ['city', 'year', 'isbn_10', 'isbn_13', 'pages', 'price']
 
 class TemplateView(AuthMixin, ModelView):
     form_overrides = dict(

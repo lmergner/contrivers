@@ -13,6 +13,7 @@ from urlparse import urljoin
 
 from flask import url_for
 
+from .jinja_helpers import markdown_factory
 
 class BaseFeedGenerator(object):
     """
@@ -60,7 +61,7 @@ class RssGenerator(BaseFeedGenerator):
 
     def rss_str(self, *args, **kwargs):
         self.create_entries()
-        return self.fg.rss_str(*args, **kwargs)
+        return self.fg.rss_str(pretty=True, *args, **kwargs)
 
     def create_entries(self):
         fg = self.fg
@@ -83,11 +84,11 @@ class RssGenerator(BaseFeedGenerator):
             # that omission.
             fe.author([{
                     'name': author.name,
-                    'uri': url_for('frontend.authors', author_id=author.id),
+                    'uri': url_for('www.authors', author_id=author.id),
                     'email': author.email
                     } for author in elem.authors ])
-
-            fe.content(content=elem.html, type='html')
+            md = markdown_factory()
+            fe.content(content=md.convert(elem.text), type='html')
             fe.link(href=canonical_url, rel='alternate', title=elem.title)
             fe.description(description=elem.abstract, isSummary=True)
             for tag in elem.tags:

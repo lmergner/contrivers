@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 
-<div id='content' class='support-page'>
+<div id='content' class='support-page page'>
 
 <div id='fundraising' class='announcement__fundraising'>
 <h1>Support Us</h1>{% if support_intro is defined -%}{{ support_intro | safe }}{%- else %}
@@ -21,7 +21,6 @@
         <input type="submit" value="Paypal">
         </form>
     </li>
-    <li><a href='http://www.amazon.com/?tag={{ site.amzn_tag }}'>Amazon</a></li>
 </ul>
 {% endif %}
 </div>

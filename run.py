@@ -50,17 +50,40 @@ if __name__ == '__main__':
             '--no-bar',
             action='store_true',
             help='disable the toolbar with debug on.')
-
     parser.add_argument(
             '--live-reload',
             action='store_true',
             help='Run with livereload server.'
             )
+    parser.add_argument(
+            '--blueprints',
+            '-b',
+            nargs='*',
+            help='Specify blueprints to be loaded at runtime.'
+            )
+    parser.add_argument(
+            '--list-blueprints',
+            action='store_true',
+            help='List current default blueprints.'
+            )
 
     args = parser.parse_args()
 
+    if args.list_blueprints:
+        from app import default_blueprints
+        print('\nCurrently installed Blueprints...')
+        for bp in default_blueprints:
+            print('\t{}'.format(bp))
+        raise SystemExit
+
+    if args.blueprints:
+        blueprints = args.blueprints
+    else:
+        blueprints = None
+
+
     # Now setup and run the application
-    app = create_app('contrivers-cli-runner', debug=args.debug, testing=args.testing)
+    app = create_app('contrivers-cli-runner', debug=args.debug, testing=args.testing, blueprints=blueprints)
 
     # Disable the Debug toolbar with a flag
     if not args.no_bar:

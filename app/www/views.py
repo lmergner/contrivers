@@ -9,16 +9,17 @@ from datetime import datetime, timedelta
 from collections import namedtuple
 
 from flask import (
-    render_template, request, url_for, redirect, make_response,
+    render_template, request, url_for, redirect, make_response, abort,
     current_app
-    )
-from sqlalchemy import func
+)
+from sqlalchemy import desc
+
 from .forms import SearchForm
 from .utils import aopen
 from .rss import RssGenerator
 
 from . import www
-from .queries import page_query, id_query, index_query, _poly, search_query, tag_query
+from .queries import page_query, id_query, index_query, _poly, search_query
 from ..core import *
 
 
@@ -58,7 +59,9 @@ def featured(page):
 
 @www.route('/articles/featured/rss/')
 def rss_featured():
-    abort(404)
+    query = db.session.query(_poly).filter_by(featured=True).order_by(_poly.publish_date.desc()).limit(20)
+    rss = RssGenerator(url_for('.featured', _external=True), query, title=u"Contrivers' Review Featured")
+    return make_response(rss.rss_str())
 
 @www.route('/article/<int:id>')
 @www.route('/article/', defaults={'id': None})
@@ -84,7 +87,7 @@ def articles(article_id, page):
 @www.route('/articles/rss/')
 def rss_articles():
     query = db.session.query(Article).order_by('publish_date').limit(20)
-    rss = RssGenerator(url_for('.articles'), query, title=u"Contrivers’ Review Articles")
+    rss = RssGenerator(url_for('.articles', _external=True), query, title=u"Contrivers’ Review Articles")
     return make_response(rss.rss_str())
 
 @www.route('/reviews/', defaults={'review_id': None, 'page': 1})
@@ -118,7 +121,7 @@ def archive(page):
 @www.route('/archive/rss/')
 def rss_archive():
     query = db.session.query(_poly).order_by('publish_date').limit(10)
-    rss = RssGenerator(url_for('.archive'), query, title=u"Contrivers' Review Recent")
+    rss = RssGenerator(url_for('.archive', _external=True), query, title=u"Contrivers' Review Recent")
     return make_response(rss.rss_str())
 
 @www.route('/reviews/rss/')
@@ -134,22 +137,17 @@ def issues(issue_id, page=1):
     if issue_id:
         return render_template(
             'issue.html',
-            page_type='issues',
-            endpoint='.issues',
             issue=id_query(Issue, issue_id))
     else:
         return render_template(
             'issues.html',
-            paginated=page_query(Issue, page),
-            endpoint='.issues',
-            page_type='issues',
-            rss_url = url_for('.rss_issues', _external=True))
+            paginated=page_query(Issue, page))
 
-@www.route('/issues/rss/')
-def rss_issues():
-    query = db.session.query(Issue).order_by('issue_num').limit(20)
-    rss = RssGenerator(url_for('.issues'), query, title=u"Contrivers' Review Book Reviews")
-    return make_response(rss.rss_str())
+# @www.route('/issues/rss/')
+# def rss_issues():
+#     query = db.session.query(Issue).order_by('issue_num').limit(20)
+#     rss = RssGenerator(url_for('.issues'), query, title=u"Contrivers' Review Book Reviews")
+#     return make_response(rss.rss_str())
 
 @www.route('/authors/', defaults={'author_id': None, 'page': 1})
 @www.route('/authors/p/<int:page>/', defaults={'author_id': None})

@@ -9,7 +9,7 @@
 from flask import Blueprint
 
 
-__all__ = ['www']
+__all__ = ('www')
 
 www = Blueprint(
     'www', __name__,
