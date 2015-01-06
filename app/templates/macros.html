@@ -159,7 +159,7 @@
 
 
 {# Simple button style pagination #}
-{% macro render_page_buttons(pagination, endpoint, search) %}
+{% macro render_page_buttons(pagination=None, endpoint=None, search=None) %}
 <div class='pagination'>
 {% if pagination.has_prev %}<a href="{{ url_for(endpoint, page=pagination.prev_num) }}" class="pagination-element__prev"><i class='fa fa-angle-left'></i></a>{% else %}<span class='pagination-element__prev disabled'>&nbsp;</span>{% endif %}
 <form class='pagination-element__search' method="Post" action="/search/">

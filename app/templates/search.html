@@ -4,12 +4,23 @@
 {% block header %}{{ super() }}{% endblock %}
 
 {% block content %}
-<div id='content' class='layout search-page'>
+<div id='content' class='layout search-page page'>
 {% if paginated is defined %}
 {{ render_page_buttons(paginated, endpoint, search) }}
-{{ render_articles(paginated.items) }}
+{% if paginated.items | length == 0 %}
+<h4>No results.</h4>
 {% else %}
-
+{{ render_articles(paginated.items) }}
+{% endif %}
+{% else %}
+<div class='pagination'>
+    <div class='pagination-element__prev'>&nbsp;</div>
+    <form class='pagination-element__search' method="Post" action="/search/">
+    {{ search.csrf_token }}
+    {{ search.search_term(placeholder='Search Articles') }}
+    </form>
+    <div class='pagination-element__next'>&nbsp;</div>
+</div>
 <h4>No results.</h4>
 {% endif %}
 </div><!-- end #content.search-page -->
