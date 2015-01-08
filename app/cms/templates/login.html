@@ -2,7 +2,7 @@
 {% block content %}
 <div id='content' class='page login-page'>
     <div class='login-box'>
-        <form method="POST" action="{{ url_for('.login') }}">
+        <form method="POST" action="/cms/login"> {# {{ url_for('cms.login') }}"> #}
             {{ form.hidden_tag() }}
             <div class='field-group'>{{ form.username.label }}{{ form.username(placeholder='User') }}</div>
 {% if form.username.errors %}

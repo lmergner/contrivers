@@ -21,7 +21,8 @@ class TestConfig(Config):
     CACHE_TYPE = 'null'
     CACHE_REDIS_URL = 'redis://'
     SQLALCHEMY_DATABASE_URI = 'postgres://contrivers@localhost/contrivers'
-    SECRET_KEY = os.urandom(16).encode('hex')
+    # SECRET_KEY = os.urandom(16).encode('hex')
+    SECRET_KEY = 'blarg'
     S3_BUCKET_NAME = 'contrivers-staging'
     USE_S3_DEBUG = True
     FLASK_ASSETS_USE_S3 = False
