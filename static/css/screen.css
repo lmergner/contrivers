@@ -1084,15 +1084,18 @@ For article styles, see `.article-body`
 @media (min-width: 960px) { /* line 17, ../sass/layout/_page.scss */
   .page { width: 72.22222%; float: left; margin-left: 1.38889%; margin-right: 1.38889%; } }
 
-/* line 34, ../sass/layout/_page.scss */
+@media (min-width: 481px) { /* line 29, ../sass/layout/_page.scss */
+  .index-page { margin-top: 1.75rem; } }
+
+/* line 35, ../sass/layout/_page.scss */
 .article-page { clear: both; width: 97.22222%; float: left; margin-left: 1.38889%; margin-right: 1.38889%; }
-/* line 36, ../sass/layout/_page.scss */
+/* line 37, ../sass/layout/_page.scss */
 .article-page article { max-width: 600px; margin: 0 auto; }
 
-/* line 42, ../sass/layout/_page.scss */
+/* line 43, ../sass/layout/_page.scss */
 .tags-page, .static-page { margin-top: 1.75rem; }
 
-/* line 47, ../sass/layout/_page.scss */
+/* line 48, ../sass/layout/_page.scss */
 .author-page, .authors-page { margin-top: 1.75rem; }
 
 /*doc
