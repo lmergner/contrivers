@@ -32,6 +32,7 @@
     {% if author.bio %}<div class='author-bio'>{{ author.bio | md | safe }}</div>{% endif %}
 </div>
     {% if show_articles %}
+    <div class='block__author-divider'>&#9830;</div> 
     <div class='author-articles'>
 {{ render_articles(author.writing, show_abstract=show_abstract, show_author=False) }}
     </div>

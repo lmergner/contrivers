@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-{% from 'macros.html' import render_page_buttons %}
+{% from 'macros.html' import render_page_buttons, render_issue %}
 
 {% block title %} - Issues{% endblock title %}
 {% block header %}{{ super() }}{% endblock %}
@@ -8,9 +8,9 @@
 <div id='content' class='issues-page page'>
 {{ render_page_buttons(paginated, search=search ) }}
     <h1 class>Issues</h1>
-<ul>
     {% for issue in paginated.items | sort(reverse=True) %}
-<li>{{ loop.index }}. <a href='{{ url_for('www.issues', issue_id=issue.id) }}'>{{ issue.theme }}</a></li>
+    {{ render_issue(issue, show_articles=False) }}
+
 {% endfor %}
 </ul>
 </div>
