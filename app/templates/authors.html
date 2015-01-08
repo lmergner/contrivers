@@ -3,7 +3,7 @@
 
 {% block content %}
 <div id='content' class='author-page page'>
-<h1>Author</h1>
+<h1>Authors</h1>
 {% for author in paginated.items %}
 {{ render_author_block(author, show_articles=False) }}
 {% endfor %}

@@ -19,7 +19,7 @@ from .utils import aopen
 from .rss import RssGenerator
 
 from . import www
-from .queries import page_query, id_query, index_query, _poly, search_query
+from .queries import page_query, id_query, index_query, _poly, search_query, paginate
 from ..core import *
 
 
@@ -162,8 +162,7 @@ def authors(author_id, page):
             rss_url=url_for('.rss_author', author_id=author.id, _external=True))
     else:
         query =  db.session.query(Author).filter_by(hidden=False).filter(Author.writing.any())
-        pages = page_query(None, page, query = query)
-
+        pages = paginate(query, page)
         return render_template(
             'authors.html',
             paginated = pages,
