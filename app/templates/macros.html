@@ -201,7 +201,6 @@ http://www.instapaper.com/hello2?url={{ request.url | urlencode }}&title={{ arti
 {% macro render_aside(article, site, request) %}
 <div class='article-menu'> 
     <ul class='dropdown-menu'> 
-        <li class='menu-title'>Info</li>
 {% if article.issue %}
         <li><a href="{{ url_for('www.issues', issue_id=article.issue.id, page=1) }}">Issue: {{ article.issue.theme }}</a>
             <ul>

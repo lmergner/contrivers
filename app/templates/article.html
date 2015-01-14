@@ -50,6 +50,7 @@
 
 {% block scripts %}
 {{ super() }}
+<script src="{{ url_for('static', filename='js/bigfoot.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
     $.bigfoot(
     	{
