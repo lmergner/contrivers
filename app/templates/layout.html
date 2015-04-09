@@ -8,7 +8,7 @@
     {% if rss_url is defined %}<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ rss_url }}" />{% endif %}
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" >
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" >
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
     {% block open_graph %}
@@ -33,10 +33,10 @@
 <body>
 
 {% block header %}
-<header class='contrivers-header'> 
-    <div class="header-title"> 
+<header class='contrivers-header'>
+    <div class="header-title">
         <a href="{{ url_for('www.index') }}">
-            <img 
+            <img
                 src='{{ url_for('static', filename='images/window_banner.png') }}'
                 srcset="{{ url_for('static', filename='images/window_banner.png') }}, {{ url_for('static', filename='images/phone_banner.png') }} 480w"
                 sizes="100vw"
@@ -49,7 +49,7 @@
         <ul>
             <li class='nav-item__link'><a href="{{ url_for('www.articles') }}" >Articles</a></li>
             <li class='nav-item__link'><a href="{{ url_for('www.reviews') }}">Reviews</a></li>
-            <li class='nav-item__link'><a href="{{ url_for('www.support') }}">Support</a></li> 
+            <li class='nav-item__link'><a href="{{ url_for('www.support') }}">Support</a></li>
             <li class='nav-item__link'><a href="{{ url_for('www.masthead') }}">Masthead</a></li>
             <li class='nav-item__icon'><a href='{{ url_for('www.search') }}'><i class="fa fa-search"></i></a></li>
             <li class="nav-item__icon"><a href="https://twitter.com/{{ site.twitter_name }}" ><i class="fa fa-twitter-square"></i></a></li>
@@ -70,18 +70,18 @@
 {% endfor  %}
     <div class='image-wrapper__banner-art'>
         <a href="{{ url_for('www.index') }}">
-            <img 
+            <img
               src="{{ url_for('static', filename='images/contrivers_icon_small.gif') }}"
               srcset="{{ url_for('static', filename='images/contrivers_icon_small.gif') }} 480w, {{ url_for('static', filename='images/contrivers_icon_large.jpg') }}"
               alt='Contrivers Review Brand Image'
             />
-        </a> 
+        </a>
     </div>
     {% block advertising %}
     <div class='image-wrapper__advertising'>
     {% if config['DEBUG'] or config['TESTING'] %}
-        <img 
-            src="//storage.googleapis.com/support-kms-prod/SNP_1DA7588EEB5450EE2A22C2B2F0A6458A61C0_2922342_en_v1" 
+        <img
+            src="//storage.googleapis.com/support-kms-prod/SNP_1DA7588EEB5450EE2A22C2B2F0A6458A61C0_2922342_en_v1"
             style='max-width:160px;display:inline-block;height:auto;'/>
     {% else %}
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -99,7 +99,7 @@
 </div>
 {% endblock %}
 
-<footer class="contrivers-footer"> 
+<footer class="contrivers-footer">
     <div class="footer-nav">
         <h2 >Magazine</h2>
         <ul>
@@ -124,24 +124,26 @@
             diverse audiences.<p>
         </li>
         <li>
-            <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.contrivers.org"
-            property="cc:attributionName" rel="cc:attributionURL">&copy; 2014 Contrivers' Review</a> 
-            under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons
-            Attribution-NonCommercial-NoDerivatives 4.0 International License </a>.
-        </li>
-
-        <li>
-            Artwork &copy; Copyright by <a href='http://www.natesinnott.com/Muse%20Site/' target='_blank'>Nathaniel Sinnott</a>.
-        </li>
-
-        {#<li>
-            Contrivers' Review is a Python app built (mostly) with <a href='https://github.com/mitsuhiko/flask'>Flask</a>, 
-            <a href='http://www.sqlalchemy.org/'>SQLAlchemy</a>, <a href='http://sass-lang.com/'>Sass</a>, and other open 
-            source libraries. The code is <a href='http://www.github.com/lmergner/contrivers/'>available at 
-            <i class='fa fa-github'></i> Github</a>.
-        </li>#}
-        <li>
             Contrivers' Review is published in Glendale, CA.
+        </li>
+        <li>
+            &copy; Copyright 2014-2015 Contrivers' Review.
+        </li>
+
+        <li>
+            Artwork &copy; Copyright 2014-2015 by <a
+                href='http://www.natesinnott.com/Muse%20Site/'
+                target='_blank'>Nathaniel Sinnott</a>.
+        </li>
+
+        <li>
+            Contrivers' Review is a Python app built (mostly) with <a
+                href='https://github.com/mitsuhiko/flask'>Flask</a>, <a
+                href='http://www.sqlalchemy.org/'>SQLAlchemy</a>, <a
+                href='http://sass-lang.com/'>Sass</a>, and other open source
+                libraries. The code is <a
+                    href='http://www.github.com/lmergner/contrivers/'>available
+                    at <i class='fa fa-github'></i> Github</a>.
         </li>
         </ul>
 </footer>
