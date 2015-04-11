@@ -1,10 +1,9 @@
-#-*- codeing: utf-8 -*-
+#! /usr/bin/env python
+#-*- coding: utf-8 -*-
 
-from flask.ext.admin import expose, AdminIndexView
 from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.login import current_user
-from flask import url_for, current_app
-from wtforms.fields import TextAreaField, SelectField
+from wtforms.fields import TextAreaField
 from flask.ext.admin import Admin
 from ..core.models import *
 from ..core import db
@@ -34,7 +33,8 @@ class WritingView(AuthMixin, ModelView):
     form_excluded_columns = ['create_date', 'type']
     form_overrides = dict(
             text=TextAreaField,
-            summary=TextAreaField,)
+            summary=TextAreaField,
+            abstract=TextAreaField,)
 
 
 class ArticleView(WritingView):

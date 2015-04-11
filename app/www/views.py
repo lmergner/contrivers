@@ -63,7 +63,7 @@ def rss_featured():
     rss = RssGenerator(url_for('.featured', _external=True), query, title=u"Contrivers' Review Featured")
     return make_response(rss.rss_str())
 
-@www.route('/article/<int:id>')
+@www.route('/article/<int:id>/')
 @www.route('/article/', defaults={'id': None})
 def redirect_article(id):
     return redirect(url_for('.articles', article_id=id))
