@@ -19,7 +19,7 @@ from .utils import aopen
 from .rss import RssGenerator
 
 from . import www
-from .queries import page_query, id_query, index_query, _poly, search_query, paginate
+from .queries import page_query, id_query, index_query, _poly, search_query, paginate, index_rss_query
 from ..core import *
 
 
@@ -40,8 +40,8 @@ def index():
 
 @www.route('/rss/')
 def rss_index():
-    query = db.session.query(_poly).order_by('publish_date').limit(20)
-    rss = RssGenerator(url_for('.index'), query)
+
+    rss = RssGenerator(url_for('.index'), index_rss_query())
     return make_response(rss.rss_str())
 
 @www.route('/articles/featured/<int:page>/')

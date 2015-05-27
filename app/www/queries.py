@@ -111,6 +111,18 @@ def index_query():
         current_app.logger.error(e)
         abort(500)
 
+def index_rss_query():
+    try:
+        return db.session.query(_poly).order_by(_poly.publish_date.desc()).limit(20)
+    except NoResultFound, e:
+        current_app.logger.error(e)
+        abort(404)
+    except OperationalError, e:
+        current_app.logger.error(e)
+        abort(500)
+    except MultipleResultsFound, e:
+        current_app.logger.error(e)
+        abort(500)
 
 def search_query(search_term, page):
     try:
