@@ -11,7 +11,7 @@
 from contextlib import contextmanager
 
 from flask import request, session, current_app, abort
-from sqlalchemy import func
+from sqlalchemy import func, desc
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.ext.declarative.api import DeclarativeMeta
@@ -95,8 +95,11 @@ def page_query(model, page, query=None):
 
 def index_query():
     try:
-        featured = db.session.query(_poly).order_by('publish_date').filter_by(featured=True, hidden=False).all()
-        curr_issue = db.session.query(Issue).order_by(Issue.issue_num.desc()).first()
+        featured = db.session.query(_poly).order_by(_poly.publish_date.desc()).filter_by(featured=True, hidden=False).all()
+        # curr_issue = db.session.query(Issue).order_by(Issue.issue_num.desc()).first()
+        curr_issue = { 'articles' :
+                db.session.query(_poly).order_by(_poly.publish_date.desc()).filter_by(featured=False, hidden=False).limit(5)
+                }
         return featured, curr_issue
     except NoResultFound, e:
         current_app.logger.error(e)
