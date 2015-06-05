@@ -2,15 +2,13 @@ Flask
 Flask-Cache
 Flask-Login
 Flask-Admin
-flask-assets
-Flask-S3
 Flask-WTF
 Jinja2
 WTForms
 markdown
 translitcodec
 pytz
-feedgen 
+feedgen
 
 boto
 requests

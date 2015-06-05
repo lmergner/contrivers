@@ -101,9 +101,25 @@
 
 <footer class="contrivers-footer">
     <div class="footer-nav">
+        <h2>Mailing List</h2>
+        <!-- Begin MailChimp Signup Form -->
+        <form action="//contrivers.us3.list-manage.com/subscribe/post?u=dd125dca9ae429922ce3f2ff4&amp;id=22a9f9d26e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"  novalidate>
+            <div class="footer-field-group" style='display: inline-block;' >
+                <label for="mce-EMAIL" style='display: none'>Email Address </label>
+                <input type="email" value="" placeholder='Email Address' name="EMAIL" class="required email" id="mce-EMAIL">
+            </div>
+            <div id="mce-responses" class="clear" style='display: inline-block;' >
+                <div class="response" id="mce-error-response" style="display:none"></div>
+                <div class="response" id="mce-success-response" style="display:none"></div>
+            </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <div style="position: absolute; left: -5000px;"><input type="text" name="b_dd125dca9ae429922ce3f2ff4_22a9f9d26e" tabindex="-1" value=""></div>
+    <button style='display: inline-block;' class='form-button' value="Subscribe" type="submit" name="subscribe" id="mc-embedded-subscribe">Subscribe</button>
+        </form>
+
+        <!--End mc_embed_signup-->
         <h2 >Magazine</h2>
         <ul>
-            <li ><a href="{{ url_for('www.issues') }}">Issues</a></li>
+            {# <li ><a href="{{ url_for('www.issues') }}">Issues</a></li> #}
             <li ><a href="{{ url_for('www.featured') }}">Featured</a> <a href="{{ url_for('www.rss_featured') }}"><i class='fa fa-rss'></i></a></li>
             {#<li ><a href="{{ url_for('www.archive') }}">Archive</a> <a href="{{ url_for('www.rss_archive') }}"><i class='fa fa-rss'></i></a></li>#}
             <li ><a href="{{ url_for('www.articles') }}">Articles</a> <a href="{{ url_for('www.rss_articles') }}"><i class='fa fa-rss'></i></a></li>

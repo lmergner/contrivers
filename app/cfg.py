@@ -12,8 +12,6 @@
 
 """
 
-from flask import current_app
-
 class SiteConfig(object):
     """Pass to templates so we can use dot notation for lookups."""
     def __init__(self):
@@ -28,6 +26,6 @@ class SiteConfig(object):
             u"tradition of intellectual journals, publishing the best " +\
             u"essays on political and social theory."
 
-        self.announcements = []
-
-
+        self.announcements = [
+                u"Please sign up for our <a href='http://eepurl.com/5oLnz'>mailing list</a>. Please consider supporting our <a href='https://www.kickstarter.com/projects/263722268/technology-and-society' target='_blank'>Kickstarter</a>."
+            ]
