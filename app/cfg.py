@@ -27,5 +27,5 @@ class SiteConfig(object):
             u"essays on political and social theory."
 
         self.announcements = [
-                u"Please sign up for our <a href='http://eepurl.com/5oLnz'>mailing list</a>. Please consider supporting our <a href='https://www.kickstarter.com/projects/263722268/technology-and-society' target='_blank'>Kickstarter</a>."
+                u"Please sign up for our <a href='http://eepurl.com/5oLnz'>mailing list</a>."
             ]
