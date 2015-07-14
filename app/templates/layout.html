@@ -12,6 +12,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
     {% block open_graph %}
+    <meta property="og:title" content="{{ site.title }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:image" content="{{ url_for('static', filename='images/contrivers_icon_small.gif') }}">
+    <meta property="og:image:width" content="241">
+    <meta property="og:image:height" content="324">
+    <meta property="og:description" content="{{ site.description }}">
     <meta property="og:site-name" content="{{ site.title }}"/>
     {% endblock %}
 
