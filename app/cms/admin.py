@@ -27,7 +27,7 @@ class IssueView(AuthMixin, ModelView):
 
 
 class WritingView(AuthMixin, ModelView):
-    column_exclude_list = ['text', 'abstract', 'tsvector']
+    column_exclude_list = ['text', 'abstract', 'tsvector', 'publish_date', 'last_edited_date', 'create_date', 'type']
     column_sortable_list = ['title', 'create_date', 'featured', 'hidden', 'respondees']
     column_hide_backrefs = True
     form_excluded_columns = ['create_date', 'type']

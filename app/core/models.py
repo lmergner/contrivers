@@ -10,24 +10,19 @@
 """
 
 import datetime
-# import translitcodec
-from pytz import timezone
 
 from flask import url_for
 from sqlalchemy import (
     Integer, String, Column, ForeignKey, func,
     Table, Boolean, DateTime, Float,
-    DDL, UniqueConstraint)
+    UniqueConstraint)
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.dialects.postgresql import JSON, TSVECTOR
-from sqlalchemy.types import TypeDecorator
-# from sqlalchemy.ext.declarative import declarative_base
-# from sqlalchemy.ext.hybrid import hybrid_property
 
 from .ext import db
 
-# from sqlalchemy.ext.declarative import declarative_base
-# Base = declarative_base()
+def timestamp():
+    return datetime.datetime.utcnow()
 
 
 # alias for Flask-SQLAlchemy
@@ -52,20 +47,6 @@ def _make_url_from_type(obj):
     _id = obj.id
     kwargs = {_kw: _id}
     return url_for(_end, _external=True, **kwargs)
-
-# TimeZone Aware Datetime Objects
-class TzDateTime(TypeDecorator):
-    impl = DateTime
-
-    def process_result_value(self, value, dialect):
-        if value is None:
-            return None
-        return localize_datetime(value)
-
-def localize_datetime(dt):
-    """Localize datetime objects to PST """
-    tz = timezone('America/Los_Angeles')
-    return tz.localize(dt)
 
 # Many to Many :: Author to Article
 author_to_writing = Table(
@@ -131,13 +112,13 @@ class Author(BaseMixin, Base):
     # Keep track of dates
     # create_date = Column(
     #     'create_date',
-    #     TzDateTime, nullable=False,
-    #     default=localize_datetime(datetime.datetime.now()))
+    #     DateTime(timezone=True), nullable=False,
+    #     default=datetime.datetime.utcnow())
     # last_edited_date = Column(
     #     'last_edited_date',
-    #     TzDateTime,
-    #     onupdate=localize_datetime(datetime.datetime.now()),
-    #     default=datetime.datetime.now())
+    #     DateTime(timezone=True),
+    #     onupdate=datetime.datetime.utcnow(),
+    #     default=datetime.datetime.utcnow())
 
     def __repr__(self):
         return "<{}({})>".format(self.__class__.__name__, self.email)
@@ -208,14 +189,14 @@ class Writing(BaseMixin, Base):
     # Keep track of dates
     create_date = Column(
         'create_date',
-        TzDateTime, nullable=False,
-        default=localize_datetime(datetime.datetime.now()))
+        DateTime(timezone=True), nullable=False,
+        default=datetime.datetime.utcnow())
     last_edited_date = Column(
         'last_edited_date',
-        TzDateTime,
-        onupdate=localize_datetime(datetime.datetime.now()),
-        default=datetime.datetime.now())
-    publish_date = Column('publish_date', TzDateTime)
+        DateTime(timezone=True),
+        onupdate=datetime.datetime.utcnow(),
+        default=datetime.datetime.utcnow())
+    publish_date = Column('publish_date', DateTime(timezone=True))
 
     # track basic attributes of all writing:
     # title, text, summary

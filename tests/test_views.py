@@ -8,7 +8,7 @@
 """
 
 import unittest
-from fixtures import ContriversTestCase
+from .fixtures import ContriversTestCase
 
 
 class URLTestCase(ContriversTestCase):
@@ -73,11 +73,6 @@ class URLTestCase(ContriversTestCase):
     def test_archive(self):
         self.assert404(self.client.get('/all/'))
 
-
-class S3Connect(ContriversTestCase):
-
-    def test_s3(self):
-        pass
 
 if __name__ == '__main__':
     unittest.main()

@@ -12,8 +12,6 @@ import random
 import codecs
 import datetime
 import itertools
-import atexit
-# import mock
 import psycopg2 as psycopg
 
 from flask_testing import TestCase
@@ -22,81 +20,15 @@ from app import create_app, db
 from app.core.models import *
 from app.cms.models import Admin
 
-from . import testing_db_url
-
+testing_db_url = "postgres://contrivers@localhost/contrivers-unittests"
 
 def uopen(path):
     with codecs.open(path, mode='r', encoding='utf-8') as f:
         return f.read()
 
 def path_to_data_files(fn):
-    root = os.path.dirname((__file__))
+    root = os.path.abspath(os.path.dirname(__file__))
     return os.path.join(root, fn)
-
-class Line(object):
-    def __init__(self, prefix=None, message=None, color=None):
-        self.prefix = prefix or ''
-        self.message = message or ''
-        self.color = color or 'okblue'
-
-class Messages(object):
-    """ colored test messages for unittests
-
-        It's annoying that python unittest makes it difficult to read log or
-        print messages during testing. Sometimes it's helpful to get some
-        feedback while running the code with unittests. The `Messages` class
-        can be instanciated beforehand and messages attached during tests. They
-        can then be printed (with colors!) in the unittest teardown context.
-
-        def setup_tests():
-            return Messages()
-
-        def teardown_tests():
-            messages.flush()
-            del messages
-    """
-    _instance = None
-
-    def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = super(Messages, cls).__new__(cls, *args, **kwargs)
-        return cls._instance
-
-    def __init__(self):
-        # dict of pattern ( testcase, severity/color , message )
-        self._warnings = []
-        self._colors = dict(
-            header = '\033[95m',
-            okblue = '\033[94m',
-            okgreen = '\033[92m',
-            warning = '\033[93m',
-            fail = '\033[91m',
-            endc = '\033[0m')
-
-
-    def add(self, caller, message):
-        self._warnings.append(Line(caller, message))
-
-    def format_prefix(self, color, prefix):
-        kw = {'color': self._colors[color], 'prefix': prefix, 'reset': self._colors['endc']}
-        return '{color}[ {prefix} ]{reset}'.format(**kw)
-
-    def flush(self):
-        for line in self._warnings:
-            prefix = self.format_prefix(line.color, line.prefix)
-            print('{} {}'.format(prefix, line.message))
-        self.forget()
-
-    def forget(self):
-        self._warnings = []
-
-
-messages = Messages()
-atexit.register(messages.flush)
-
-def get_messenger():
-    """ Return an instance of class `Messages`"""
-    return messages
 
 
 class LoginContext(object):
@@ -121,15 +53,15 @@ class LoginContext(object):
 
 
 def _create_app(db_url=testing_db_url, **kwargs):
-    config = {'SQLALCHEMY_DATABASE_URI': db_url, 'SQLALCHEMY_ECHO': False}
+    config = {'SQLALCHEMY_DATABASE_URI': testing_db_url, 'SQLALCHEMY_ECHO': False}
     config.update(kwargs)
     return create_app('contrivers-unittests', testing=True,
                 additional_config_vars=config)
 
 def _create_db():
     FNULL = open('/dev/null', 'w')
-    subprocess.check_call(shlex.split('dropdb contrivers-testing --if-exists'), stderr=subprocess.STDOUT)
-    subprocess.call(shlex.split('createdb contrivers-testing -O contrivers'), stderr=subprocess.STDOUT)
+    subprocess.check_call(shlex.split('dropdb contrivers-unittests --if-exists'), stderr=subprocess.STDOUT)
+    subprocess.call(shlex.split('createdb contrivers-unittests -O contrivers'), stderr=subprocess.STDOUT)
     subprocess.call(shlex.split('pg_restore --clean --no-acl --no-owner -h localhost -U contrivers -d contrivers-testing local.dump'), stdout=FNULL, stderr=FNULL)
     FNULL.close()
 
@@ -163,12 +95,16 @@ class ContriversTestCase(TestCase):
         self.db = None
 
     def populate_db(self):
-        self.db.drop_all()
-        self.db.create_all()
-        data = TestData()
-        for obj in data.generate():
-            self.db.session.add(obj)
-        self.db.session.commit()
+        try:
+            self.db.drop_all()
+            self.db.create_all()
+            data = TestData()
+            for obj in data.generate():
+                self.db.session.add(obj)
+            self.db.session.commit()
+        except:
+            print('populate_db Error')
+            sys.exit(1)
 
 
 class TestData(object):
@@ -189,7 +125,7 @@ class TestData(object):
         {
             'create_date': datetime.datetime.now(),
             'title': 'Test Article 1: A Subtitle, The Entitling!',
-            'text': uopen(path_to_data_files('./sinnott.md')),
+            'text': uopen(path_to_data_files('markdown.md')),
             'abstract': 'A test markdown file with a very short description',
             'hidden': False,
             'featured': True,
