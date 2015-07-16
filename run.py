@@ -13,7 +13,10 @@ with some test data.
 """
 
 import argparse
-from livereload import Server
+try:
+    from livereload import Server
+except ImportError:
+    pass
 from app import create_app
 
 def setupToolbar(app, testing, redirect=True):
