@@ -45,6 +45,9 @@ class ReviewView(WritingView):
 
 class AuthorView(AuthMixin, ModelView):
     column_exclude_list = ['bio', 'twitter', 'email']
+    form_overrides = dict(
+        bio=TextAreaField
+    )
 
 class BookView(AuthMixin, ModelView):
     column_exclude_list = ['city', 'year', 'isbn_10', 'isbn_13', 'pages', 'price']
