@@ -12,6 +12,7 @@ with some test data.
 
 """
 
+import os
 import argparse
 try:
     from livereload import Server
@@ -27,6 +28,13 @@ def setupToolbar(app, testing, redirect=True):
     except ImportError:
         print("Could not import DebugToolbarExtension")
 
+def export_env():
+    """ Open an .env file and load it into the os.environ """
+    print("Loading the local .env file")
+    with open('./.env') as f:
+        for line in f.readlines():
+            key, value = line.strip().split('=')
+            os.environ[key] = value
 
 if __name__ == '__main__':
 
@@ -70,7 +78,16 @@ if __name__ == '__main__':
             help='List current default blueprints.'
             )
 
+    parser.add_argument(
+        '--use-env',
+        '-e',
+        action='store_true',
+        help='Load the ./.env file os.environ',
+        )
+
     args = parser.parse_args()
+
+    if args.use_env: export_env()
 
     if args.list_blueprints:
         from app import default_blueprints
