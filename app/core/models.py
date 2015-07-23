@@ -113,12 +113,12 @@ class Author(BaseMixin, Base):
     # create_date = Column(
     #     'create_date',
     #     DateTime(timezone=True), nullable=False,
-    #     default=datetime.datetime.utcnow())
+    #     default=datetime.datetime.utcnow)
     # last_edited_date = Column(
     #     'last_edited_date',
     #     DateTime(timezone=True),
-    #     onupdate=datetime.datetime.utcnow(),
-    #     default=datetime.datetime.utcnow())
+    #     onupdate=datetime.datetime.utcnow),
+    #     default=datetime.datetime.utcnow)
 
     def __repr__(self):
         return "<{}({})>".format(self.__class__.__name__, self.email)
@@ -190,12 +190,12 @@ class Writing(BaseMixin, Base):
     create_date = Column(
         'create_date',
         DateTime(timezone=True), nullable=False,
-        default=datetime.datetime.utcnow())
+        default=datetime.datetime.utcnow)
     last_edited_date = Column(
         'last_edited_date',
         DateTime(timezone=True),
-        onupdate=datetime.datetime.utcnow(),
-        default=datetime.datetime.utcnow())
+        onupdate=datetime.datetime.utcnow,
+        default=datetime.datetime.utcnow)
     publish_date = Column('publish_date', DateTime(timezone=True))
 
     # track basic attributes of all writing:
