@@ -4,10 +4,9 @@
 import os
 import config
 import importlib
+from flask import Flask
 
 from core import (db, cache, login_manager)
-# from core.models import *
-from core.app import ContriversFlask
 
 from cms import admin
 from cfg import SiteConfig
@@ -52,7 +51,7 @@ def create_app(
 
     """
 
-    app = ContriversFlask(name, static_folder='static')
+    app = Flask(name, static_folder='static')
 
     @app.context_processor
     def site_settings():

@@ -15,23 +15,22 @@ from flask import url_for
 from sqlalchemy import (
     Integer, String, Column, ForeignKey, func,
     Table, Boolean, DateTime, Float,
-    UniqueConstraint)
+    UniqueConstraint, CheckConstraint, event
+)
 from sqlalchemy.orm import relationship, backref
-from sqlalchemy.dialects.postgresql import JSON, TSVECTOR
+from sqlalchemy.dialects.postgresql import TSVECTOR
 
 from .ext import db
-
-def timestamp():
-    return datetime.datetime.utcnow()
-
 
 # alias for Flask-SQLAlchemy
 Base = db.Model
 
+def timestamp():
+    """ Returns utcnow() but later we might want to change our timestamp """
+    return datetime.datetime.utcnow()
+
 __all__ = (
-    'Tag', 'Author', 'Writing',
-    'Image', 'Book', 'Template',
-    'Article', 'Review', 'Issue'
+    'Tag', 'Author', 'Writing', 'Image', 'Book', 'Article', 'Review', 'Issue'
 )
 
 def _make_url_from_type(obj):
@@ -52,25 +51,30 @@ def _make_url_from_type(obj):
 author_to_writing = Table(
     'author_to_writing', Base.metadata,
     Column('writing_id', Integer, ForeignKey('writing.id')),
-    Column('author_id', Integer, ForeignKey('author.id')))
+    Column('author_id', Integer, ForeignKey('author.id'))
+)
 
 # Many to Many :: Tag to Article
 tag_to_writing = Table(
     'tag_to_writing', Base.metadata,
     Column('writing_id', Integer, ForeignKey('writing.id')),
-    Column('tag_id', Integer, ForeignKey('tag.id')))
+    Column('tag_id', Integer, ForeignKey('tag.id'))
+)
 
 # Many to Many Association Table linking Images to Writings
 image_to_writing = Table(
     'image_to_writing', Base.metadata,
     Column('image_id', Integer, ForeignKey('image.id')),
-    Column('writing_id', Integer, ForeignKey('writing.id')))
+    Column('writing_id', Integer, ForeignKey('writing.id'))
+)
 
 # Many to Many self-referential table for threaded responses
 # http://docs.sqlalchemy.org/en/rel_0_9/orm/relationships.html#self-referential-many-to-many-relationship
-writing_to_writing = Table('writing_to_writing', Base.metadata,
+writing_to_writing = Table(
+    'writing_to_writing', Base.metadata,
     Column('response_id', Integer, ForeignKey('writing.id'), primary_key=True),
-    Column('respondee_id', Integer, ForeignKey('writing.id'), primary_key=True))
+    Column('respondee_id', Integer, ForeignKey('writing.id'), primary_key=True)
+)
 
 
 class BaseMixin(object):
@@ -317,14 +321,24 @@ class Book(BaseMixin, Base):
     publisher = Column(String)
     city = Column(String)
     year = Column(Integer)
-    isbn_10 = Column(Integer)
-    isbn_13 = Column(String)
+    isbn_10 = Column(
+        'isbn_10',
+        String(10),
+        CheckConstraint('length(isbn_10) == 10', name='check_isbn_10_length'),
+        unique=True
+    )
+    isbn_13 = Column(
+        'isbn_13',
+        String(13),
+        CheckConstraint('length(isbn_13) == 13', name='check_isbn_13_length'),
+        unique=True
+    )
     pages = Column(Integer)
-    price = Column(Float)
+    price = Column(Integer)
     review_id = Column(Integer, ForeignKey('review.id'))
-    # translator = Column(String)
-    # editors = Column(String)
-    # edition = Column(String)
+    translator = Column(String)
+    editors = Column(String)
+    edition = Column(String)
 
     UniqueConstraint(title, subtitle, author)
 
@@ -340,34 +354,3 @@ class Book(BaseMixin, Base):
             'price': self.price, 'reviews': self.review_id
         }
 
-
-
-class Template(BaseMixin, Base):
-    __tablename__ = 'template'
-    id = Column('id', Integer, primary_key=True)
-    filename = Column('filename', String, nullable=False)
-    html = Column('html', String, nullable=False)
-
-    @property
-    def serialize(self):
-        return {
-            'id': self.id,
-            'filename': self.filename,
-            'html': self.html
-        }
-
-
-class KeyValueStore(Base):
-    __tablename__ = 'key_value'
-    key = Column(String, unique=True, primary_key=True)
-    value = Column(JSON)
-
-    @property
-    def serialize(self):
-        return self.value
-
-__models__ = (
-    Tag, Author, Writing,
-    Book, Template,
-    Article, Review, Issue
-)

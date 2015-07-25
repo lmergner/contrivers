@@ -138,6 +138,8 @@ if __name__ == '__main__':
 
     if args.config_vars:
         config_vars = parse_remainder(args.config_vars)
+    else:
+        config_vars = {}
 
     # Now setup and run the application
     app = create_app(

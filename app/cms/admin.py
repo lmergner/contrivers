@@ -52,10 +52,6 @@ class AuthorView(AuthMixin, ModelView):
 class BookView(AuthMixin, ModelView):
     column_exclude_list = ['city', 'year', 'isbn_10', 'isbn_13', 'pages', 'price']
 
-class TemplateView(AuthMixin, ModelView):
-    form_overrides = dict(
-        html=TextAreaField
-        )
 
 
 admin.name = 'CMS'
@@ -68,5 +64,3 @@ admin.add_view(IssueView(Issue, db.session))
 admin.add_view(AuthorView(Author, db.session))
 admin.add_view(TagView(Tag, db.session))
 admin.add_view(BookView(Book, db.session))
-admin.add_view(TemplateView(Template, db.session))
-

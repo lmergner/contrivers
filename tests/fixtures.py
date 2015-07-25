@@ -13,14 +13,18 @@ import codecs
 import datetime
 import itertools
 import psycopg2 as psycopg
+from contextlib import contextmanager
 
 from flask_testing import TestCase
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 from app import create_app, db
 from app.core.models import *
 from app.cms.models import Admin
 
-testing_db_url = "postgres://contrivers@localhost/contrivers-unittests"
+def get_db_url(db='contrivers-testing'):
+    return "postgres://contrivers@localhost/{}".format(db)
 
 def uopen(path):
     with codecs.open(path, mode='r', encoding='utf-8') as f:
@@ -52,11 +56,32 @@ class LoginContext(object):
         self.client.get('/logout', follow_redirects=True)
 
 
-def _create_app(db_url=testing_db_url, **kwargs):
+def create_test_app(db_url=None, db='contrivers-testing', **kwargs):
+    if db_url == None:
+        db_url = get_db_url(db)
     config = {'SQLALCHEMY_DATABASE_URI': testing_db_url, 'SQLALCHEMY_ECHO': False}
     config.update(kwargs)
     return create_app('contrivers-unittests', testing=True,
                 additional_config_vars=config)
+
+def create_test_db_conn(db=None):
+    engine = create_engine(get_db_url(db))
+    Session = sessionmaker(bind=engine)
+
+    @contextmanager
+    def session_scope():
+        """Provide a transactional scope around a series of operations."""
+        session = Session()
+        try:
+            yield session
+            # session.commit()
+        except:
+            session.rollback()
+            raise
+        finally:
+            session.close()
+
+    return session_scope
 
 def _create_db():
     FNULL = open('/dev/null', 'w')
@@ -77,7 +102,7 @@ class ContriversTestCase(TestCase):
     run_gc_after_test = True
 
     def create_app(self, **kwargs):
-        return _create_app(**kwargs)
+        return create_test_app(**kwargs)
 
     @classmethod
     def setUpClass(self):
