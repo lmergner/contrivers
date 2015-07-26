@@ -15,12 +15,13 @@ from flask import url_for
 from sqlalchemy import (
     Integer, String, Column, ForeignKey, func,
     Table, Boolean, DateTime, Float,
-    UniqueConstraint, CheckConstraint, event
+    UniqueConstraint, CheckConstraint
 )
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship, backref, validates
 from sqlalchemy.dialects.postgresql import TSVECTOR
 
 from .ext import db
+from ..core.validators import validate_isbn
 
 # alias for Flask-SQLAlchemy
 Base = db.Model
@@ -341,6 +342,14 @@ class Book(BaseMixin, Base):
     edition = Column(String)
 
     UniqueConstraint(title, subtitle, author)
+
+    @validates('isbn_10')
+    def validate_isbn_10(self, key, isbn):
+        return validate_isbn(isbn, 10)
+
+    @validates('isbn_13')
+    def validate_isbn_13(self, key, isbn):
+        return validate_isbn(isbn, 13)
 
     def __unicode__(self):
         return self.title.decode('utf-8')
