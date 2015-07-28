@@ -9,3 +9,5 @@
 class ValidationError(Exception):
     pass
 
+class ModelError(Exception):
+    pass
