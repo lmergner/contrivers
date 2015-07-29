@@ -9,9 +9,14 @@
 
 import datetime
 
+import pytz
 from flask import url_for
 from sqlalchemy import Column, DateTime, Integer
 from sqlalchemy.ext.declarative import declared_attr
+
+def datetime_with_timezone():
+    """ Return a timezone aware datetime object """
+    return datetime.datetime.now(tz=pytz.utc)
 
 
 class BaseMixin(object):
@@ -44,13 +49,13 @@ class DatesMixin(object):
         'create_date',
         DateTime(timezone=True),
         nullable=False,
-        default=datetime.datetime.utcnow
+        default=datetime_with_timezone
     )
     last_edited_date = Column(
         'last_edited_date',
         DateTime(timezone=True),
-        onupdate=datetime.datetime.utcnow,
-        default=datetime.datetime.utcnow
+        onupdate=datetime_with_timezone,
+        default=datetime_with_timezone
     )
 
 
