@@ -8,41 +8,63 @@
 """
 
 import unittest
-from .fixtures import ContriversTestCase
+from flask_testing import TestCase
+from .fixtures import AppMixin, Defaults
+from app import db
+from mock import patch
 
 
-class URLTestCase(ContriversTestCase):
+class URLTestCase(AppMixin, TestCase):
     """Verify that the main urls exposed to the public work and
     have data that we expect."""
 
-    # Static / non-variable endpoints
-    def test_index(self):
-        # index
-        self.assert200(self.client.get('/'))
+    def setUp(self):
+        db.drop_all()
+        db.create_all()
+        db.session.commit()
 
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+
+    #
+    # Static / non-variable endpoints
+    #
     def test_masthead(self):
-        # masthead
-        self.assert200(self.client.get('/masthead/'))
+        with patch('app.www.views.aopen') as mock_boto:
+            mock_boto.return_value = "# Mock Masthead "
+            resp = self.client.get('/masthead/')
+            self.assert200(resp)
+            # self.assertIn('<h1>Mock Masthead</h1>', resp.data)
 
     def test_support(self):
         self.assert200(self.client.get('/support/'))
+
     #
     # Content endpoints
     #
-    def test_issues(self):
-        self.assert200(self.client.get('/issues/'))
-
     def test_articles(self):
-        self.assert200(self.client.get('/articles/'))
-
-    def test_authors(self):
-        self.assert200(self.client.get('/authors/'))
-
-    def test_categories(self):
-        self.assert200(self.client.get('/categories/'))
+        with self.client.get('/articles/') as resp:
+            self.assert200(resp)
+            self.assertTemplateUsed('articles.html')
 
     def test_reviews(self):
-        self.assert200(self.client.get('/reviews/'))
+        with self.client.get('/reviews/') as resp:
+            self.assert200(resp)
+            self.assertTemplateUsed('reviews.html')
+
+    def test_authors(self):
+        resp = self.client.get('/authors/')
+        self.assert200(resp)
+        self.assertTemplateUsed('authors.html')
+
+    def test_categories(self):
+        resp = self.client.get('/categories/')
+        self.assert200(resp)
+        self.assertTemplateUsed('tags.html')
+        # for tag in Defaults.tags:
+        #     self.assertIn(tag, resp.data)
+
 
     def test_search_splash(self):
         self.assert200(self.client.get('/search/'))
@@ -53,13 +75,20 @@ class URLTestCase(ContriversTestCase):
     def test_subscribe(self):
         self.assertStatus(self.client.get('/subscribe/'), 302)
 
+    def test_issues(self):
+        resp = self.client.get('/issues/')
+        self.assertRedirects(resp, '/')
+
     def test_article(self):
-        self.assertStatus(self.client.get('/article/'), 302)
-        self.assertStatus(self.client.get('/article/1/'), 302)
+        self.assertRedirects(self.client.get('/article/'), '/articles/')
+        self.assertRedirects(self.client.get('/article/1/'), '/articles/1/')
 
     def test_catalog(self):
-        self.assertStatus(self.client.get('/catalog/'), 302)
+        self.assertRedirects(self.client.get('/catalog/'), '/')
 
+    #
+    # Authenticated access
+    #
     def test_no_post_allowed(self):
         self.assertStatus(self.client.post('/issues/'), 405)
         self.assertStatus(self.client.post('/'), 405)
@@ -70,9 +99,46 @@ class URLTestCase(ContriversTestCase):
     def test_removed(self):
         self.assertStatus(self.client.post('/posts/'), 404)
 
-    def test_archive(self):
+    def test_old_archive_endpoint(self):
         self.assert404(self.client.get('/all/'))
 
 
-if __name__ == '__main__':
-    unittest.main()
+class ArticleUrlTestCase(AppMixin, TestCase):
+
+    def setUp(self):
+        db.drop_all()
+        db.create_all()
+        db.session.add(Defaults.article)
+        db.session.commit()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+
+
+    def test_article_200(self):
+        with self.client.get('/articles/1/') as resp:
+            self.assert200(resp)
+            # self.assertTemplateUsed('article.html')
+            # self.assertIn('Luke Thomas Mergner', resp.data)
+
+
+class ReviewUrlTestCase(AppMixin, TestCase):
+
+    def setUp(self):
+        db.drop_all()
+        db.create_all()
+        db.session.add(Defaults.review)
+        db.session.commit()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+
+
+    def test_review_200(self):
+        with self.client.get('/reviews/1/') as resp:
+            self.assert200(resp)
+            # self.assertTemplateUsed('review.html')
+            # self.assertIn('Test Review', resp.data)
+            # self.assertIn('Michel Foucault', resp.data)
