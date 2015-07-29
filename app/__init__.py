@@ -6,10 +6,10 @@ import config
 import importlib
 from flask import Flask
 
-from core import (db, cache, login_manager)
+from .core import (db, cache, login_manager)
 
-from cms import admin
-from cfg import SiteConfig
+from .cms import admin
+from .cfg import SiteConfig
 
 
 __version__ = "0.2"
@@ -89,21 +89,11 @@ def create_app(
 
     # Error handlers
     configure_error_handlers(app)
-
-    if debug:
-        app.logger.debug(app.url_map)
-        for key, val in app.config.iteritems():
-            if key != 'SECRET_KEY':
-                app.logger.debug('{:<25} => {}'.format(key, val))
-        app.logger.debug("App Static Path exists: {}".format(os.path.exists(app.static_folder)))
     return app
 
 
 def configure_ext(app):
-    """
-    Load some Flask extensions. Note that this
-    function is not dynamic.
-    """
+    """ Load some Flask extensions """
 
     # flask-sqlalchemy
     db.init_app(app)
@@ -117,15 +107,6 @@ def configure_ext(app):
     # Flask-Admin
     admin.init_app(app)
 
-    # Flask-Assets
-    # assets.init_app(app)
-
-    # Flask S3
-    # s3.init_app(app)
-
-
 
 def configure_error_handlers(app):
     pass
-
-
