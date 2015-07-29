@@ -21,9 +21,9 @@ class TagView(AuthMixin, ModelView):
     form_excluded_columns = ['articles', 'posts']
 
 
-class IssueView(AuthMixin, ModelView):
-    column_hide_backrefs = False
-    form_overrides = dict(description=TextAreaField)
+# class IssueView(AuthMixin, ModelView):
+#     column_hide_backrefs = False
+#     form_overrides = dict(description=TextAreaField)
 
 
 class WritingView(AuthMixin, ModelView):
@@ -60,7 +60,7 @@ admin.name = 'CMS'
 admin.add_view(ArticleView(Article, db.session))
 admin.add_view(ReviewView(Review, db.session))
 
-admin.add_view(IssueView(Issue, db.session))
+# admin.add_view(IssueView(Issue, db.session))
 admin.add_view(AuthorView(Author, db.session))
 admin.add_view(TagView(Tag, db.session))
 admin.add_view(BookView(Book, db.session))

@@ -74,9 +74,11 @@ def redirect_article(id):
 def articles(article_id, page):
     if article_id is not None:
         rs = id_query(Article, article_id)
+        # rs = db.session.query(Article).get(article_id)
         return render_template('article.html', article=rs)
     else:
         rs = page_query(Article, page)
+        # rs = paginate(db.session.query(Article), page)
         return render_template(
             'articles.html',
             paginated=rs,
@@ -129,25 +131,6 @@ def rss_reviews():
     query = db.session.query(Review).order_by(Issue.issue_num.desc()).limit(10)
     rss = RssGenerator(url_for('.reviews'), query, title=u"Contrivers' Review Issues")
     return make_response(rss.rss_str())
-
-@www.route('/issues/', defaults={'issue_id': None, 'page': 1})
-@www.route('/issues/p/<int:page>/', defaults={'issue_id': None})
-@www.route('/issues/<int:issue_id>/', defaults={'page': 1})
-def issues(issue_id, page=1):
-    if issue_id:
-        return render_template(
-            'issue.html',
-            issue=id_query(Issue, issue_id))
-    else:
-        return render_template(
-            'issues.html',
-            paginated=page_query(Issue, page))
-
-# @www.route('/issues/rss/')
-# def rss_issues():
-#     query = db.session.query(Issue).order_by('issue_num').limit(20)
-#     rss = RssGenerator(url_for('.issues'), query, title=u"Contrivers' Review Book Reviews")
-#     return make_response(rss.rss_str())
 
 @www.route('/authors/', defaults={'author_id': None, 'page': 1})
 @www.route('/authors/p/<int:page>/', defaults={'author_id': None})
@@ -271,6 +254,15 @@ def redirect_catalog():
         return redirect(url_for('www.' + target))
     else:
         return redirect(url_for('www.index'))
+
+#
+# Redirects from v2
+#
+@www.route('/issues/', defaults={'issue_id': None, 'page': 1})
+@www.route('/issues/p/<int:page>/', defaults={'issue_id': None})
+@www.route('/issues/<int:issue_id>/', defaults={'page': 1})
+def issues(issue_id, page=1):
+    return redirect(url_for('www.index'))
 
 @www.route('/favicon.ico')
 def favicon():
