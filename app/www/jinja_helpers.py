@@ -12,7 +12,9 @@ import markdown
 from . import www
 
 def markdown_factory(extensions=None):
-    """Use an factory pattern to create a new markdown parser per request or
+    """ return an initialized `markdown.Markdown` object
+
+    Use an factory pattern to create a new markdown parser per request or
     unit of work. If you try to reuse a converter, it spits out cached
     results and that is not what we want.
     :params extensions: a list of extension names as strings to be loaded
