@@ -69,8 +69,7 @@ class LoginContext(object):  # pylint: disable=too-few-public-methods
 
 
 class AppMixin(object):
-    """ Sub-class `flask_testing.TestCase to provide my own create_app, setUp,
-    and tearDown methods """
+    """ Return a Flask app for flask-testing """
 
     def create_app(self):
         config_vars = {}

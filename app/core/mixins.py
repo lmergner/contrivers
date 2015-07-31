@@ -10,9 +10,11 @@
 import datetime
 
 import pytz
+from werkzeug import cached_property
 from flask import url_for
 from sqlalchemy import Column, DateTime, Integer
 from sqlalchemy.ext.declarative import declared_attr
+from sqlalchemy.orm import synonym
 
 def datetime_with_timezone():
     """ Return a timezone aware datetime object """
@@ -45,18 +47,63 @@ class DatesMixin(object):
     """ Mixin for SQLAlchemy Models that track created date and last modified
     date.
     """
-    create_date = Column(
+    _create_date = Column(
         'create_date',
-        DateTime(timezone=True),
+        DateTime(timezone=False),
         nullable=False,
         default=datetime_with_timezone
     )
-    last_edited_date = Column(
+    _last_edited_date = Column(
         'last_edited_date',
-        DateTime(timezone=True),
+        DateTime(timezone=False),
         onupdate=datetime_with_timezone,
         default=datetime_with_timezone
     )
+
+    def get_create_date(self):
+        return self._create_date.replace(tzinfo=pytz.utc)
+
+    def set_create_date(self, value):
+        self._create_date = value
+
+    @declared_attr
+    def create_date(cls):  # pylint: disable=no-self-argument
+        return  synonym(
+            '_create_date',
+            descriptor=property(cls.get_create_date, cls.set_create_date))
+
+    def get_last_edited_date(self):
+        return self._last_edited_date.replace(tzinfo=pytz.utc)
+
+    def set_last_edited_date(self, value):
+        self._last_edited_date = value
+
+    @declared_attr
+    def last_edited_date(cls):  # pylint: disable=no-self-argument
+        return  synonym(
+            '_last_edited_date',
+            descriptor=property(cls.get_last_edited_date, cls.set_last_edited_date))
+
+
+class PublishMixin(object):
+    # Only writing has a publish date
+    _publish_date = Column(
+        'publish_date', DateTime(timezone=False))
+
+    def get_publish_date(self):
+        if self._publish_date is None:
+            return None
+        else:
+            return self._publish_date.replace(tzinfo=pytz.utc)
+
+    def set_publish_date(self, value):
+        self._publish_date = value
+
+    @declared_attr
+    def publish_date(cls):  # pylint: disable=no-self-argument
+        return synonym(
+            'publish_date',
+            descriptor=property(cls.get_publish_date, cls.set_publish_date))
 
 
 class JsonMixin(object):
@@ -83,6 +130,3 @@ class UrlMixin(object):
         return url_for(_end, _external=True, **kwargs)
 
     make_url = url  # alias
-
-
-

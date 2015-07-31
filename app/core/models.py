@@ -11,14 +11,14 @@
 
 from sqlalchemy import (
     Integer, String, Column, ForeignKey,
-    Table, Boolean, DateTime, UniqueConstraint, CheckConstraint
+    Table, Boolean, UniqueConstraint, CheckConstraint
 )
 from sqlalchemy.orm import relationship, backref, validates
 from sqlalchemy.dialects.postgresql import TSVECTOR
 
 from .ext import db
 from ..core.validators import validate_isbn
-from .mixins import BaseMixin, DatesMixin, JsonMixin, UrlMixin
+from .mixins import BaseMixin, DatesMixin, UrlMixin, PublishMixin
 
 
 __all__ = (
@@ -85,7 +85,7 @@ class Image(BaseMixin, db.Model):
     expired = Column(Boolean, default=False)
 
 
-class Writing(BaseMixin, DatesMixin, UrlMixin, db.Model):
+class Writing(BaseMixin, DatesMixin, UrlMixin, PublishMixin, db.Model):
     """ db.Model sqla class of all writing objects. """
 
     # Must have id in the class definition otherwise
@@ -98,9 +98,6 @@ class Writing(BaseMixin, DatesMixin, UrlMixin, db.Model):
         'polymorphic_identity': 'writing',
         'polymorphic_on': type
     }
-
-    # Only writing has a publish date
-    publish_date = Column('publish_date', DateTime(timezone=True))
 
     # track basic attributes of all writing:
     # title, text, summary
