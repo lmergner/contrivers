@@ -61,11 +61,11 @@ class URLTestCase(AppMixin, TestCase):
 
     # @unittest.expectedFailure
     def test_categories(self):
+        tags = Defaults().tags
         with self.client.get('/categories/') as resp:
             self.assert200(resp)
             self.assertTemplateUsed('tags.html')
-            for tag in Defaults.tags:
-                self.assertIn(tag, resp.data)
+            self.assertContext('paginated.items', tags)
 
     def test_search_splash(self):
         self.assert200(self.client.get('/search/'))

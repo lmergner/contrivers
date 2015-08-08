@@ -10,6 +10,7 @@ import random
 import codecs
 import datetime
 import warnings
+import mock
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -76,14 +77,12 @@ class AppMixin(object):
     """ Return a Flask app for flask-testing """
 
     def create_app(self):
-        config_vars = {}
-        config_vars.update(load_env())
-        config_vars.update({
+        config_vars = {
             'TESTING': True,
             'DEBUG': False,
             'SQLALCHEMY_DATABASE_URI': "postgresql://contrivers@localhost/contrivers-unittests",
             'SQLALCHEMY_ECHO': False,
-        })
+        }
         # Surpress the Flask-Cache set to null warning
         with warnings.catch_warnings():
             warnings.simplefilter('ignore')
@@ -111,7 +110,6 @@ class test_session(object):
 
     def __exit__(self, error, value, traceback):
         self.session.remove()
-
 
 
 class Defaults(object):
