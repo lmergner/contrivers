@@ -33,12 +33,12 @@ class URLTestCase(AppMixin, TestCase):
     def test_masthead(self):
         with patch('app.www.views.aopen') as mock_boto:
             mock_boto.return_value = "# Mock Masthead "
-            resp = self.client.get('/masthead/')
-            self.assert200(resp)
-            # self.assertIn('<h1>Mock Masthead</h1>', resp.data)
+            with self.client.get('/masthead/') as resp:
+                self.assert200(resp, "Masthead with mocked boto should return 200")
+                self.assertIn('<h1 id="mock-masthead">Mock Masthead</h1>', resp.data)
 
     def test_support(self):
-        self.assert200(self.client.get('/support/'))
+        self.assert200(self.client.get('/support/'), "/support/ should return 200")
 
     #
     # Content endpoints
@@ -51,20 +51,21 @@ class URLTestCase(AppMixin, TestCase):
     def test_reviews(self):
         with self.client.get('/reviews/') as resp:
             self.assert200(resp)
-            self.assertTemplateUsed('reviews.html')
+            self.assertTemplateUsed('articles.html')
 
+    # @unittest.expectedFailure
     def test_authors(self):
-        resp = self.client.get('/authors/')
-        self.assert200(resp)
-        self.assertTemplateUsed('authors.html')
+        with self.client.get('/authors/') as resp:
+            self.assert200(resp, "/authors/ should be 200")
+            self.assertTemplateUsed('authors.html')
 
+    # @unittest.expectedFailure
     def test_categories(self):
-        resp = self.client.get('/categories/')
-        self.assert200(resp)
-        self.assertTemplateUsed('tags.html')
-        # for tag in Defaults.tags:
-        #     self.assertIn(tag, resp.data)
-
+        with self.client.get('/categories/') as resp:
+            self.assert200(resp)
+            self.assertTemplateUsed('tags.html')
+            for tag in Defaults.tags:
+                self.assertIn(tag, resp.data)
 
     def test_search_splash(self):
         self.assert200(self.client.get('/search/'))
@@ -76,8 +77,8 @@ class URLTestCase(AppMixin, TestCase):
         self.assertStatus(self.client.get('/subscribe/'), 302)
 
     def test_issues(self):
-        resp = self.client.get('/issues/')
-        self.assertRedirects(resp, '/')
+        with self.client.get('/issues/') as resp:
+            self.assertRedirects(resp, '/')
 
     def test_article(self):
         self.assertRedirects(self.client.get('/article/'), '/articles/')
@@ -108,19 +109,18 @@ class ArticleUrlTestCase(AppMixin, TestCase):
     def setUp(self):
         db.drop_all()
         db.create_all()
-        db.session.add(Defaults.article)
+        db.session.add(Defaults().article)
         db.session.commit()
 
     def tearDown(self):
         db.session.remove()
         db.drop_all()
 
-
     def test_article_200(self):
         with self.client.get('/articles/1/') as resp:
             self.assert200(resp)
-            # self.assertTemplateUsed('article.html')
-            # self.assertIn('Luke Thomas Mergner', resp.data)
+            self.assertTemplateUsed('article.html')
+            self.assertIn('Luke Thomas Mergner', resp.data)
 
 
 class ReviewUrlTestCase(AppMixin, TestCase):
@@ -128,17 +128,16 @@ class ReviewUrlTestCase(AppMixin, TestCase):
     def setUp(self):
         db.drop_all()
         db.create_all()
-        db.session.add(Defaults.review)
+        db.session.add(Defaults().review)
         db.session.commit()
 
     def tearDown(self):
         db.session.remove()
         db.drop_all()
 
-
     def test_review_200(self):
         with self.client.get('/reviews/1/') as resp:
             self.assert200(resp)
-            # self.assertTemplateUsed('review.html')
-            # self.assertIn('Test Review', resp.data)
-            # self.assertIn('Michel Foucault', resp.data)
+            self.assertTemplateUsed('article.html')
+            self.assertIn('Test Review', resp.data)
+            self.assertIn('Michel Foucault', resp.data)

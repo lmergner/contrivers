@@ -11,8 +11,12 @@ import codecs
 import datetime
 import warnings
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
 from app import create_app
 from app.core.models import Article, Author, Tag, Book, Review
+
 
 
 def random_date(end_days):
@@ -80,8 +84,9 @@ class AppMixin(object):
             'SQLALCHEMY_DATABASE_URI': "postgresql://contrivers@localhost/contrivers-unittests",
             'SQLALCHEMY_ECHO': False,
         })
+        # Surpress the Flask-Cache set to null warning
         with warnings.catch_warnings():
-            warnings.simplefilter('ignore')  # Surpress the Flask-Cache set to null warning
+            warnings.simplefilter('ignore')
             app = create_app(
                 'contrivers-unittests',
                 testing=True,
@@ -90,50 +95,84 @@ class AppMixin(object):
         return app
 
 
+class test_session(object):
+    """ context manager that replaces the flask-sqalchemy interface for testing """
+
+    engine = create_engine("postgresql://contrivers@localhost/contrivers-unittests")
+
+    def __init__(self, *args, **kwargs):
+        self.session = sessionmaker(bind=self.engine)
+
+    def __enter__(self):
+        try:
+            return self.session
+        except:
+            self.session.rollback()
+
+    def __exit__(self, error, value, traceback):
+        self.session.remove()
+
+
+
 class Defaults(object):
-    tags = [
-        Tag(tag='Political Theory'),
-        Tag(tag='Essay'),
-        Tag(tag='Polemics')
-    ]
-    author = Author(
-        name='Luke Thomas Mergner',
-        email='lmergner@example.com',
-        bio='This is an author biography.',
-        twitter='lmergner',
-        hidden=False
-    )
-    article = Article(
-        title='Test Article',
-        publish_date=datetime.datetime.utcnow(),
-        text=uopen(path_to_data_files('markdown.md')),
-        abstract='A test [markdown file](http://www.google.com) with a very short description',
-        hidden=False,
-        featured=False,
-        authors=[author],
-        tags=[random.choice(tags)],
-        # 'responses'=[]
-    )
-    book = Book(
-        title='The History of Sexuality, Volume 1',
-        subtitle='An Introduction',
-        author='Michel Foucault',
-        publisher='Vintage Books',
-        city='New York',
-        year=1978,
-        isbn_10='0679724699',
-        isbn_13='978-0-679-72469-8',
-        pages=100,
-        price=1295
-    )
-    review = Review(
-        title='Test Review',
-        publish_date=datetime.datetime.utcnow(),
-        text=uopen(path_to_data_files('markdown.md')),
-        abstract='A test [markdown file](http://www.google.com) with a very short description',
-        hidden=False,
-        featured=False,
-        authors=[author],
-        tags=[random.choice(tags)],
-        book_reviewed=[book]
-    )
+
+    @property
+    def tags(self):
+        return [
+            Tag(tag='Political Theory'),
+            Tag(tag='Essay'),
+            Tag(tag='Polemics')
+        ]
+
+    @property
+    def author(self):
+        return Author(
+            name='Luke Thomas Mergner',
+            email='lmergner@example.com',
+            bio='This is an author biography.',
+            twitter='lmergner',
+            hidden=False
+        )
+
+    @property
+    def article(self):
+        return Article(
+            title='Test Article',
+            publish_date=datetime.datetime.utcnow(),
+            text=uopen(path_to_data_files('markdown.md')),
+            abstract='A test [markdown file](http://www.google.com) with a very short description',
+            hidden=False,
+            featured=False,
+            authors=[self.author],
+            tags=[random.choice(self.tags)],
+            responses=[]
+        )
+
+    @property
+    def book(self):
+        return Book(
+            title='The History of Sexuality, Volume 1',
+            subtitle='An Introduction',
+            author='Michel Foucault',
+            publisher='Vintage Books',
+            city='New York',
+            year=1978,
+            isbn_10='0679724699',
+            isbn_13='978-0-679-72469-8',
+            pages=100,
+            price=1295
+        )
+
+    @property
+    def review(self):
+        return Review(
+            title='Test Review',
+            publish_date=datetime.datetime.utcnow(),
+            text=uopen(path_to_data_files('markdown.md')),
+            abstract='A test [markdown file](http://www.google.com) with a very short description',
+            hidden=False,
+            featured=False,
+            authors=[self.author],
+            tags=[random.choice(self.tags)],
+            book_reviewed=[self.book]
+        )
