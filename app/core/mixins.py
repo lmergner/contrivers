@@ -12,13 +12,14 @@ import datetime
 import pytz
 from werkzeug import cached_property
 from flask import url_for
-from sqlalchemy import Column, DateTime, Integer
+from sqlalchemy import Column, DateTime, Integer, func
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm import synonym
 
 def datetime_with_timezone():
     """ Return a timezone aware datetime object """
     return datetime.datetime.now(tz=pytz.utc)
+    # return func.current_timestamp()
 
 
 class BaseMixin(object):
@@ -49,13 +50,13 @@ class DatesMixin(object):
     """
     _create_date = Column(
         'create_date',
-        DateTime(timezone=False),
+        DateTime(timezone=True),
         nullable=False,
         default=datetime_with_timezone
     )
     _last_edited_date = Column(
         'last_edited_date',
-        DateTime(timezone=False),
+        DateTime(timezone=True),
         onupdate=datetime_with_timezone,
         default=datetime_with_timezone
     )
@@ -88,7 +89,7 @@ class DatesMixin(object):
 class PublishMixin(object):
     # Only writing has a publish date
     _publish_date = Column(
-        'publish_date', DateTime(timezone=False))
+            'publish_date', DateTime(timezone=True))
 
     def get_publish_date(self):
         if self._publish_date is None:
@@ -109,12 +110,11 @@ class PublishMixin(object):
 class JsonMixin(object):
     """ Mixin ABC that provides a jsonify method """
 
+    @cached_property
     def jsonify(self):
         return {}  # json serializable dict
 
-    @property
-    def serialize(self):
-        pass
+    serialize = jsonify
 
 
 class UrlMixin(object):

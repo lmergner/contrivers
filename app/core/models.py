@@ -66,6 +66,10 @@ class Tag(BaseMixin, db.Model):
     """ Tags represent categories or subjects """
     tag = Column('name', String, unique=True)
 
+    @property
+    def count(self):
+        return len(self.writing)
+
 
 class Author(BaseMixin, db.Model):
     """ Author table represents authors """
@@ -96,7 +100,8 @@ class Writing(BaseMixin, DatesMixin, UrlMixin, PublishMixin, db.Model):
     type = Column(String, nullable=False)
     __mapper_args__ = {
         'polymorphic_identity': 'writing',
-        'polymorphic_on': type
+        'polymorphic_on': type,
+        'with_polymorphic': '*'
     }
 
     # track basic attributes of all writing:

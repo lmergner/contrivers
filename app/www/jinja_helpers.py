@@ -36,6 +36,7 @@ def md(txt):
 
 @www.app_template_test()
 def empty(ls):
+    # TODO: give this a better name
     iter(ls)
     return True if len(ls) > 0 else False
 

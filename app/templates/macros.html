@@ -1,6 +1,6 @@
 {# http://flask.pocoo.org/docs/patterns/flashing/ #}
 {% macro render_messages() %}
-  <div class='flask-messages-container'> 
+  <div class='flask-messages-container'>
       {% with messages = get_flashed_messages() %}
       {% if messages %}
       <ul class='flashes'>
@@ -16,7 +16,7 @@
 
 {#
  # Author formating macros
- # 
+ #
  # render_authors() => inline list for parent article blocks; handles mutiple authors
  # render_author_block() => block list of authors with childe article blocks
  #}
@@ -32,7 +32,7 @@
     {% if author.bio %}<div class='author-bio'>{{ author.bio | md | safe }}</div>{% endif %}
 </div>
     {% if show_articles %}
-    <div class='block__author-divider'>&#9830;</div> 
+    <div class='block__author-divider'>&#9830;</div>
     <div class='author-articles'>
 {{ render_articles(author.writing, show_abstract=show_abstract, show_author=False) }}
     </div>
@@ -40,7 +40,7 @@
 </div>
 {% endmacro %}
 
-{% macro render_authors(authors, class='article-header') -%}  
+{% macro render_authors(authors, class='article-header') -%}
 <div class='{{ class }}-attribution'>by&nbsp;
 {%- for author in authors -%}
     <a class='{{ class }}-author' href="{{ url_for('www.authors', author_id=author.id) }}">{{ author.name }}</a>&nbsp;
@@ -52,9 +52,9 @@
 {%- endmacro -%}
 
 
-{# 
+{#
  # Article Macros
- # 
+ #
  # render_title() => return a link-wrapped title without h# tags
  # render_date() => return a <time>-wrapped and strftime-d date
  # render_article() => return an article div block with optional abstract, author, date, or other info
@@ -74,12 +74,12 @@
 <time datetime='{{ date.strftime('%Y-%m-%dT%H:%M') }}'>{{ date.strftime('%B %e, %Y') }}</time>
 {% endmacro %}
 
-{% macro render_article(article, 
-    show_abstract=True, 
-    show_author=True, 
-    show_date=True, 
-    show_featured=True, 
-    show_issue=True,
+{% macro render_article(article,
+    show_abstract=True,
+    show_author=True,
+    show_date=True,
+    show_issue=False,
+    show_featured=True,
     show_tag=True) %}
 <div class='block'>
   <div class='block-header'>
@@ -98,30 +98,31 @@
 </div>
 {%- endmacro %}
 
-{% macro render_articles(article_list,  
-    show_abstract=True,  
-    show_author=True, 
+{% macro render_articles(article_list,
+    show_abstract=True,
+    show_author=True,
     show_date=True,
     show_featured=False,
     show_issue=True,
     show_tag=False,
     sort_by='publish_date',
     class='') %}
-{% for article in article_list | sort(attribute=sort_by) | reverse %}
+{# for article in article_list | sort(attribute=sort_by) | reverse #}
+{% for article in article_list %}
 {% if not article.hidden %}
 {{ render_article(article, show_abstract=show_abstract, show_author=show_author, show_date=show_date, show_issue=show_issue, show_tag=show_tag) }}
-{% endif %} 
+{% endif %}
 {% endfor %}
 {% endmacro %}
 
 {#
- # Book Review Block 
+ # Book Review Block
  #
  # Note: because macros don't have access to the global context,
  # amzn_tag should be passed in from the main template.
  #}
 {% macro render_reviewed_book(books, amzn_tag='') %}
-<div class='reviewed-book reviewed-book-title-header'>A review of 
+<div class='reviewed-book reviewed-book-title-header'>A review of
     {% for book in books %}
     <span class='reviewed-book-title'><a href='http://www.amazon.com/dp/{{ book.isbn_10 }}/?tag={{ amzn_tag }}'>{{ book.title }}</a></span><span class='reviewed-book-colon'>:</span> <span class='reviewed-book-subtitle'>{{book.subtitle}}</span> by <span class='reviewed-book-author'>{{ book.author }}</span> <span class='reviewed-book-biblio'>({{ book.publisher }}: {{ book.city}}, {{ book.year }})</span>
     {% endfor %}
@@ -131,7 +132,7 @@
 
 {#
  # Issue formating macros
- # 
+ #
  # render_issue_title() => return a div + link wrapped Issue title
  # render_issue() => return an issue block with articles
  # render_issues
@@ -175,7 +176,7 @@
     <ol>
     {% for article in results %}
     <li class='search-result-block'><p>
-            {{ render_title(article) }} 
+            {{ render_title(article) }}
             <span class='article-authors'>{{ render_authors(article.authors) }}</span>
             <span class='article-date'>{{ render_date(article.publish_date) }}</span>
             </p>
@@ -199,8 +200,8 @@ http://www.instapaper.com/hello2?url={{ request.url | urlencode }}&title={{ arti
 {% endmacro %}
 
 {% macro render_aside(article, site, request) %}
-<div class='article-menu'> 
-    <ul class='dropdown-menu'> 
+<div class='article-menu'>
+    <ul class='dropdown-menu'>
 {% if article.issue %}
         <li><a href="{{ url_for('www.issues', issue_id=article.issue.id, page=1) }}">Issue: {{ article.issue.theme }}</a>
             <ul>
@@ -209,7 +210,7 @@ http://www.instapaper.com/hello2?url={{ request.url | urlencode }}&title={{ arti
                 <li>{{ render_title(issue_article) }}</li>
 {% endif %}{% endfor %}
             </ul>
-        </li>        
+        </li>
 {% endif %}
 {% if article.responses %}
         <li>Responses
@@ -229,7 +230,7 @@ http://www.instapaper.com/hello2?url={{ request.url | urlencode }}&title={{ arti
             </ul>
         </li>
 {% endif %}
-        <li class='article-menu__icon'><a class="twitter-share-button" href="https://twitter.com/share?url={{ request.url }}&via={{site.twitter_name }}&text={{ twitter_share_message(article) | urlencode }}" alt="Share on Twitter" ><i class="fa fa-twitter"></i></a></li>   
+        <li class='article-menu__icon'><a class="twitter-share-button" href="https://twitter.com/share?url={{ request.url }}&via={{site.twitter_name }}&text={{ twitter_share_message(article) | urlencode }}" alt="Share on Twitter" ><i class="fa fa-twitter"></i></a></li>
         <li class='article-menu__icon'><a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url }}" target="_blank" alt="Share on Facebook"><i class="fa fa-facebook"></i></a></li>
         <li class='article-menu__icon'><a href='{{ instapaper_link(request, article) }}' alt="Read Later on Instapaper"><i class='fa fa-instapaper'></i></a></li>
     </ul>
