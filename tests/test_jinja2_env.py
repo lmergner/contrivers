@@ -2,9 +2,12 @@
 
 import unittest
 
-from .fixtures import AppMixin
+from .fixtures import _create_app
 
-class JinjaTestCase(AppMixin, unittest.TestCase):
+class JinjaTestCase(unittest.TestCase):
+
+    def create_app(self):
+        return _create_app()
 
     def setUp(self):
         self.env = self.create_app().jinja_env

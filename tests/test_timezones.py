@@ -6,12 +6,15 @@ Test that dates are saved with timezone info in utc
 import unittest
 import datetime
 import pytz
-from .fixtures import AppMixin
+from .fixtures import _create_app
 from flask_testing import TestCase
 from app import db
 from app.core.models import Article
 
-class TimezoneTestCase(AppMixin, TestCase):
+class TimezoneTestCase(TestCase):
+
+    def create_app(self):
+        return _create_app()
 
     def is_utc(self, dt):
         """ Returns true if datetime has tzinfo and it is UTC """
@@ -20,14 +23,6 @@ class TimezoneTestCase(AppMixin, TestCase):
             dt.tzname() == 'UTC':
             return True
         return False
-
-    @classmethod
-    def setUpClass(cls):
-        pass
-
-    @classmethod
-    def tearDownClass(cls):
-        pass
 
     def setUp(self):
         db.drop_all()
