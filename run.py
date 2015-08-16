@@ -163,4 +163,4 @@ if __name__ == '__main__':
         server.watch('app/')
         server.serve(host=host, port=port)
     else:
-        app.run(use_reloader=args.no_reload, host=host, port=port)
+        app.run(use_reloader=args.no_reload, host=host, port=port, debug=args.debug)
