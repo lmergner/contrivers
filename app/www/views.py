@@ -44,8 +44,9 @@ def index():
 @www.route('/rss/')
 def rss_index():
     rss = RssGenerator(
-        url_for('.index'),
+        url_for('.index', _external=True),
         Writing.query.\
+            filter_by(hidden=False).\
             order_by(Writing._publish_date.desc()).\
             limit(20))
     return make_response(rss.rss_str())
@@ -67,7 +68,7 @@ def featured(page):
 def rss_featured():
     rss = RssGenerator(
         url_for('.featured', _external=True),
-        Writing.query.filter_by(featured=True).order_by(Writing.publish_date.desc()).limit(20),
+        Writing.query.filter_by(featured=True, hidden=False).order_by(Writing._publish_date.desc()).limit(10),
         title=u"Contrivers' Review Featured")
     return make_response(rss.rss_str())
 
@@ -134,10 +135,11 @@ def rss_archive():
 @www.route('/authors/<int:author_id>/', defaults={'page': 1})
 def authors(author_id, page):
     if author_id is not None:
+        author = Author.query.get_or_404(author_id)
         return render_template(
             'author.html',
             page_type='authors',
-            author=Author.query.get_or_404(author_id),
+            author=author,
             rss_url=url_for('.rss_author', author_id=author.id, _external=True))
     else:
         query = Author.query.outerjoin(Tag).group_by(Author.id).order_by(func.sum(Tag.id).desc()).paginate(page)
@@ -172,7 +174,7 @@ def tags(tag_id, page):
 
 @www.route('/categories/<int:tag_id>/rss/')
 def rss_tag(tag_id):
-    tag = Tag.query.get_or_404()
+    tag = Tag.query.get_or_404(tag_id)
     rss = RssGenerator(
         url_for('.tags', tag_id=tag.id),
         tag.writing,
@@ -237,8 +239,8 @@ def redirect_catalog():
         target = request.args['filter']
         return redirect(url_for('www.' + target))
     else:
-        # return redirect(url_for('www.index'))
-        return abort(404)
+        return redirect(url_for('www.index'))
+        # return abort(404)
 
 @www.route('/subscribe/')
 def subscribe():
