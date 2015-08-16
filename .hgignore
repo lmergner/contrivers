@@ -70,3 +70,4 @@ gems
 .env
 images/**.{xcf,tiff}
 *.map
+cover
