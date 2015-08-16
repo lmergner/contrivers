@@ -71,3 +71,4 @@ gems
 images/**.{xcf,tiff}
 *.map
 cover
+shell.py
