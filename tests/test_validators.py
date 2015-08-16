@@ -26,17 +26,13 @@ class TestISBN(unittest.TestCase):
         (13, '978378552'), # too short
     ]
 
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
-
     def test_validates(self):
+        """ app.core.validators should handle well-formed isbns """
         for length, isbn, expected in self.good_test_data:
             self.assertEqual(validate_isbn(isbn, length), expected)
 
     def test_validate_fails(self):
+        """ app.core.validators should raise an error on bad isbns """
         for length, isbn in self.bad_test_data:
             with self.assertRaises(ValidationError):
                 validate_isbn(isbn, length)

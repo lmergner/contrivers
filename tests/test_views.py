@@ -13,8 +13,7 @@ from .fixtures import Defaults, _create_app
 from app import db
 from mock import patch
 
-
-class URLTestCase(TestCase):
+class UrlTestCase(TestCase):
     """Verify that the main urls exposed to the public work and
     have data that we expect."""
 
@@ -24,12 +23,12 @@ class URLTestCase(TestCase):
     def setUp(self):
         db.drop_all()
         db.create_all()
-        db.session.commit()
+        self.defaults = Defaults()
 
     def tearDown(self):
-        db.session.rollback()
         db.session.remove()
         db.drop_all()
+        del self.defaults
 
     #
     # Static / non-variable endpoints
@@ -38,12 +37,14 @@ class URLTestCase(TestCase):
         with patch('app.www.views.aopen') as mock_boto:
             mock_boto.return_value = "# Mock Masthead "
             with self.client.get('/masthead/') as resp:
-                self.assert200(resp, "Masthead with mocked boto should return 200")
+                self.assert200(resp)
                 self.assertIn('<h1 id="mock-masthead">Mock Masthead</h1>', resp.data)
 
     def test_support(self):
-        self.assert200(
-            self.client.get('/support/'), "/support/ should return 200")
+        with self.client.get('/support/') as resp:
+            self.assert200(resp)
+            self.assertIn('Support', resp.data)
+            self.assert_template_used('support.html')
 
     #
     # Content endpoints
@@ -66,7 +67,7 @@ class URLTestCase(TestCase):
 
     @unittest.expectedFailure
     def test_categories(self):
-        tags = Defaults().tags
+        tags = self.defaults.tags()
         with self.client.get('/categories/') as resp:
             self.assert200(resp)
             self.assertTemplateUsed('tags.html')
@@ -100,7 +101,6 @@ class URLTestCase(TestCase):
         self.assertStatus(self.client.post('/'), 405)
         self.assertStatus(self.client.post('/authors/'), 405)
         self.assertStatus(self.client.post('/articles/'), 405)
-        # self.assertStatus(self.client.post('/issues/'), 405)
 
     def test_removed(self):
         self.assertStatus(self.client.post('/posts/'), 404)
@@ -109,48 +109,43 @@ class URLTestCase(TestCase):
         self.assert404(self.client.get('/all/'))
 
 
-class ArticleUrlTestCase(TestCase):
+# class ContentTestCase(TestCase):
+#     """Verify that the main urls exposed to the public work and
+#     have data that we expect."""
 
-    def create_app(self):
-        return _create_app()
+#     def create_app(self):
+#         return _create_app()
 
-    def setUp(self):
-        db.drop_all()
-        db.create_all()
-        db.session.add(Defaults().article())
-        db.session.commit()
+#     def setUp(self):
+#         db.drop_all()
+#         db.create_all()
+#         self.defaults = Defaults()
 
-    def tearDown(self):
-        db.session.rollback()
-        db.session.remove()
-        db.drop_all()
-
-    def test_article_200(self):
-        with self.client.get('/articles/1/') as resp:
-            self.assert200(resp)
-            self.assertTemplateUsed('article.html')
-            self.assertIn('Luke Thomas Mergner', resp.data)
-
-
-class ReviewUrlTestCase(TestCase):
-
-    def create_app(self):
-        return _create_app()
-
-    def setUp(self):
-        db.drop_all()
-        db.create_all()
-        db.session.add(Defaults().review())
-        db.session.commit()
-
-    def tearDown(self):
-        db.session.rollback()
-        db.session.remove()
-        db.drop_all()
+#     def tearDown(self):
+#         db.session.remove()
+#         db.drop_all()
+#         del self.defaults
 
     def test_review_200(self):
+        review = self.defaults.review()
+        db.session.add(review)
+        db.session.commit()
         with self.client.get('/reviews/1/') as resp:
             self.assert200(resp)
             self.assertTemplateUsed('article.html')
             self.assertIn('Test Review', resp.data)
             self.assertIn('Michel Foucault', resp.data)
+
+    def test_article_200(self):
+        article = self.defaults.article()
+        db.session.add(article)
+        db.session.commit()
+        self.assertEqual(article.title, "Test Article")
+        self.assertEqual(len(article.authors), 1)
+        self.assertEqual(article.authors[0].name, "Luke Thomas Mergner")
+        with self.client.get('/articles/{}/'.format(article.id)) as resp:
+            self.assert200(resp)
+            self.assertIn('Luke Thomas Mergner', resp.data)
+            self.assertTemplateUsed('article.html')
+
+

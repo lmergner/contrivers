@@ -33,6 +33,7 @@ class MockAuthor(object):
 
     @property
     def order(self):
+        """ Raise an error if the app tries to use count to order_by """
         raise AttributeError('Author has no attribute order')
 
     @property
@@ -61,6 +62,11 @@ class AuthorMacrosTestCase(MacrosTestCase):
     itself. """
 
     def test_render_author_block(self):
+        """jinja macro author block printing test
+
+        Render the macro using a dummy template and dummy data. Then make
+        assertions about how the macro formats data.
+        """
         author = MockAuthor()
         mock_template = '\n'.join([
             "{% from 'macros.html' import render_author_block %}",
@@ -72,7 +78,9 @@ class AuthorMacrosTestCase(MacrosTestCase):
         self.assertNotIn("<a href='email://dummy@example.com'>dummy@example.com</a>", result)
 
     def test_render_authors(self):
-        """ Authors have no order_by or sort attribute, so they have to be
+        """ jinja macro author block should print without using author.count()
+
+        Authors have no order_by or sort attribute, so they have to be
         sorted in the sqlalchemy search or by some other method. This was a
         bug. """
 

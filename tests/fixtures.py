@@ -7,6 +7,7 @@
 
 import os
 import random
+import string
 import codecs
 import datetime
 import warnings
@@ -99,7 +100,18 @@ class test_session(object):
 
 class Defaults(object):
 
-    _tags = None
+    def __init__(self):
+        # cache the results so we can reliably retrieve the in a test
+        self._tags = None
+        self._authors = None
+        self._articles = None
+        self._reviews = None
+        self._books = None
+
+    def rand_isbn(self, length):
+        return ''.join(
+            random.choice(string.digits)
+            for _ in range(length))
 
     def tags(self):
         if self._tags is None:
@@ -120,14 +132,16 @@ class Defaults(object):
         )
 
     def authors(self, num):
-        for x in range(1, num + 1):
-            yield Author(
-                name='Author Name_{}'.format(x),
-                email='author_{}.example.com'.format(x),
-                bio='This is an author_{} biography'.format(x),
-                twitter='author_{}'.format(x),
-                hidden=False
-            )
+        if self._authors is None:
+            self._authors = []
+            for x in range(1, num + 1):
+                self._authors.append(Author(
+                    name=u'Author Name_{}'.format(x),
+                    email=u'author_{}@example.com'.format(x),
+                    bio=u'This is an author_{} biography'.format(x),
+                    twitter=u'author_{}'.format(x),
+                    hidden=False))
+        return self._authors
 
     def article(self):
         return Article(
@@ -139,43 +153,49 @@ class Defaults(object):
             featured=False,
             authors=[self.author()],
             tags=[random.choice(self.tags())],
-            responses=[]
-        )
+            responses=[])
 
     def articles(self, num, authors=None):
-        if authors is None:
-            authors = [self.author()]
-        elif not isinstance(authors, Iterable):
-            authors = [authors]
-        else:
-            pass
-        for author in authors:
-            for x in range(1, num+1):
-                yield Article(
-                    title='Test Article {}'.format(x),
-                    publish_date=random_date(random.randint(1, 14)),
-                    text=uopen(path_to_data_files('markdown.md')),
-                    abstract='A test [markdown file](http://www.google.com) with a very short description',
-                    hidden=False,
-                    featured=False,
-                    authors=[author],
-                    tags=[random.choice(self.tags())],
-                    responses=[]
-                )
+        if self._articles is None:
+            self._articles = []
+            if authors is None:
+                authors = [self.author()]
+            elif not isinstance(authors, Iterable):
+                authors = [authors]
+            else:
+                pass
+            for author in authors:
+                for x in range(1, num+1):
+                    self._articles.append(Article(
+                        title='Test Article {}'.format(x),
+                        publish_date=random_date(random.randint(1, 14)),
+                        text=uopen(path_to_data_files('markdown.md')),
+                        abstract='A test [markdown file](http://www.google.com) with a very short description',
+                        hidden=False,
+                        featured=False,
+                        authors=[author],
+                        tags=[random.choice(self.tags())],
+                        responses=[]))
+        return self._articles
 
-    def book(self):
+    def book(self, num=1):
         return Book(
-            title='The History of Sexuality, Volume 1',
+            title='The History of Sexuality, Volume {}'.format(num),
             subtitle='An Introduction',
             author='Michel Foucault',
             publisher='Vintage Books',
             city='New York',
             year=1978,
-            isbn_10='0679724699',
-            isbn_13='978-0-679-72469-8',
+            isbn_10=self.rand_isbn(10),
+            isbn_13=self.rand_isbn(13),
             pages=100,
             price=1295
         )
+
+    def books(self, num):
+        if self._books is None:
+            self._books = [self.book(num=x) for x in range(x, x+1)]
+        return self._books
 
     def review(self):
         return Review(
@@ -189,3 +209,27 @@ class Defaults(object):
             tags=[random.choice(self.tags())],
             book_reviewed=[self.book()]
         )
+
+    def reviews(self, num, authors=None):
+        if self._reviews is None:
+            self._reviews = []
+            if authors is None:
+                authors = [self.author()]
+            elif not isinstance(authors, Iterable):
+                authors = [authors]
+            else:
+                pass
+            for author in authors:
+                for x in range(1, num+1):
+                    self._reviews.append(Review(
+                        title='Test Article {}'.format(x),
+                        publish_date=random_date(random.randint(1, 14)),
+                        text=uopen(path_to_data_files('markdown.md')),
+                        abstract='A test [markdown file](http://www.google.com) with a very short description',
+                        hidden=False,
+                        featured=False,
+                        authors=[author],
+                        tags=[random.choice(self.tags())],
+                        responses=[],
+                        book_reviewed=[self.book(num=x)]))
+        return self._reviews

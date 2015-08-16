@@ -44,7 +44,7 @@ class AuthorOrderTestCase(TestCase):
         db.session.remove()
         db.drop_all()
 
-    @unittest.expectedFailure
-    def test_author_order(self):
-        with self.client.get('/authors/') as resp:
-            self.assertContext('authors', self.authors)
+    # @unittest.expectedFailure
+    # def test_author_order(self):
+    #     with self.client.get('/authors/') as resp:
+    #         self.assertContext('authors', self.authors)

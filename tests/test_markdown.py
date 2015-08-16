@@ -13,6 +13,7 @@ class MDTestCase(unittest.TestCase):
         return markdown_factory().convert(txt)
 
     def test_headers(self):
+        """ Markdown -- test header renders as expected """
         txt = "# Header One"
         expected = u'<h1 id=\"header-one\">Header One</h1>'
         self.assertEqual(
