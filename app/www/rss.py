@@ -10,6 +10,7 @@
 import datetime
 from feedgen.feed import FeedGenerator
 from urlparse import urljoin
+from .utils import safe_unicode
 
 from flask import url_for
 
@@ -59,9 +60,22 @@ class RssGenerator(BaseFeedGenerator):
         self.create_entries()
         return self.fg.rss_file(*args, **kwargs)
 
-    def rss_str(self, *args, **kwargs):
+    def rss_str(self):
         self.create_entries()
-        return self.fg.rss_str(pretty=True, *args, **kwargs)
+        return safe_unicode(self.fg.rss_str(pretty=True))
+        # TODO:  Ensure utf-8 encoding in RSS responses
+        # try:
+        #     resp = self.fg.rss_str(pretty=True).decode('utf-8')
+        # except UnicodeEncodeError as e:
+        #     lines = self.fg.rss_str(pretty=True).split('\n')
+        #     for idx, line in enumerate(lines):
+        #         try:
+        #             line.decode('utf-8')
+        #         except UnicodeEncodeError as e:
+        #             print 'Error in %s' % idx
+        #             print ' ==> ', line
+
+        # return ''
 
     def create_entries(self):
         fg = self.fg
@@ -83,10 +97,10 @@ class RssGenerator(BaseFeedGenerator):
             # but neither is there a consensus on how to deal with
             # that omission.
             fe.author([{
-                    'name': author.name,
-                    'uri': url_for('www.authors', author_id=author.id),
-                    'email': author.email
-                    } for author in elem.authors ])
+                'name': author.name,
+                'uri': url_for('www.authors', author_id=author.id),
+                'email': 'editors@contrivers.org'
+                } for author in elem.authors ])
             md = markdown_factory()
             fe.content(content=md.convert(elem.text), type='html')
             fe.link(href=canonical_url, rel='alternate', title=elem.title)
