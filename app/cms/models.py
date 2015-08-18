@@ -12,67 +12,63 @@
     SQLAlchemy models for managing content.
 """
 
-from sqlalchemy import Table, Column, Integer, String, ForeignKey
+from sqlalchemy import Table, Column, Integer, String, ForeignKey, DateTime
+from sqlalchemy.orm import relationship, backref
 from flask.ext.login import UserMixin
-from ..core import db
-from werkzeug import generate_password_hash, check_password_hash
+from passlib.context import CryptContext
 
-from sqlalchemy.ext.declarative import declarative_base
+from ..core.ext import db
+from ..core.models import Author
+from ..core.errors import ModelError
+from ..core.mixins import DatesMixin, datetime_with_timezone
 
-__models__ = ['Admin']
-# Base = declarative_base()
-Base = db.Model
-salt_phrase = 'f64a80d7b499472ea253f36b9b8b36ba'  # uuid.uuid4().hex
+pass_context = CryptContext(
+    schemes=['bcrypt'],
+    default='bcrypt',
+    bcrypt__min_rounds=13)
 
-class Admin(Base, UserMixin):
-    """ Main admin / user class """
-    __tablename__ = 'admin'
-    id = Column(Integer, primary_key=True)
-    username = Column(String)
-    password = Column(String)
+
+class Editor(UserMixin, DatesMixin, db.Model):
+    """ Editors can login and manage the content """
+    __tablename__ = 'editors'
+    id = Column('id', Integer, primary_key=True)
+    username = Column('username', String)
+    email = Column('email', String, unique=True, nullable=False)
+    password = Column('password', String, nullable=False)
+    password_updated = Column('password_updated', DateTime(timezone=False))
+
+    # Link to author table in case we have editors that are also
+    # authors
+    author_id = Column(Integer, ForeignKey('author.id'))
+    author = relationship('Author', backref=backref('editor_ident', uselist=False))
+
+    # Permissions define what powers an editor has
     #permissions = Column(Integer, nullable=True)
+
+    def __init__(self, password=None, username=None, email=None, **kwargs):
+        if password is None or email is None:
+            raise ModelError('Admin must be created with a password and email')
+        self.password = self.hash_password(password)
+        self.username = username
+        self.email = email
+        super(Editor, self).__init__(**kwargs)
 
     def __repr__(self):
         return "<Admin: %s>" % self.username
 
     def __str__(self):
-        return '{}'.format(self.username)
-
-    def __unicode__(self):
         return u'{}'.format(self.username)
 
     def hash_password(self, password):
-        self.password = generate_password_hash(password)
+        self.password = pass_context.encrypt(password)
+        self._password_updated = datetime_with_timezone()
 
-    def verify_password(self, passwd):
-        return check_password_hash(self.password, passwd)
-
-
-# class Address(Base):
-#     __tablename__ = 'addresses'
-#     id = Column('id', Integer, primary_key=True)
-#     street = Column('street', String)
-#     po_box = Column('po_box', String)
-#     city = Column('city', String)
-#     state = Column('state', String)
-#     zip_code = Column('zip', String)
-
-
-# class Contact(Base):
-#     __tablename__ = 'contacts'
-#     id = Column('id', Integer, primary_key=True)
-#     first_name = Column('first_name', String)
-#     last_name = Column('last_name', String)
-#     email = Column('email', String, nullable=False, unique=True)
-#     address_id = Column('address_id', Integer, ForeignKey('addresses.id'))
-    # last_contacted = Column(DateTime)
-
-
-# class Company(Base):
-#     __tablenname__ = 'companies'
-#     id = Column('id', Integer, primary_key=True)
-#     name = Column('name', String, nullable=False, unique=True)
-#     address_id = Column('address_id', Integer, ForeignKey('addresses.id'))
-#     phone = Column('phone', String)
-
-__models__ = (Admin)
+    def verify_password(self, password):
+        valid, new_hash = pass_context.verify(password, self.password)
+        if valid:
+            if new_hash:
+                self.password = new_hash
+                self._password_updated = datetime_with_timezone()
+            return True
+        else:
+            return False

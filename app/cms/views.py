@@ -1,9 +1,5 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
-#
-# Copyright © 2014 Luke Thomas Mergner <lmergner@gmail.com>
-#
-# Distributed under terms of the MIT license.
 """
     app.cms.views
     -------------
@@ -13,39 +9,41 @@
 
 
 from flask import (
-    flash, render_template,
+    flash, render_template, g, session,
     redirect, url_for, request, current_app
     )
 from flask.ext.login import (
     login_required, login_user, logout_user
     )
 from sqlalchemy.exc import OperationalError
+from sqlalchemy.orm.exc import NoResultFound
 
 from ..core import login_manager, db
 from . import cms
+from .models import Editor
 from .forms import LoginForm
-from .models import *
-
-
-def validate_user(username, password):
-    """Query by name and validate the password"""
-    admin = db.session.query(Admin).filter_by(username=username).one()
-    if admin.verify_password(password):
-        return True
-    return False
-
 
 @cms.route('/login', methods=['GET', 'POST'])
 def login():
+    # if g.user is not None and g.user.is_authenticated():
+    #     return redirect(request.args.get('next') or '.')
     form = LoginForm()
     if form.validate_on_submit():
-        admin = db.session.query(Admin).filter(
-            Admin.username == form.username.data).first()
-        if admin.verify_password(form.password.data):
+        session['remember_me'] = form.remember_me.data
+        try:
+            # TODO: Handle logins by email
+            editor = Editor.query.\
+                    filter_by(username=form.username.data).\
+                    first()
+        except NoResultFound:
+            current_app.logger.info("{}: Invalid username.".format(form.username.data))
+            flash('No user found with that username.')
+            redirect(url_for('.login'))
+        if editor.verify_password(form.password.data):
             flash("User logged in.")
-            current_app.logger.debug("{} logged in.".format(admin.username))
-            login_user(admin, remember=True)
-            return redirect(request.args.get("next") or '/admin/')  # url_for('.admin'))
+            current_app.logger.info("{} logged in.".format(editor.username))
+            login_user(editor, remember=True)
+            return redirect(request.args.get("next") or '/cms/')  # url_for('.editor'))
         else:
             flash("Password incorrect")
     else:
@@ -55,21 +53,15 @@ def login():
 @cms.route('/logout')
 @login_required
 def logout():
+
+    current_app.logger.info("{} logged in.".format(editor.username))
     logout_user()
     return redirect(url_for('www.index'))
 
 
 @login_manager.user_loader
-def load_user(userid):
+def load_user(editor_id):
     try:
-        return db.session.query(Admin).get(userid)
+        return db.session.query(Editor).get(editor_id)
     except OperationalError:
         return None
-
-
-#### CMS CRUD via Angular
-
-@login_required
-@cms.route('/')
-def index():
-    return render_template('cms_layout.html')
