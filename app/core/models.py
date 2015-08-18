@@ -66,21 +66,14 @@ class Tag(BaseMixin, db.Model):
     """ Tags represent categories or subjects """
     tag = Column('name', String, unique=True)
 
-    @property
-    def count(self):
-        return len(self.writing)
-
 
 class Author(BaseMixin, db.Model):
     """ Author table represents authors """
-    name = Column(String)
+    name = Column('name', String)
     email = Column('email', String, unique=True, nullable=False)
     twitter = Column('twitter', String, unique=True)
     bio = Column('bio', String)
     hidden = Column('hidden', Boolean, default=False)
-
-    def count(self):
-        return len(self.writing)
 
 
 class Image(BaseMixin, db.Model):
