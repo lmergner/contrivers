@@ -12,6 +12,7 @@
     SQLAlchemy models for managing content.
 """
 
+from flask import current_app
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship, backref
 from flask.ext.login import UserMixin
@@ -22,8 +23,9 @@ from ..core.models import Author
 from ..core.errors import ModelError
 from ..core.mixins import DatesMixin, datetime_with_timezone
 
+# pbkdf2_sha1 appears to be what werkzeug.security.generate_password_hash uses
 pass_context = CryptContext(
-    schemes=['bcrypt'],
+    schemes=[ 'bcrypt', ],
     default='bcrypt',
     bcrypt__min_rounds=13)
 
@@ -32,9 +34,9 @@ class Editor(UserMixin, DatesMixin, db.Model):
     """ Editors can login and manage the content """
     __tablename__ = 'editors'
     id = Column('id', Integer, primary_key=True)
-    username = Column('username', String)
-    email = Column('email', String, unique=True, nullable=False)
-    password = Column('password', String, nullable=False)
+    username = Column('username', String(50))
+    email = Column('email', String(50), unique=True, nullable=False)
+    password = Column('password', String(100), nullable=False)
     password_updated = Column('password_updated', DateTime(timezone=False))
 
     # Link to author table in case we have editors that are also
@@ -64,9 +66,10 @@ class Editor(UserMixin, DatesMixin, db.Model):
         self._password_updated = datetime_with_timezone()
 
     def verify_password(self, password):
-        valid, new_hash = pass_context.verify(password, self.password)
+        valid, new_hash = pass_context.verify_and_update(password, self.password)
         if valid:
             if new_hash:
+                current_app.logger.info('Updating password hash for user {}'.format(self.username))
                 self.password = new_hash
                 self._password_updated = datetime_with_timezone()
             return True
