@@ -10,7 +10,6 @@
 import datetime
 from feedgen.feed import FeedGenerator
 from urlparse import urljoin
-from .utils import safe_unicode
 
 from flask import url_for
 
