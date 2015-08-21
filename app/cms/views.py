@@ -23,6 +23,11 @@ from . import cms
 from .models import Editor
 from .forms import LoginForm
 
+# https://realpython.com/blog/python/handling-email-confirmation-in-flask/
+def generate_confirmation_token(email):
+    serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+    return serializer.dumps(email)
+
 @cms.route('/login', methods=['GET', 'POST'])
 def login():
     # if g.user is not None and g.user.is_authenticated():

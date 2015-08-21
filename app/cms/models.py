@@ -50,13 +50,13 @@ class Editor(UserMixin, DatesMixin, db.Model):
     def __init__(self, password=None, username=None, email=None, **kwargs):
         if password is None or email is None:
             raise ModelError('Admin must be created with a password and email')
-        self.password = self.hash_password(password)
+        self.hash_password(password)
         self.username = username
         self.email = email
         super(Editor, self).__init__(**kwargs)
 
     def __repr__(self):
-        return "<Admin: %s>" % self.username
+        return "<Editor({})>".format(self.username)
 
     def __str__(self):
         return u'{}'.format(self.username)
@@ -69,7 +69,6 @@ class Editor(UserMixin, DatesMixin, db.Model):
         valid, new_hash = pass_context.verify_and_update(password, self.password)
         if valid:
             if new_hash:
-                current_app.logger.info('Updating password hash for user {}'.format(self.username))
                 self.password = new_hash
                 self._password_updated = datetime_with_timezone()
             return True

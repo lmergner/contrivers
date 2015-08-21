@@ -19,6 +19,7 @@ from sqlalchemy.orm import sessionmaker
 
 from app import create_app
 from app.core.models import Article, Author, Tag, Book, Review
+from app.cms.models import Editor
 
 
 def random_date(end_days):
@@ -83,9 +84,8 @@ def _create_app(extra_vars={}):
 class test_session(object):
     """ context manager that replaces the flask-sqalchemy interface for testing """
 
-    engine = create_engine("postgresql://contrivers@localhost/contrivers-unittests")
-
     def __init__(self, *args, **kwargs):
+        self.engine = create_engine("postgresql://contrivers@localhost/contrivers-unittests")
         self.session = sessionmaker(bind=self.engine)
 
     def __enter__(self):
@@ -233,3 +233,9 @@ class Defaults(object):
                         responses=[],
                         book_reviewed=[self.book(num=x)]))
         return self._reviews
+
+    def editor(self):
+        return Editor(
+            username='testing',
+            password='testing',
+            email='testing@example.com')
