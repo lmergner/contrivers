@@ -18,7 +18,7 @@ from .utils import aopen
 from .rss import RssGenerator
 
 from . import www
-from ..core.models import Writing, Article, Review, Tag, Author, db, tag_to_writing, author_to_writing
+from ..core.models import Writing, Article, Review, Tag, Author
 
 
 @www.context_processor
@@ -301,7 +301,7 @@ def sitemap():
         modified_time = article.last_edited_date.date().isoformat()
         pages.append(RuleTuple(url, modified_time))
 
-    authors = db.session.query(Author).filter_by(hidden=False).all()
+    authors = Author.query.filter_by(hidden=False).all()
     for author in authors:
         pages.append(RuleTuple(url_for('www.authors', author_id=author.id), ten_days_ago))
 
