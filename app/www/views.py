@@ -10,7 +10,7 @@ from collections import namedtuple
 
 from flask import (
     render_template, request, url_for, redirect, make_response, abort,
-    current_app
+    current_app, g
 )
 from sqlalchemy import desc, func
 from .forms import SearchForm
@@ -166,7 +166,7 @@ def tags(tag_id, page):
             tag=tag,
             rss_url=url_for('.rss_tag', tag_id=tag.id, _external=True))
     else:
-        query = Tag.query(func.count(Tag.writing)).\
+        query = Tag.query.\
                 paginate(page)
         return render_template(
             'tags.html',
@@ -191,19 +191,20 @@ def support():
 
 @www.route('/search/', methods=('POST', 'GET'), defaults={'page': 1})
 @www.route('/search/p/<int:page>/')
-def search(page=None):
+def search(page):
     form = SearchForm()
     if form.validate_on_submit():
         # TODO: preprocess the search term?
-        query_term = form.data['search_term']
-        results = search_query(query_term, page)
-        current_app.logger.debug(results.items)
+        g.search_term = form.data['search_term']
+        results = Writing.query.\
+            filter(Writing.tsvector.op('@@')(
+                func.plainto_tsquery(form.data['search_term']))).\
+            paginate(page)
 
         return render_template(
             'search.html',
             paginated=results,
-            search=SearchForm(placeholder=query_term))
-    # return a blank search page
+            search=SearchForm(placeholder=form.data['search_term']))
     else:
         return render_template('search.html')
 

@@ -1,7 +1,6 @@
 {% extends 'layout.html' %}
 {% from 'macros.html' import render_articles, render_issues, render_page_buttons, render_tags, render_issue %}
-{% block title %} - {{ page_type | capitalize }}{% endblock title %}
-{% block header %}{{ super() }}{% endblock %}
+{% block title %} - Search: {% if g.search_term is defined %}{{ g.search_term | capitalize }}{% endif %}{% endblock title %}
 
 {% block content %}
 <div id='content' class='layout search-page page'>
