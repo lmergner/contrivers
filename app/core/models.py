@@ -15,6 +15,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship, backref, validates
 from sqlalchemy.dialects.postgresql import TSVECTOR
+from sqlalchemy.sql import func
 
 from .ext import db
 from ..core.validators import validate_isbn
@@ -66,6 +67,26 @@ class Tag(BaseMixin, db.Model):
     """ Tags represent categories or subjects """
     tag = Column('name', String, unique=True)
 
+    @property
+    def count(self):
+        cnt = func.count('*').label('cnt')
+        return db.session.query(func.count('*')).\
+                filter(self.id==tag_to_writing.c.tag_id).\
+                scalar()
+
+    @classmethod
+    def ordered_query(self, page=1):
+        """ Return a paginated query of all Tags ordered by count of writing """
+        cnt = func.count('*').label('cnt')
+        subq = db.session.query(self.id, cnt).\
+                filter(self.id==tag_to_writing.c.tag_id).\
+                group_by(self.id).\
+                subquery()
+        return self.query.\
+                outerjoin(subq, self.id == subq.c.id).\
+                order_by(subq.c.cnt.desc(), self.tag).\
+                paginate(page)
+
 
 class Author(BaseMixin, db.Model):
     """ Author table represents authors """
@@ -74,6 +95,26 @@ class Author(BaseMixin, db.Model):
     twitter = Column('twitter', String, unique=True)
     bio = Column('bio', String)
     hidden = Column('hidden', Boolean, default=False)
+
+    @property
+    def count(self):
+        cnt = func.count('*').label('cnt')
+        return db.session.query(func.count('*')).\
+                filter(self.id==author_to_writing.c.author_id).\
+                scalar()
+
+    @classmethod
+    def ordered_query(self, page=1):
+        """ Return a paginated query of all Authors ordered by count of writing """
+        cnt = func.count('*').label('cnt')
+        subq = db.session.query(self.id, cnt).\
+                filter(self.id==author_to_writing.c.author_id).\
+                group_by(self.id).\
+                subquery()
+        return self.query.\
+                outerjoin(subq, self.id == subq.c.id).\
+                order_by(subq.c.cnt.desc(), self.name).\
+                paginate(page)
 
 
 class Image(BaseMixin, db.Model):

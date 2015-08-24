@@ -59,19 +59,18 @@ class UrlTestCase(TestCase):
             self.assert200(resp)
             self.assertTemplateUsed('articles.html')
 
-    @unittest.expectedFailure
     def test_authors(self):
         with self.client.get('/authors/') as resp:
             self.assert200(resp, "/authors/ should be 200")
             self.assertTemplateUsed('authors.html')
 
-    @unittest.expectedFailure
     def test_categories(self):
-        tags = self.defaults.tags()
+        from app.core.models import Tag
+        tags = sorted(db.session.query(Tag).all(), key=lambda x: x.count, reverse=True)
         with self.client.get('/categories/') as resp:
             self.assert200(resp)
             self.assertTemplateUsed('tags.html')
-            self.assertContext('paginated.items', tags)
+            self.assertEqual(self.get_context_variable('paginated').items, tags)
 
     def test_search_splash(self):
         self.assert200(self.client.get('/search/'))

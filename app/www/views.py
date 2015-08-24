@@ -18,7 +18,7 @@ from .utils import aopen
 from .rss import RssGenerator
 
 from . import www
-from ..core.models import Writing, Article, Review, Tag, Author
+from ..core.models import Writing, Article, Review, Tag, Author, db
 
 
 @www.context_processor
@@ -142,10 +142,9 @@ def authors(author_id, page):
             author=author,
             rss_url=url_for('.rss_author', author_id=author.id, _external=True))
     else:
-        query = Author.query.outerjoin(Tag).group_by(Author.id).order_by(func.sum(Tag.id).desc()).paginate(page)
         return render_template(
             'authors.html',
-            paginated = query,
+            paginated = Author.ordered_query(),
             endpoint='.authors')
 
 @www.route('/authors/<int:author_id>/rss/')
@@ -159,15 +158,13 @@ def rss_author(author_id):
 @www.route('/categories/<int:tag_id>/', defaults={'page': 1})
 def tags(tag_id, page):
     if tag_id is not None:
-        # TODO: Make a paginated query for tag.writings
         tag = Tag.query.get_or_404(tag_id)
         return render_template(
             'tag.html',
             tag=tag,
             rss_url=url_for('.rss_tag', tag_id=tag.id, _external=True))
     else:
-        query = Tag.query.\
-                paginate(page)
+        query = Tag.ordered_query()
         return render_template(
             'tags.html',
             paginated=query)
