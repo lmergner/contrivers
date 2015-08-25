@@ -120,13 +120,23 @@ class JsonMixin(object):
 class UrlMixin(object):
     """ Mixin that provides url method for models with type and id properties
     """
+    slug = None
+    default_view_blueprint = 'www'
+    default_route = 'archive'
 
     def url(self):
         """ return a valid url from model type and id """
-        _end = ''.join(['www.', self.type, 's'])
-        _kw = self.type + '_id'
-        _id = self.id
-        kwargs = {_kw: _id}
-        return url_for(_end, _external=True, **kwargs)
+        route = '.'.join((self.default_view_blueprint, self.route or self.default_route))
+        if self.id is None:
+            return url_for(route, _external=True)
+
+        # Use kw expansion so we can optionally set the slug
+        params = {'id_': self.id}
+
+        # Don't pass the slug to url_for if it isn't set or ''
+        if self.slug is not None and self.slug != '':
+            params['slug'] = self.slug
+
+        return url_for(route, _external=True, **params)
 
     make_url = url  # alias

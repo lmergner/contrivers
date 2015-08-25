@@ -72,14 +72,15 @@ def rss_featured():
         title=u"Contrivers' Review Featured")
     return make_response(rss.rss_str())
 
-@www.route('/articles/', defaults={'article_id': None, 'page': 1})
-@www.route('/articles/<int:article_id>/', defaults={'page': 1})
-@www.route('/articles/p/<int:page>/', defaults={'article_id': None})
-def articles(article_id, page):
-    if article_id is not None:
+@www.route('/articles/', defaults={'id_': None, 'page': 1, 'slug': None})
+@www.route('/articles/<int:id_>/<slug>/', defaults={'page': 1})
+@www.route('/articles/<int:id_>/', defaults={'page': None, 'slug': None})
+@www.route('/articles/p/<int:page>/', defaults={'id_': None, 'slug': None})
+def articles(id_, page, slug):
+    if id_ is not None:
         return render_template(
             'article.html',
-            article=Article.query.get_or_404(article_id))
+            article=Article.query.get_or_404(id_))
     else:
         return render_template(
             'articles.html',
@@ -93,14 +94,15 @@ def rss_articles():
     rss = RssGenerator(url_for('.articles', _external=True), query, title=u"Contrivers’ Review Articles")
     return make_response(rss.rss_str())
 
-@www.route('/reviews/', defaults={'review_id': None, 'page': 1})
-@www.route('/reviews/<int:review_id>/', defaults={'page': 1})
-@www.route('/reviews/p/<int:page>/', defaults={'review_id': None})
-def reviews(review_id, page):
-    if review_id is not None:
+@www.route('/reviews/', defaults={'id_': None, 'page': 1, 'slug': None})
+@www.route('/reviews/<int:id_>/<slug>/', defaults={'page': 1})
+@www.route('/reviews/<int:id_>/', defaults={'page': 1, 'slug': None})
+@www.route('/reviews/p/<int:page>/', defaults={'id_': None, 'slug': None})
+def reviews(id_, page, slug):
+    if id_ is not None:
         return render_template(
             'article.html',
-            article=Review.query.get_or_404(review_id))
+            article=Review.query.get_or_404(id_))
     else:
         return render_template(
             'articles.html',
@@ -130,26 +132,28 @@ def rss_archive():
     rss = RssGenerator(url_for('.archive', _external=True), query, title=u"Contrivers' Review Recent")
     return make_response(rss.rss_str())
 
-@www.route('/authors/', defaults={'author_id': None, 'page': 1})
-@www.route('/authors/p/<int:page>/', defaults={'author_id': None})
-@www.route('/authors/<int:author_id>/', defaults={'page': 1})
-def authors(author_id, page):
-    if author_id is not None:
-        author = Author.query.get_or_404(author_id)
+@www.route('/authors/', defaults={'id_': None, 'page': 1, 'slug': None})
+@www.route('/authors/p/<int:page>/', defaults={'id_': None, 'slug': None})
+@www.route('/authors/<int:id_>/<slug>/', defaults={'page': 1})
+@www.route('/authors/<int:id_>/', defaults={'page': 1, 'slug': None})
+def authors(id_, page, slug):
+    if id_ is not None:
+        # TODO: paginate list of single author's articles
+        author = Author.query.get_or_404(id_)
         return render_template(
             'author.html',
             page_type='authors',
             author=author,
-            rss_url=url_for('.rss_author', author_id=author.id, _external=True))
+            rss_url=url_for('.rss_author', id_=author.id, _external=True))
     else:
         return render_template(
             'authors.html',
             paginated = Author.ordered_query(),
             endpoint='.authors')
 
-@www.route('/authors/<int:author_id>/rss/')
-def rss_author(author_id):
-    author = Author.query.get_or_404(author_id)
+@www.route('/authors/<int:id_>/rss/')
+def rss_author(id_):
+    author = Author.query.get_or_404(id_)
     rss = RssGenerator(url_for('.authors', author_id=author.id), author.writing, title=u"{} -- Contrivers' Review".format(author.name))
     return make_response(rss.rss_str())
 
@@ -248,7 +252,7 @@ def subscribe():
 @www.route('/article/<int:id>/')
 @www.route('/article/', defaults={'id': None})
 def redirect_article(id):
-    return redirect(url_for('.articles', article_id=id))
+    return redirect(url_for('.articles', id_=id))
 
 #
 # Redirects from v2

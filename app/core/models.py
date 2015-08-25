@@ -63,9 +63,15 @@ writing_to_writing = Table(
 )
 
 
-class Tag(BaseMixin, db.Model):
+class Tag(BaseMixin, UrlMixin, db.Model):
     """ Tags represent categories or subjects """
     tag = Column('name', String, unique=True)
+
+    route = 'categories'
+
+    @property
+    def slug(self):
+        return '-'.join(self.tag.lower().split())
 
     @property
     def count(self):
@@ -88,13 +94,19 @@ class Tag(BaseMixin, db.Model):
                 paginate(page)
 
 
-class Author(BaseMixin, db.Model):
+class Author(BaseMixin, UrlMixin, db.Model):
     """ Author table represents authors """
     name = Column('name', String)
     email = Column('email', String, unique=True, nullable=False)
     twitter = Column('twitter', String, unique=True)
     bio = Column('bio', String)
     hidden = Column('hidden', Boolean, default=False)
+
+    route = 'authors'
+
+    @property
+    def slug(self):
+        return '-'.join(self.name.lower().split())
 
     @property
     def count(self):
@@ -141,6 +153,7 @@ class Writing(BaseMixin, DatesMixin, UrlMixin, PublishMixin, db.Model):
     # track basic attributes of all writing:
     # title, text, summary
     title = Column('title', String, nullable=False)
+    slug = Column('slug', String)
     text = Column('text', String)
     abstract = Column('summary', String)
 
@@ -184,11 +197,13 @@ class Writing(BaseMixin, DatesMixin, UrlMixin, PublishMixin, db.Model):
 #
 
 class Article(Writing):
+    route = 'articles'
     id = Column('id', ForeignKey('writing.id'), primary_key=True)
     __mapper_args__ = {'polymorphic_identity': 'article'}
 
 
 class Review(Writing):
+    route = 'reviews'
     id = Column('id', ForeignKey('writing.id'), primary_key=True)
     __mapper_args__ = {'polymorphic_identity': 'review'}
     book_reviewed = relationship('Book')
