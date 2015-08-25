@@ -25,8 +25,9 @@ from ..core.mixins import DatesMixin, datetime_with_timezone
 
 # pbkdf2_sha1 appears to be what werkzeug.security.generate_password_hash uses
 pass_context = CryptContext(
-    schemes=[ 'bcrypt', ],
+    schemes=[ 'bcrypt', 'plaintext'],
     default='bcrypt',
+    deprecated=['plaintext'], # include primarily to test hash migrations
     bcrypt__min_rounds=13)
 
 
@@ -63,14 +64,14 @@ class Editor(UserMixin, DatesMixin, db.Model):
 
     def hash_password(self, password):
         self.password = pass_context.encrypt(password)
-        self._password_updated = datetime_with_timezone()
+        self.password_updated = datetime_with_timezone()
 
     def verify_password(self, password):
         valid, new_hash = pass_context.verify_and_update(password, self.password)
         if valid:
             if new_hash:
                 self.password = new_hash
-                self._password_updated = datetime_with_timezone()
+                self.password_updated = datetime_with_timezone()
             return True
         else:
             return False
