@@ -27,6 +27,7 @@ class MockAuthor(object):
         self.twitter = 'dummy'
         self.bio = 'Dummy is a dummy who works at [dummy university](http://www.dummy_href.edu)'
         self.hidden = False
+        self.url = lambda: '/author/1/dummy-author/'
 
         for kw in kwargs:
             setattr(self, kw, kwargs[kw])
