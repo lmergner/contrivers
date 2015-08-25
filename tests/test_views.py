@@ -61,7 +61,7 @@ class UrlTestCase(TestCase):
 
     def test_authors(self):
         with self.client.get('/authors/') as resp:
-            self.assert200(resp, "/authors/ should be 200")
+            self.assert200(resp)
             self.assertTemplateUsed('authors.html')
 
     def test_categories(self):
@@ -106,24 +106,6 @@ class UrlTestCase(TestCase):
 
     def test_old_archive_endpoint(self):
         self.assert404(self.client.get('/all/'))
-
-
-# class ContentTestCase(TestCase):
-#     """Verify that the main urls exposed to the public work and
-#     have data that we expect."""
-
-#     def create_app(self):
-#         return _create_app()
-
-#     def setUp(self):
-#         db.drop_all()
-#         db.create_all()
-#         self.defaults = Defaults()
-
-#     def tearDown(self):
-#         db.session.remove()
-#         db.drop_all()
-#         del self.defaults
 
     def test_review_200(self):
         review = self.defaults.review()
