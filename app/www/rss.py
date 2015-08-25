@@ -61,20 +61,7 @@ class RssGenerator(BaseFeedGenerator):
 
     def rss_str(self):
         self.create_entries()
-        return safe_unicode(self.fg.rss_str(pretty=True))
-        # TODO:  Ensure utf-8 encoding in RSS responses
-        # try:
-        #     resp = self.fg.rss_str(pretty=True).decode('utf-8')
-        # except UnicodeEncodeError as e:
-        #     lines = self.fg.rss_str(pretty=True).split('\n')
-        #     for idx, line in enumerate(lines):
-        #         try:
-        #             line.decode('utf-8')
-        #         except UnicodeEncodeError as e:
-        #             print 'Error in %s' % idx
-        #             print ' ==> ', line
-
-        # return ''
+        return self.fg.rss_str(pretty=True)
 
     def create_entries(self):
         fg = self.fg
