@@ -72,3 +72,5 @@ images/**.{xcf,tiff}
 *.map
 cover
 shell.py
+node_modules
+tests/perf.json
