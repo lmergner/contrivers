@@ -28,3 +28,4 @@ Werkzeug==0.10.4
 WTForms==2.0.2
 
 newrelic
+passlib
