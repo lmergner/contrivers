@@ -106,7 +106,8 @@ class Author(BaseMixin, UrlMixin, db.Model):
 
     @property
     def slug(self):
-        return '-'.join(self.name.lower().split())
+        trans_map = { ord('.'): None, ord(','): None}
+        return '-'.join(self.name.lower().translate(trans_map).split())
 
     @property
     def count(self):
