@@ -121,10 +121,10 @@ def rss_reviews():
 @www.route('/archive/', defaults={'page': 1})
 @www.route('/archive/p/<int:page>/')
 def archive(page):
-        return render_template('articles.html',
-            paginated=Writing.query.order_by(Writing._publish_date.desc()).paginated(page),
-            endpoint='.archive',
-            rss_url = url_for('.rss_reviews', _external=True))
+    return render_template('articles.html',
+        paginated=Writing.query.order_by(Writing._publish_date.desc()).paginate(page),
+        endpoint='.archive',
+        rss_url = url_for('.rss_reviews', _external=True))
 
 @www.route('/archive/rss/')
 def rss_archive():
