@@ -304,7 +304,7 @@ def sitemap():
 
     authors = Author.query.filter_by(hidden=False).all()
     for author in authors:
-        pages.append(RuleTuple(url_for('www.authors', author_id=author.id), ten_days_ago))
+        pages.append(RuleTuple(author.url(), ten_days_ago))
 
 
     sitemap_xml = render_template('sitemap.xml', pages=pages)

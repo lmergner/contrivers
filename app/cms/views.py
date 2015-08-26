@@ -34,7 +34,7 @@ def login():
     #     return redirect(request.args.get('next') or '.')
     form = LoginForm()
     if form.validate_on_submit():
-        session['remember_me'] = form.remember_me.data
+        # session['remember_me'] = form.remember_me.data
         try:
             # TODO: Handle logins by email
             editor = Editor.query.\
