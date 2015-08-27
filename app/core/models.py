@@ -67,7 +67,7 @@ class Tag(BaseMixin, UrlMixin, db.Model):
     """ Tags represent categories or subjects """
     tag = Column('name', String, unique=True)
 
-    route = 'categories'
+    route = 'tags'
 
     @property
     def slug(self):

@@ -11,7 +11,7 @@ import datetime
 
 import pytz
 from werkzeug import cached_property
-from flask import url_for
+from flask import url_for, current_app
 from sqlalchemy import Column, DateTime, Integer, func
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm import synonym
@@ -19,7 +19,6 @@ from sqlalchemy.orm import synonym
 def datetime_with_timezone():
     """ Return a timezone aware datetime object """
     return datetime.datetime.now(tz=pytz.utc)
-    # return func.current_timestamp()
 
 
 class BaseMixin(object):

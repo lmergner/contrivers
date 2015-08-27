@@ -133,9 +133,9 @@ def rss_archive():
     return make_response(rss.rss_str())
 
 @www.route('/authors/', defaults={'id_': None, 'page': 1, 'slug': None})
-@www.route('/authors/p/<int:page>/', defaults={'id_': None, 'slug': None})
 @www.route('/authors/<int:id_>/<slug>/', defaults={'page': 1})
 @www.route('/authors/<int:id_>/', defaults={'page': 1, 'slug': None})
+@www.route('/authors/p/<int:page>/', defaults={'id_': None, 'slug': None})
 def authors(id_, page, slug):
     if id_ is not None:
         # TODO: paginate list of single author's articles
@@ -148,7 +148,7 @@ def authors(id_, page, slug):
     else:
         return render_template(
             'authors.html',
-            paginated = Author.ordered_query(),
+            paginated = Author.ordered_query(page=page),
             endpoint='.authors')
 
 @www.route('/authors/<int:id_>/rss/')
@@ -157,29 +157,30 @@ def rss_author(id_):
     rss = RssGenerator(url_for('.authors', author_id=author.id), author.writing, title=u"{} -- Contrivers' Review".format(author.name))
     return make_response(rss.rss_str())
 
-@www.route('/categories/', defaults={'tag_id': None, 'page': 1})
-@www.route('/categories/p/<int:page>/', defaults={'tag_id': None})
-@www.route('/categories/<int:tag_id>/', defaults={'page': 1})
-def tags(tag_id, page):
-    if tag_id is not None:
-        tag = Tag.query.get_or_404(tag_id)
+@www.route('/categories/', defaults={'id_': None, 'page': 1, 'slug': None})
+@www.route('/categories/<int:id_>/<slug>/', defaults={'page': 2})
+@www.route('/categories/<int:id_>/', defaults={'page': 1, 'slug': None})
+@www.route('/categories/p/<int:page>/', defaults={'id_': None, 'slug': None})
+def tags(id_, page, slug):
+    if id_ is not None:
+        # TODO: paginate list of single tag's articles
+        tag = Tag.query.get_or_404(id_)
         return render_template(
             'tag.html',
             tag=tag,
-            rss_url=url_for('.rss_tag', tag_id=tag.id, _external=True))
+            rss_url=url_for('.rss_tag', id_=tag.id, _external=True))
     else:
-        query = Tag.ordered_query()
         return render_template(
             'tags.html',
-            paginated=query)
+            paginated=Tag.ordered_query(page=page))
 
-@www.route('/categories/<int:tag_id>/rss/')
-def rss_tag(tag_id):
-    tag = Tag.query.get_or_404(tag_id)
+@www.route('/categories/<int:id_>/rss/')
+def rss_tag(id_):
+    tag = Tag.query.get_or_404(id_)
     rss = RssGenerator(
-        url_for('.tags', tag_id=tag.id),
+        url_for('.tags', id_=tag.id),
         tag.writing,
-        title=u"{} -- Contrivers' Review".format(tag.tag))
+        title=u"Contrivers\' Review -- {}".format(tag.tag))
     return make_response(rss.rss_str())
 
 @www.route('/masthead/')
