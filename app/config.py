@@ -7,8 +7,8 @@ class Config(object):
     """Base flask app config object"""
     # DEFAULTS - these should be overwritten to false
     # unless explicitly set in app.create_app
-    DEBUG = os.environ.get('DEBUG', False)
-    TESTING = os.environ.get('TESTING', False)
+    DEBUG = os.environ.get('CONTRIVERS_DEBUG', False)
+    TESTING = os.environ.get('CONTRIVERS_TESTING', False)
 
     # SQLALCHEMY
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', None)
@@ -32,7 +32,7 @@ class TestConfig(Config):
     SQLALCHEMY_ECHO = True
     CACHE_TYPE = 'null'
     CACHE_REDIS_URL = os.environ.get('CACHE_REDIS_URL', 'redis://')
-    SECRET_KEY = os.urandom(16).encode('hex')
+    SECRET_KEY = os.environ.get('SECRET_KEY', os.urandom(16).encode('hex'))
 
 
 class ProductionConfig(Config):
