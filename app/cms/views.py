@@ -48,7 +48,7 @@ def login():
             flash("User logged in.")
             current_app.logger.info("{} logged in.".format(editor.username))
             login_user(editor, remember=True)
-            return redirect(request.args.get("next") or '/cms/')  # url_for('.editor'))
+            return redirect(request.args.get("next") or '/admin/')  # url_for('.editor'))
         else:
             flash("Password incorrect")
     else:

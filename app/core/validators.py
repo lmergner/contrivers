@@ -14,10 +14,11 @@ def validate_isbn(isbn, length):
 
     return a filtered string or raises an `app.core.errors.ValidationError`
     """
-    if not isinstance(isbn, str):
-        raise ValidationError('ISBN values should be a string.')
+    if not isinstance(isbn, unicode):
+        raise ValidationError('ISBN values should be unicode.')
 
-    filtered = filter_punctuation(isbn)
+    filtered = filter_punctuation(isbn).strip()
+
     if len(filtered) == length:
         for char in filtered:
             if not is_numeric(char):
@@ -29,7 +30,11 @@ def validate_isbn(isbn, length):
 
 def filter_punctuation(isbn):
     """ return a string stripped of punctuation """
-    return isbn.translate(string.maketrans('', ''), string.punctuation)
+    # return isbn.translate(string.maketrans('', ''), string.punctuation)
+    # unicode.translate /= string.translate
+    return isbn.translate(
+                dict((ord(char), None) for char in string.punctuation)
+        )
 
 def is_numeric(char):
     """ Return True if character is a digit """

@@ -69,6 +69,12 @@ class Tag(BaseMixin, UrlMixin, db.Model):
 
     route = 'tags'
 
+    def __repr__(self):
+        return '<Tag({})>'.format(self.tag)
+
+    def __str__(self):
+        return self.tag
+
     @property
     def slug(self):
         return '-'.join(self.tag.lower().split())
@@ -103,6 +109,12 @@ class Author(BaseMixin, UrlMixin, db.Model):
     hidden = Column('hidden', Boolean, default=False)
 
     route = 'authors'
+
+    def __repr__(self):
+        return '<Author({})>'.format(self.name)
+
+    def __unicode__(self):
+        return self.name
 
     @property
     def slug(self):
@@ -238,10 +250,20 @@ class Book(BaseMixin, db.Model):
 
     UniqueConstraint(title, subtitle, author)
 
+    def __repr__(self):
+        return '<Book({})>'.format(self.title[:20])
+
+    def __unicode__(self):
+        return self.title
+
     @validates('isbn_10')
     def validate_isbn_10(self, key, isbn):
+        if isbn is None:
+            return True
         return validate_isbn(isbn, 10)
 
     @validates('isbn_13')
     def validate_isbn_13(self, key, isbn):
+        if isbn is None:
+            return True
         return validate_isbn(isbn, 13)

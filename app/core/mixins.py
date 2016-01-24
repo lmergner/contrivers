@@ -102,7 +102,7 @@ class PublishMixin(object):
     @declared_attr
     def publish_date(cls):  # pylint: disable=no-self-argument
         return synonym(
-            'publish_date',
+            '_publish_date',
             descriptor=property(cls.get_publish_date, cls.set_publish_date))
 
 

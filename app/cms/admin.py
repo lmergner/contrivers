@@ -51,6 +51,9 @@ class AuthorView(AuthMixin, ModelView):
 
 class BookView(AuthMixin, ModelView):
     column_exclude_list = ['city', 'year', 'isbn_10', 'isbn_13', 'pages', 'price']
+    form_overrides = dict(
+        isbn_10=TextAreaField,
+        isbn_13=TextAreaField)
 
 
 
