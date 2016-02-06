@@ -124,7 +124,7 @@
 {% macro render_reviewed_book(books, amzn_tag='') %}
 <div class='reviewed-book reviewed-book-title-header'>A review of
     {% for book in books %}
-    <span class='reviewed-book-title'><a href='http://www.amazon.com/dp/{{ book.isbn_10 }}/?tag={{ amzn_tag }}'>{{ book.title }}</a></span><span class='reviewed-book-colon'>:</span> <span class='reviewed-book-subtitle'>{{book.subtitle}}</span> by <span class='reviewed-book-author'>{{ book.author }}</span> <span class='reviewed-book-biblio'>({{ book.publisher }}: {{ book.city}}, {{ book.year }})</span>
+    <span class='reviewed-book-title'><a href='http://www.amazon.com/dp/{{ book.isbn_10 }}/?tag={{ amzn_tag }}'>{{ book.title }}</a></span>{% if book.subtitle is not none %}<span class='reviewed-book-colon'>:</span> <span class='reviewed-book-subtitle'>{{book.subtitle}}</span>{% endif %} by <span class='reviewed-book-author'>{{ book.author }}</span> <span class='reviewed-book-biblio'>({{ book.publisher }}: {{ book.city}}, {{ book.year }})</span>
     {% endfor %}
 </div>
 {% endmacro %}
