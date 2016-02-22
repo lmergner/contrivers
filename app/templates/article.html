@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% from 'macros.html' import render_authors, render_title, render_reviewed_book, render_aside %}
 
+
 {% block open_graph %}
     <!-- Article Specific Head -->
     <meta property="og:title" content="{{ article.title }}" />
@@ -27,7 +28,7 @@
 {% block title %} - {{ article.title }}{% endblock %}
 {% block sidebar %}{% endblock %}
 
-{% block content %} 
+{% block content %}
 {{ render_aside(article, site, request) }}
 <div class='article-page layout'>
 
@@ -42,7 +43,9 @@
 
 <div class='article-body'>
 {{ article.text | md | safe }}
-<div>
+</div>
+
+{% include 'article-footer.html' %}
 </article>
 
 </div>
