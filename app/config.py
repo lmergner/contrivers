@@ -33,6 +33,9 @@ class TestConfig(Config):
     CACHE_TYPE = 'null'
     CACHE_REDIS_URL = os.environ.get('CACHE_REDIS_URL', 'redis://')
     SECRET_KEY = os.environ.get('SECRET_KEY', os.urandom(16).encode('hex'))
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        'DATABASE_URL',
+        'postgres://contrivers@localhost/contrivers')
 
 
 class ProductionConfig(Config):
