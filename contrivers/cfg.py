@@ -12,6 +12,8 @@
 
 """
 
+# TODO: remove the cfg.py file
+
 class SiteConfig(object):
     """Pass to templates so we can use dot notation for lookups."""
     def __init__(self):

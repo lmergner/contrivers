@@ -16,6 +16,7 @@ from sqlalchemy import Column, DateTime, Integer, func
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy.orm import synonym
 
+# TODO: remove all timezones and store dates as UTC w/o datetimes
 def datetime_with_timezone():
     """ Return a timezone aware datetime object """
     return datetime.datetime.now(tz=pytz.utc)

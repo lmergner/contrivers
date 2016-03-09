@@ -18,7 +18,7 @@ from .utils import aopen
 from .rss import RssGenerator
 
 from . import www
-from ..core.models import Writing, Article, Review, Tag, Author, db
+from ..models import Writing, Article, Review, Tag, Author, db
 
 
 @www.context_processor

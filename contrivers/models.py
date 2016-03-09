@@ -1,12 +1,9 @@
 #-*- coding: utf-8 -*-
 """
-    app.core.models
+    contrivers.models
     ---------------
 
-    SQLAlchemy ORM models
-
-
-    Writing is polymorphic with Articles and Reviews
+    SQLAlchemy ORM Declarative models
 """
 
 from sqlalchemy import (
@@ -18,7 +15,7 @@ from sqlalchemy.dialects.postgresql import TSVECTOR
 from sqlalchemy.sql import func
 
 from .ext import db
-from ..core.validators import validate_isbn
+from .validators import validate_isbn
 from .mixins import BaseMixin, DatesMixin, UrlMixin, PublishMixin
 
 

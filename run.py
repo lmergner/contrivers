@@ -125,11 +125,11 @@ if __name__ == '__main__':
         export_env()
 
     if args.list_blueprints:
-        from app import default_blueprints
+        from contrivers import default_blueprints
         print('\nCurrently installed Blueprints...')
         for bp in default_blueprints:
             print('\t{}'.format(bp))
-        raise SystemExit
+        raise SystemExit()
 
     if args.blueprints:
         blueprints = args.blueprints
@@ -160,7 +160,7 @@ if __name__ == '__main__':
     # Flag for loading live_reload
     if args.live_reload:
         server = Server(app.wsgi_app)
-        server.watch('app/')
+        server.watch('contrivers/')
         server.serve(host=host, port=port)
     else:
         app.run(use_reloader=args.no_reload, host=host, port=port, debug=args.debug)

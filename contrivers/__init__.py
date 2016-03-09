@@ -12,23 +12,16 @@ import config
 import importlib
 from flask import Flask
 
-from .core import (db, cache, login_manager)
-
-from .cms import admin
+from .ext import db
 from .cfg import SiteConfig
 
 
-__version__ = "0.2"
+__version__ = "0.3.0"
 __authors__ = ['Luke Thomas Mergner <lmergner@gmail.com']
 
 __all__ = ['create_app']
 
-default_blueprints = (
-    'www',
-    'cms',
-    # 'api',
-)
-
+default_blueprints = ( 'www',)
 default_extensions = ()
 
 
@@ -104,15 +97,7 @@ def configure_ext(app):
     # flask-sqlalchemy
     db.init_app(app)
 
-    # flask-cache
-    cache.init_app(app)
-
-    # flask-login
-    login_manager.init_app(app)
-
-    # Flask-Admin
-    admin.init_app(app)
-
 
 def configure_error_handlers(app):
+    # TODO: configure error handlers
     pass
