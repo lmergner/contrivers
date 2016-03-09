@@ -6,19 +6,7 @@
 """
 import codecs
 from urllib import urlencode
-import requests
 from boto.s3.connection import S3Connection
-# from .ext import cache
-
-
-def ropen(url):
-    """
-    Open a file using requests.get
-
-    :param url: the path to the file
-    """
-    resp = requests.get(url)
-    return resp.text
 
 
 def uopen(path):
