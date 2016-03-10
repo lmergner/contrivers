@@ -1,0 +1,45 @@
+
+<footer class="contrivers-footer">
+    <div class="footer-nav">
+        <h2 >Magazine</h2>
+        <ul>
+            {# <li ><a href="{{ url_for('www.issues') }}">Issues</a></li> #}
+            <li ><a href="{{ url_for('www.featured') }}">Featured</a> <a href="{{ url_for('www.rss_featured') }}"><i class='fa fa-rss'></i></a></li>
+            {#<li ><a href="{{ url_for('www.archive') }}">Archive</a> <a href="{{ url_for('www.rss_archive') }}"><i class='fa fa-rss'></i></a></li>#}
+            <li ><a href="{{ url_for('www.articles') }}">Articles</a> <a href="{{ url_for('www.rss_articles') }}"><i class='fa fa-rss'></i></a></li>
+            <li ><a href="{{ url_for('www.reviews') }}">Reviews</a> <a href="{{ url_for('www.rss_reviews') }}"><i class='fa fa-rss'></i></a></li>
+            <li ><a href="{{ url_for('www.authors') }}">Authors</a></li>
+            <li ><a href="{{ url_for('www.tags' ) }}">Categories</a></li>
+            <li ><a href="{{ url_for('www.masthead') }}">Masthead</a></li>
+            <li ><a href="{{ url_for('www.support') }}">Support</a></li>
+        </ul>
+    </div>
+    <ul class="copyright">
+        <li>
+            <p><a href="/masthead/">Contrivers’ Review</a> is a non-profit digital publication featuring
+            essays, book reviews, and interviews.</p>
+        </li>
+        <li>
+            Contrivers' Review is published in Glendale, CA.
+        </li>
+        <li>
+            &copy; Copyright 2014-2015 Contrivers' Review.
+        </li>
+
+        <li>
+            Artwork &copy; Copyright 2014-2015 by <a
+                href='http://www.natesinnott.com/Muse%20Site/'
+                target='_blank'>Nathaniel Sinnott</a>.
+        </li>
+
+        <li>
+            Contrivers' Review is a Python app built (mostly) with <a
+                href='https://github.com/mitsuhiko/flask'>Flask</a>, <a
+                href='http://www.sqlalchemy.org/'>SQLAlchemy</a>, <a
+                href='http://sass-lang.com/'>Sass</a>, and other open source
+                libraries. The code is <a
+                    href='http://www.github.com/lmergner/contrivers/'>available
+                    at <i class='fa fa-github'></i> Github</a>.
+        </li>
+        </ul>
+</footer>
