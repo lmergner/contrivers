@@ -14,11 +14,10 @@ from flask import (
 )
 from sqlalchemy import desc, func
 from .forms import SearchForm
-from .utils import aopen
 from .rss import RssGenerator
-
 from . import www
 from ..models import Writing, Article, Review, Tag, Author, db
+from ..utils import aopen
 
 
 @www.context_processor
