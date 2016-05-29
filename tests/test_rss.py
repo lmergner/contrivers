@@ -5,21 +5,14 @@
     Hit rss endpoints and validate the response against a DTD using lxml. This
     module can also be run from command line to debug problems
 """
-import unittest
-import mock
-import argparse
-import sys
+
+import pytest
 import re
 from StringIO import StringIO
-from flask_testing import TestCase
 from lxml import etree
 from contrivers import db, create_app
 from contrivers.core.models import Tag, Author
 from contrivers.www.rss import RssGenerator
-
-# relative imports fail if called from command line
-if __name__ != '__main__':
-    from .fixtures import _create_app, Defaults
 
 xml_endpoints = [
     '/rss/',
@@ -30,7 +23,6 @@ xml_endpoints = [
     ]
 category_url_template = '/categories/{id}/rss/'
 author_url_template = '/authors/{id}/rss/'
-
 rss_dtd = """
     <!ELEMENT rss (channel)>
     <!ATTLIST rss version CDATA #IMPLIED>
@@ -55,87 +47,71 @@ rss_dtd = """
     <!ELEMENT category (#PCDATA)>
 """
 
-def _validate_rss(rss):
+def validate_rss(rss):
+    """ validate the generated rss feeds using a DTD """
     dtd = etree.DTD(StringIO(rss_dtd))
     xml = etree.XML(rss)
-    return dtd.validate(xml)
+    if not dtd.validate(xml):
+        pytest.fail('RSS didn\'t validate')
 
+@pytest.fixture
+def populate(data):
+    """ Populate the db with test data
 
-class XmlEndpoints(TestCase):
+    articles = 2
+    authors = 4
+    tags = 3 randomly assigned
+    featured = 1
+    """
+    authors = data.authors(4)
+    articles = reviews = []
+    for x in range(4):
+        if x % 2:
+            articles.extend(data.articles(1, authors[x]))
+        else:
+            reviews.extend(data.reviews(1, authors[x]))
+    articles[0].featured = True
+    data.add_all_and_commit(articles)
+    data.add_all_and_commit(reviews)
 
-    def create_app(self):
-        return _create_app()
+    add_sub_urls_by_id(Tag.query.all(), category_url_template)
+    add_sub_urls_by_id(Author.query.all(), author_url_template)
 
-    def setUp(self):
-        db.drop_all()
-        db.create_all()
+def add_sub_urls_by_id(id_able, template):
+    """ extend rss urls from a list of tags """
+    xml_endpoints.extend([ template.format(id=obj.id)
+        for obj in id_able])
 
-    def tearDown(self):
-        db.session.remove()
-        db.drop_all()
+def test_for_valid_xml(client, populate):
+    """ xml endpoints should return valid xml """
+    for xml in xml_endpoints:
+        with client.get(xml) as resp:
+            assert resp.status_code == 200
+            assert validate_rss(resp.data)
+            # TODO: Ensure that RSS returns unicode data
+            # self.assertIsInstance(resp.data, unicode)
 
-    def populate_db(self):
-        """ Populate the db with test data
-
-        articles = 2
-        authors = 4
-        tags = 3 randomly assigned
-        featured = 1
-        """
-        defaults = Defaults()
-        authors = defaults.authors(4)
-        articles = reviews = []
-        for x in range(4):
-            if x % 2:
-                articles.extend(defaults.articles(1, authors[x]))
-            else:
-                reviews.extend(defaults.reviews(1, authors[x]))
-        articles[0].featured = True
-        db.session.add_all(articles)
-        db.session.add_all(reviews)
-        db.session.commit()
-        self.add_sub_urls_by_id(Tag.query.all(), category_url_template)
-        self.add_sub_urls_by_id(Author.query.all(), author_url_template)
-
-    def add_sub_urls_by_id(self, id_able, template):
-        """ extend rss urls from a list of tags """
-        xml_endpoints.extend([
-            template.format(id=obj.id)
-            for obj in id_able])
-
-    def test_for_valid_xml(self):
-        """ xml endpoints should return valid xml """
-        self.populate_db()
-        for xml in xml_endpoints:
-            with self.client.get(xml) as resp:
-                self.assertEqual(resp.status_code, 200, '{} returned {}'.format(xml, resp.status_code))
-                self.assertTrue(_validate_rss(resp.data))
-                # TODO: Ensure that RSS returns unicode data
-                # self.assertIsInstance(resp.data, unicode)
-
-    def test_no_emails(self):
-        """ Test that no author emails are being publicized """
-        self.populate_db()
-        authors = Author.query.all()
-        resp = self.client.get('/rss/')
-        self.assert200(resp)
+def test_no_emails(client, populate):
+    """ Test that no author emails are being publicized """
+    authors = Author.query.all()
+    with client.get('/rss/') as resp:
+        assert resp.status_code == 200
         for author in authors:
-            self.assertNotIn(
-                author.email,
-                resp.data.decode('utf-8'),
-                "email should not be in /authors/{}/rss/".format(author.id))
+            assert author.email not in resp.data.decode('utf-8')
 
 
 # TODO:  Test that the text is rendered through markdown
-# @mock.patch('contrivers.www.rss.markdown_factory')
+# @mock.patch('app.www.rss.markdown_factory')
 # class TestGenerator(unittest.TestCase):
 
-#     def test_rss_is_html(self, mocked):
-#             resp = self.client.get('/rss/')
-#             self.assert200(resp)
-#             self.assertListEqual(mocked.mock_calls, [])
+#     def test_rss_is_html(mocked):
+#             resp = client.get('/rss/')
+#             assert200(resp)
+#             assertListEqual(mocked.mock_calls, [])
 
 if __name__ == '__main__':
+    import argparse
+    import sys
     parser = argparse.ArgumentParser(prog='RSS validator')
     parser.add_argument('--debug', action='store_true', help='Print debug info for DTD failures')
     parser.add_argument('db_url', default='contrivers', nargs='?')

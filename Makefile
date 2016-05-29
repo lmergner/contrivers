@@ -1,13 +1,11 @@
 .PHONY: clean-pyc clean-build docs
 
 help:
-	@echo "styles - copy the stylesheets to dropbox"
 	@echo "run - run the flask test server"
 	@echo "clean-build - remove build artifacts"
 	@echo "clean-pyc - remove Python file artifacts"
 	@echo "test- run python unittest"
 	@echo "coverage - check code coverage quickly with the default Python"
-	@echo "count - run cloc"
 	@echo "docs - generate Sphinx HTML documentation, including API docs"
 	@echo "release - package and upload a release"
 	@echo "sdist - package"
@@ -28,17 +26,14 @@ clean-pyc:
 	find . -name '*~' -exec rm -f {} +
 
 test:
-	# python -m unittest discover -v -s tests
-	nosetests tests
+	pip install -e .
+	py.test
 
 coverage:
 	coverage run --source app nosetests tests
 	coverage report -m
 	coverage html
 	open htmlcov/index.html
-
-count:
-	cloc journal tests
 
 docs:
 	rm -f docs/journal.rst

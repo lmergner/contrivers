@@ -1,22 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import unittest
+import pytest
 from contrivers.www.jinja_helpers import markdown_factory
 
-class MDTestCase(unittest.TestCase):
-    """ Asserts the behavior we expect so that we can later change markdown
-    engines and catch changes """
+# TODO: write a full markdown test suite before switching to a different parser
 
-    def md(self, txt):
-        """ Run the markdown factory without registering
-        the function as a jinja template"""
-        return markdown_factory().convert(txt)
-
-    def test_headers(self):
-        """ Markdown -- test header renders as expected """
-        txt = "# Header One"
-        expected = u'<h1 id=\"header-one\">Header One</h1>'
-        self.assertEqual(
-            self.md(txt), expected,
-            "app.www.jinja_helpers.markdown_factory should handle headers")
+def test_headers():
+    """ Markdown -- test header renders as expected """
+    txt = "# Header One"
+    expected = u'<h1 id=\"header-one\">Header One</h1>'
+    result = markdown_factory().convert(txt)
+    assert result ==  expected
 

@@ -5,9 +5,8 @@
     Tests for jinja macros
 """
 
-import unittest
+import pytest
 import jinja2
-import mock
 from flask.helpers import url_for
 
 
@@ -46,53 +45,37 @@ class MockAuthor(object):
         raise NotImplementedError
 
 
-class MacrosTestCase(unittest.TestCase):
+def test_render_author_block(jinja_env):
+    """jinja macro author block printing test
 
-    def setUp(self):
-        self.env = jinja2.Environment(loader=jinja2.FileSystemLoader('app/templates'), extensions=['jinja2.ext.with_'])
-        self.env.filters['md'] = lambda x: x
-        self.env.globals['url_for'] = mock.MagicMock(url_for)
+    Render the macro using a dummy template and dummy data. Then make
+    assertions about how the macro formats data.
+    """
+    author = MockAuthor()
+    mock_template = '\n'.join([
+        "{% from 'macros.html' import render_author_block %}",
+        "{{ render_author_block(author, show_articles=True, show_abstract=False, show_name=True ) | safe }}"
+    ])
+    template = jinja_env.from_string(mock_template)
+    result = template.render(author=author)
+    assert 'Dummy Author' in result
+    assert "<a href='email://dummy@example.com'>dummy@example.com</a>" not in result
 
-    def tearDown(self):
-        del self.env
+def test_render_authors(jinja_env):
+    """ jinja macro author block should print without using author.count()
 
+    Authors have no order_by or sort attribute, so they have to be
+    sorted in the sqlalchemy search or by some other method. This was a
+    bug. """
 
-class AuthorMacrosTestCase(MacrosTestCase):
-    """ A regression test to make sure that the macro does not try to order
-    a list of authors by author.order.  Ordering should be done in the query
-    itself. """
+    authors = []
 
-    def test_render_author_block(self):
-        """jinja macro author block printing test
+    for i in range(1, 6):
+        authors.append(MockAuthor(id = i))
 
-        Render the macro using a dummy template and dummy data. Then make
-        assertions about how the macro formats data.
-        """
-        author = MockAuthor()
-        mock_template = '\n'.join([
-            "{% from 'macros.html' import render_author_block %}",
-            "{{ render_author_block(author, show_articles=True, show_abstract=False, show_name=True ) | safe }}"
-        ])
-        template = self.env.from_string(mock_template)
-        result = template.render(author=author)
-        self.assertIn('Dummy Author', result)
-        self.assertNotIn("<a href='email://dummy@example.com'>dummy@example.com</a>", result)
-
-    def test_render_authors(self):
-        """ jinja macro author block should print without using author.count()
-
-        Authors have no order_by or sort attribute, so they have to be
-        sorted in the sqlalchemy search or by some other method. This was a
-        bug. """
-
-        authors = []
-
-        for i in range(1, 6):
-            authors.append(MockAuthor(id = i))
-
-        mock_template = '\n'.join([
-            "{% from 'macros.html' import render_authors %}",
-            "{{ render_authors( paginated.items ) }}",
-        ])
-        template = self.env.from_string(mock_template)
-        assert template.render(paginated=MockPagination(authors))  # Authors should not throw an error by calling author.order
+    mock_template = '\n'.join([
+        "{% from 'macros.html' import render_authors %}",
+        "{{ render_authors( paginated.items ) }}",
+    ])
+    template = jinja_env.from_string(mock_template)
+    assert template.render(paginated=MockPagination(authors))  # Authors should not throw an error by calling author.order
