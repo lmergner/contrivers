@@ -9,36 +9,26 @@ try:
 except ImportError:
     from distutils.core import setup
 
-if sys.argv[-1] == 'publish':
-    os.system('python setup.py sdist upload')
-    sys.exit()
-
-readme = open('README.rst').read()
-history = open('HISTORY.rst').read().replace('.. :changelog:', '')
-
 with open('requirements.txt', 'r') as f:
-    requires = f.readlines()
+    REQUIRE = f.readlines()
 
-with open('test-requirements.txt', 'r') as f:
-    tests_require = f.readlines()
+with open('dev-requirements.txt', 'r') as f:
+    TESTS_REQUIRE = f.readlines()
 
 setup(
-    name='journal',
-    version = '0.1dev',
-    description='A Flask app with CMS.',
-    long_description=readme + '\n\n' + history,
+    name='contrivers',
+    version='0.2.1',
+    description='a publishing engine for www.contrivers.org',
     author='Luke Thomas Mergner',
     author_email='lmergner@gmail.com',
-    url='https://github.com/lmergner/journal',
+    url='https://github.com/lmergner/contrivers',
     packages=[
-        'journal',
+        'app',
     ],
-    package_dir={'journal': 'journal'},
     include_package_data=True,
-    install_requires=requires,
-    license="BSD",
+    install_requires=REQUIRE,
+    license="MIT",
     zip_safe=False,
-    keywords='journal',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'License :: OSI Approved :: BSD License',
@@ -46,5 +36,5 @@ setup(
         'Programming Language :: Python :: 2.7',
     ],
     test_suite='tests',
-    tests_require=tests_require,
+    tests_require=TESTS_REQUIRE,
 )
