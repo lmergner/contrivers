@@ -7,8 +7,8 @@
     consistent return from our model
 """
 import unittest
-from app.core.validators import validate_isbn
-from app.core.errors import ValidationError
+from contrivers.core.validators import validate_isbn
+from contrivers.core.errors import ValidationError
 
 
 class TestISBN(unittest.TestCase):
@@ -27,12 +27,12 @@ class TestISBN(unittest.TestCase):
     ]
 
     def test_validates(self):
-        """ app.core.validators should handle well-formed isbns """
+        """ contrivers.core.validators should handle well-formed isbns """
         for length, isbn, expected in self.good_test_data:
             self.assertEqual(validate_isbn(isbn, length), expected)
 
     def test_validate_fails(self):
-        """ app.core.validators should raise an error on bad isbns """
+        """ contrivers.core.validators should raise an error on bad isbns """
         for length, isbn in self.bad_test_data:
             with self.assertRaises(ValidationError):
                 validate_isbn(isbn, length)

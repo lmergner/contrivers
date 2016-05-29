@@ -6,8 +6,8 @@
 # Distributed under terms of the MIT license.
 
 """
-    app.app
-    -------
+    contrivers.app
+    --------------
 
     SubClass of the main Flask class so that we can use a custom jinja2
     template loader.
@@ -20,8 +20,8 @@ from flask import current_app, Flask
 from flask.helpers import locked_cached_property
 from jinja2 import BaseLoader, ChoiceLoader, TemplateNotFound, FileSystemLoader
 
-from core import Template
-from core import db
+from .core import Template
+from .core import db
 
 class DatabaseLoader(BaseLoader):
     """ Load templates from a database """

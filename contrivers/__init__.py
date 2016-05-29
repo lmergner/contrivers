@@ -1,5 +1,11 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
+"""
+contrivers
+----------
+
+defines create_app factory function and performs setup for the application.
+"""
 
 import os
 import config
@@ -83,7 +89,7 @@ def create_app(
         blueprints = default_blueprints
 
     for blueprint_str in blueprints:
-        blueprint = getattr(importlib.import_module('app.' + blueprint_str), blueprint_str)
+        blueprint = getattr(importlib.import_module('contrivers.' + blueprint_str), blueprint_str)
         app.logger.debug('Registering blueprint {}'.format(blueprint.name))
         app.register_blueprint(blueprint)
 

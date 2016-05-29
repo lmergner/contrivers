@@ -3,8 +3,8 @@
 import unittest
 from flask.ext.testing import TestCase
 from .fixtures import _create_app, Defaults
-from app import db
-from app.core.models import Article, Author, Review
+from contrivers import db
+from contrivers.core.models import Article, Author, Review
 
 class MakeUrlTestCase(TestCase):
 

@@ -17,9 +17,9 @@ from collections import Iterable
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app import create_app
-from app.core.models import Article, Author, Tag, Book, Review
-from app.cms.models import Editor
+from contrivers import create_app
+from contrivers.core.models import Article, Author, Tag, Book, Review
+from contrivers.cms.models import Editor
 
 
 def random_date(end_days):

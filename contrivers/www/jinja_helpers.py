@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 """
-    app.www.jinja_helpers
+    contrivers.www.jinja_helpers
     ---------------------
 
     Main views jinja functions and filters

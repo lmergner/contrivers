@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 
 """
-    frontend.assets
+    contrivers.www.assets
     ---------------
 
     Compile site assets using python web assets

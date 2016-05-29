@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-    app.www.rss
+    contrivers.www.rss
     -----------
 
     Classes for generating RSS and Atom feeds.

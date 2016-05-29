@@ -19,7 +19,7 @@ try:
     from livereload import Server
 except ImportError:
     pass
-from app import create_app
+from contrivers import create_app
 
 
 def setup_debug_toolbar(app, redirect=True):

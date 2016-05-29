@@ -8,11 +8,11 @@ import datetime
 import pytz
 from .fixtures import _create_app
 from flask_testing import TestCase
-from app import db
-from app.core.models import Article
+from contrivers import db
+from contrivers.core.models import Article
 
 class TimezoneTestCase(TestCase):
-    """ Test timezone support in app.core.models """
+    """ Test timezone support in contrivers.core.models """
 
     def create_app(self):
         return _create_app()

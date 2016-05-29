@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 """
-    app.www.forms
+    contrivers.www.forms
     -------------
 
     Web forms via WTForms.

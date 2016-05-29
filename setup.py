@@ -12,7 +12,7 @@ except ImportError:
 with open('requirements.txt', 'r') as f:
     REQUIRE = f.readlines()
 
-with open('dev-requirements.txt', 'r') as f:
+with open('test-requirements.txt', 'r') as f:
     TESTS_REQUIRE = f.readlines()
 
 setup(
@@ -23,7 +23,7 @@ setup(
     author_email='lmergner@gmail.com',
     url='https://github.com/lmergner/contrivers',
     packages=[
-        'app',
+        'contrivers',
     ],
     include_package_data=True,
     install_requires=REQUIRE,

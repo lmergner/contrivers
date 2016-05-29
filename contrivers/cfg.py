@@ -1,8 +1,8 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-    app.mutable_config
-    ------------------
+    contrivers.cfg
+    ---------------
 
     Functions to load the config from an external file *per request*. We can
     then load new assets or other UI elements dynamically.

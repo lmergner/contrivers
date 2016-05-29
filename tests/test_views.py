@@ -4,13 +4,13 @@
     tests.test_views
     ----------------
 
-    Tests for app.www.views
+    Tests for contrivers.www.views
 """
 
 import unittest
 from flask_testing import TestCase
 from .fixtures import Defaults, _create_app
-from app import db
+from contrivers import db
 from mock import patch
 
 class UrlTestCase(TestCase):
@@ -34,7 +34,7 @@ class UrlTestCase(TestCase):
     # Static / non-variable endpoints
     #
     def test_masthead(self):
-        with patch('app.www.views.aopen') as mock_boto:
+        with patch('contrivers.www.views.aopen') as mock_boto:
             mock_boto.return_value = "# Mock Masthead "
             with self.client.get('/masthead/') as resp:
                 self.assert200(resp)
@@ -65,7 +65,7 @@ class UrlTestCase(TestCase):
             self.assertTemplateUsed('authors.html')
 
     def test_categories(self):
-        from app.core.models import Tag
+        from contrivers.core.models import Tag
         tags = sorted(db.session.query(Tag).all(), key=lambda x: x.count, reverse=True)
         with self.client.get('/categories/') as resp:
             self.assert200(resp)

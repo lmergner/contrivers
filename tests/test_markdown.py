@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from app.www.jinja_helpers import markdown_factory
+from contrivers.www.jinja_helpers import markdown_factory
 
 class MDTestCase(unittest.TestCase):
     """ Asserts the behavior we expect so that we can later change markdown

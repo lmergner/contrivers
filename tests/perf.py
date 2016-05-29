@@ -20,8 +20,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-from app import create_app
-from app.core.models import Tag, Author
+from contrivers import create_app
+from contrivers.core.models import Tag, Author
 
 with warnings.catch_warnings():
     warnings.simplefilter('ignore')

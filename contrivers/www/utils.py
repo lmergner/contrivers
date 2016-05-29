@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-    app.utils
+    contrivers.utils
     ---------
 """
 import codecs

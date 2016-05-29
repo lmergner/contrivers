@@ -13,9 +13,9 @@ import re
 from StringIO import StringIO
 from flask_testing import TestCase
 from lxml import etree
-from app import db, create_app
-from app.core.models import Tag, Author
-from app.www.rss import RssGenerator
+from contrivers import db, create_app
+from contrivers.core.models import Tag, Author
+from contrivers.www.rss import RssGenerator
 
 # relative imports fail if called from command line
 if __name__ != '__main__':
@@ -127,7 +127,7 @@ class XmlEndpoints(TestCase):
 
 
 # TODO:  Test that the text is rendered through markdown
-# @mock.patch('app.www.rss.markdown_factory')
+# @mock.patch('contrivers.www.rss.markdown_factory')
 # class TestGenerator(unittest.TestCase):
 
 #     def test_rss_is_html(self, mocked):

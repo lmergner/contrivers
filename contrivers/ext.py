@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-    frontend.ext
+    contrivers.ext
     ------------
 
     Import extensions here to avoid circular imports.

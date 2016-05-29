@@ -6,8 +6,8 @@ from flask import request
 
 from .fixtures import Defaults, _create_app
 from flask_testing import TestCase
-from app.core.models import Author, Tag
-from app import db
+from contrivers.core.models import Author, Tag
+from contrivers import db
 
 
 class AuthorOrderTestCase(TestCase):
