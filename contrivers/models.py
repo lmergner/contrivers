@@ -43,19 +43,18 @@ class BaseMixin(object):
         server_default=func.now()
     )
 
-
 # Many to Many :: Author to Article
 author_to_writing = Table(
     'author_to_writing', db.Model.metadata,
     Column('writing_id', Integer, ForeignKey('writing.id')),
-    Column('author_id', Integer, ForeignKey('author.id'))
+    Column('author_id', Integer, ForeignKey('authors.id'))
 )
 
 # Many to Many :: Tag to Article
 tag_to_writing = Table(
     'tag_to_writing', db.Model.metadata,
     Column('writing_id', Integer, ForeignKey('writing.id')),
-    Column('tag_id', Integer, ForeignKey('tag.id'))
+    Column('tag_id', Integer, ForeignKey('tags.id'))
 )
 
 # Many to Many self-referential table for threaded responses
@@ -213,13 +212,6 @@ class Article(Writing):
     __mapper_args__ = {'polymorphic_identity': 'article'}
 
 
-class Review(Writing):
-    __tablename__ = 'reviews'
-    id = Column('id', ForeignKey('writing.id'), primary_key=True)
-    __mapper_args__ = {'polymorphic_identity': 'review'}
-    book_reviewed = relationship('Book')
-
-
 class Intro(Writing):
     __tablename__ = 'intros'
     id = Column('id', ForeignKey('writing.id'), primary_key=True)
@@ -232,13 +224,20 @@ class Reading(Writing):
     __mapper_args__ = {'polymorphic_identity': 'readings'}
 
 
+class Review(Writing):
+    __tablename__ = 'reviews'
+    id = Column('id', ForeignKey('writing.id'), primary_key=True)
+    __mapper_args__ = {'polymorphic_identity': 'review'}
+    book_reviewed = relationship('Book')
+
+
 class Book(BaseMixin, db.Model):
     __tablename__ = 'books'
     id = Column('id', Integer, primary_key=True)
-    title = Column(String, nullable=True)
+    title = Column(String, nullable=False)
     subtitle = Column(String)
-    author = Column(String, nullable=True)
-    publisher = Column(String, nullable=True)
+    author = Column(String, nullable=False)
+    publisher = Column(String, nullable=False)
     city = Column(String)
     year = Column(Integer)
     isbn_10 = Column(
@@ -255,7 +254,7 @@ class Book(BaseMixin, db.Model):
     )
     pages = Column(Integer)
     price = Column(Integer)
-    review_id = Column(Integer, ForeignKey('review.id'))
+    review_id = Column(Integer, ForeignKey('reviews.id'))
     translator = Column(String)
     editors = Column(String)
     edition = Column(String)
