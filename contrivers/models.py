@@ -20,7 +20,8 @@ from .validators import validate_isbn
 
 
 __all__ = (
-    'Tag', 'Author', 'Writing', 'Book', 'Article', 'Review'
+    'Tag', 'Author', 'Writing', 'Book', 'Article', 'Review',
+    'Reading', 'Intro'
 )
 
 class BaseMixin(object):
@@ -217,6 +218,18 @@ class Review(Writing):
     id = Column('id', ForeignKey('writing.id'), primary_key=True)
     __mapper_args__ = {'polymorphic_identity': 'review'}
     book_reviewed = relationship('Book')
+
+
+class Intro(Writing):
+    __tablename__ = 'intros'
+    id = Column('id', ForeignKey('writing.id'), primary_key=True)
+    __mapper_args__ = {'polymorphic_identity': 'intros'}
+
+
+class Reading(Writing):
+    __tablename__ = 'readings'
+    id = Column('id', ForeignKey('writing.id'), primary_key=True)
+    __mapper_args__ = {'polymorphic_identity': 'readings'}
 
 
 class Book(BaseMixin, db.Model):
