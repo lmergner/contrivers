@@ -57,19 +57,6 @@ tag_to_writing = Table(
     Column('tag_id', Integer, ForeignKey('tag.id'))
 )
 
-# Many to Many Association Table linking Images to Writings
-image_to_writing = Table(
-    'image_to_writing', db.Model.metadata,
-    Column('image_id', Integer, ForeignKey('image.id')),
-    Column('writing_id', Integer, ForeignKey('writing.id'))
-)
-
-# reviewable_to_writing = Table(
-#     'reviewable_to_writing', db.Model.metadata,
-#     Column('reviewed_id', Integer, ForeignKey('reviewable.id')),
-#     Column('review_id', Integer, ForeignKey('writing.id'))
-# )
-
 # Many to Many self-referential table for threaded responses
 # http://docs.sqlalchemy.org/en/rel_0_9/orm/relationships.html#self-referential-many-to-many-relationship
 writing_to_writing = Table(
@@ -202,9 +189,6 @@ class Writing(BaseMixin, db.Model):
 
     tags = relationship('Tag', secondary=tag_to_writing,
         backref=backref('writing', lazy='dynamic'))
-
-    images = relationship('Image', secondary=image_to_writing,
-        backref=backref('writing', lazy='subquery'))
 
     #
     # Response -> Adjacency List Relationship
