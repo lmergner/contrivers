@@ -6,8 +6,9 @@
     SQLAlchemy ORM Declarative models
 """
 
+import datetime
 from sqlalchemy import (
-    Integer, String, Column, ForeignKey,
+    Integer, String, Column, ForeignKey, DateTime,
     Table, Boolean, UniqueConstraint, CheckConstraint
 )
 from sqlalchemy.orm import relationship, backref, validates
@@ -16,12 +17,30 @@ from sqlalchemy.sql import func
 
 from .ext import db
 from .validators import validate_isbn
-from .mixins import BaseMixin, DatesMixin, UrlMixin, PublishMixin
 
 
 __all__ = (
-    'Tag', 'Author', 'Writing', 'Image', 'Book', 'Article', 'Review'
+    'Tag', 'Author', 'Writing', 'Book', 'Article', 'Review'
 )
+
+class BaseMixin(object):
+    """
+    Mixin for SQLAlchemy Models that track created and last modified date.
+    """
+    mark_for_delete = Column('mark_for_delete', Boolean, default=False)
+    create_date = Column(
+        'create_date',
+        DateTime,
+        nullable=False,
+        default=datetime.datetime.utcnow
+    )
+
+    last_edited_date = Column(
+        'last_edited_date',
+        DateTime,
+        onupdate=datetime.datetime.utcnow,
+        default=datetime.datetime.utcnow
+    )
 
 
 # Many to Many :: Author to Article
@@ -60,11 +79,12 @@ writing_to_writing = Table(
 )
 
 
-class Tag(BaseMixin, UrlMixin, db.Model):
+class Tag(BaseMixin, db.Model):
     """ Tags represent categories or subjects """
-    tag = Column('name', String, unique=True)
 
-    route = 'tags'
+    id = Column('id', Integer, primary_key=True)
+    __tablename__ = 'tags'
+    tag = Column('name', String, unique=True)
 
     def __repr__(self):
         return '<Tag({})>'.format(self.tag)
@@ -97,15 +117,15 @@ class Tag(BaseMixin, UrlMixin, db.Model):
                 paginate(page)
 
 
-class Author(BaseMixin, UrlMixin, db.Model):
+class Author(BaseMixin, db.Model):
     """ Author table represents authors """
+    __tablename__ = 'authors'
+    id = Column('id', Integer, primary_key=True)
     name = Column('name', String)
     email = Column('email', String, unique=True, nullable=False)
     twitter = Column('twitter', String, unique=True)
     bio = Column('bio', String)
     hidden = Column('hidden', Boolean, default=False)
-
-    route = 'authors'
 
     def __repr__(self):
         return '<Author({})>'.format(self.name)
@@ -139,18 +159,13 @@ class Author(BaseMixin, UrlMixin, db.Model):
                 paginate(page)
 
 
-class Image(BaseMixin, db.Model):
-    filename = Column(String)
-    url = Column(String)
-    expired = Column(Boolean, default=False)
-
-
-class Writing(BaseMixin, DatesMixin, UrlMixin, PublishMixin, db.Model):
+class Writing(BaseMixin, db.Model):
     """ db.Model sqla class of all writing objects. """
 
     # Must have id in the class definition otherwise
     # the adjecency list many-to-many freaks out
     id = Column('id', Integer, primary_key=True)
+    __tablename__ = 'writing'
 
     # type is the polymorphic discriminator
     type = Column(String, nullable=False)
@@ -162,6 +177,7 @@ class Writing(BaseMixin, DatesMixin, UrlMixin, PublishMixin, db.Model):
 
     # track basic attributes of all writing:
     # title, text, summary
+    publish_date = Column('publish_date', DateTime)
     title = Column('title', String, nullable=False)
     slug = Column('slug', String)
     text = Column('text', String)
@@ -207,23 +223,24 @@ class Writing(BaseMixin, DatesMixin, UrlMixin, PublishMixin, db.Model):
 #
 
 class Article(Writing):
-    route = 'articles'
+    __tablename__ = 'articles'
     id = Column('id', ForeignKey('writing.id'), primary_key=True)
     __mapper_args__ = {'polymorphic_identity': 'article'}
 
 
 class Review(Writing):
-    route = 'reviews'
+    __tablename__ = 'reviews'
     id = Column('id', ForeignKey('writing.id'), primary_key=True)
     __mapper_args__ = {'polymorphic_identity': 'review'}
     book_reviewed = relationship('Book')
 
 
 class Book(BaseMixin, db.Model):
-    title = Column(String)
+    __tablename__ = 'books'
+    title = Column(String, required=True)
     subtitle = Column(String)
-    author = Column(String)
-    publisher = Column(String)
+    author = Column(String, required=True)
+    publisher = Column(String, required=True)
     city = Column(String)
     year = Column(Integer)
     isbn_10 = Column(
