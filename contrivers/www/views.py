@@ -32,11 +32,11 @@ def index():
     return render_template(
         'index.html',
         featured=Writing.query.\
-                order_by(Writing._publish_date.desc()).\
+                order_by(Writing.publish_date.desc()).\
                 filter_by(featured=True, hidden=False).\
                 all(),
         articles=Writing.query.\
-                order_by(Writing._publish_date.desc()).
+                order_by(Writing.publish_date.desc()).
                 filter_by(featured=False, hidden=False).\
                 limit(5),
         rss_url=url_for('.rss_index', _external=True))
@@ -47,7 +47,7 @@ def rss_index():
         url_for('.index', _external=True),
         Writing.query.\
             filter_by(hidden=False).\
-            order_by(Writing._publish_date.desc()).\
+            order_by(Writing.publish_date.desc()).\
             limit(20))
     return make_response(rss.rss_str())
 
@@ -56,7 +56,7 @@ def rss_index():
 def featured(page):
     featured = Writing.query.\
         filter_by(featured=True).\
-        order_by(Writing._publish_date).\
+        order_by(Writing.publish_date).\
         paginate(page)
     return render_template(
         'articles.html',
@@ -68,7 +68,7 @@ def featured(page):
 def rss_featured():
     rss = RssGenerator(
         url_for('.featured', _external=True),
-        Writing.query.filter_by(featured=True, hidden=False).order_by(Writing._publish_date.desc()).limit(10),
+        Writing.query.filter_by(featured=True, hidden=False).order_by(Writing.publish_date.desc()).limit(10),
         title=u"Contrivers' Review Featured")
     return make_response(rss.rss_str())
 
@@ -84,13 +84,13 @@ def articles(id_, page, slug):
     else:
         return render_template(
             'articles.html',
-            paginated=Article.query.order_by(Article._publish_date.desc()).paginate(page),
+            paginated=Article.query.order_by(Article.publish_date.desc()).paginate(page),
             endpoint='.articles',
             rss_url = url_for('.rss_articles', _external=True))
 
 @www.route('/articles/rss/')
 def rss_articles():
-    query = Article.query.order_by(Article._publish_date).limit(20)
+    query = Article.query.order_by(Article.publish_date).limit(20)
     rss = RssGenerator(url_for('.articles', _external=True), query, title=u"Contrivers’ Review Articles")
     return make_response(rss.rss_str())
 
@@ -106,7 +106,7 @@ def reviews(id_, page, slug):
     else:
         return render_template(
             'articles.html',
-            paginated=Review.query.order_by(Review._publish_date.desc()).paginate(page),
+            paginated=Review.query.order_by(Review.publish_date.desc()).paginate(page),
             endpoint='.reviews',
             rss_url = url_for('.rss_reviews', _external=True))
 
@@ -114,7 +114,7 @@ def reviews(id_, page, slug):
 def rss_reviews():
     rss = RssGenerator(
         url_for('.reviews'),
-        Review.query.order_by(Review._publish_date.desc()).limit(20),
+        Review.query.order_by(Review.publish_date.desc()).limit(20),
         title=u"Contrivers' Review Book Reviews")
     return make_response(rss.rss_str())
 
@@ -122,13 +122,13 @@ def rss_reviews():
 @www.route('/archive/p/<int:page>/')
 def archive(page):
     return render_template('articles.html',
-        paginated=Writing.query.order_by(Writing._publish_date.desc()).paginate(page),
+        paginated=Writing.query.order_by(Writing.publish_date.desc()).paginate(page),
         endpoint='.archive',
         rss_url = url_for('.rss_reviews', _external=True))
 
 @www.route('/archive/rss/')
 def rss_archive():
-    query = Writing.query.order_by(Writing._publish_date.desc()).limit(20)
+    query = Writing.query.order_by(Writing.publish_date.desc()).limit(20)
     rss = RssGenerator(url_for('.archive', _external=True), query, title=u"Contrivers' Review Recent")
     return make_response(rss.rss_str())
 

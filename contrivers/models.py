@@ -8,7 +8,7 @@
 
 import datetime
 from sqlalchemy import (
-    Integer, String, Column, ForeignKey, DateTime,
+    Integer, String, Column, ForeignKey, DateTime, func,
     Table, Boolean, UniqueConstraint, CheckConstraint
 )
 from sqlalchemy.orm import relationship, backref, validates
@@ -33,14 +33,14 @@ class BaseMixin(object):
         'create_date',
         DateTime,
         nullable=False,
-        default=datetime.datetime.utcnow
+        server_default=func.now()
     )
 
     last_edited_date = Column(
         'last_edited_date',
         DateTime,
-        onupdate=datetime.datetime.utcnow,
-        default=datetime.datetime.utcnow
+        server_onupdate=func.now(),
+        server_default=func.now()
     )
 
 
@@ -234,10 +234,11 @@ class Reading(Writing):
 
 class Book(BaseMixin, db.Model):
     __tablename__ = 'books'
-    title = Column(String, required=True)
+    id = Column('id', Integer, primary_key=True)
+    title = Column(String, nullable=True)
     subtitle = Column(String)
-    author = Column(String, required=True)
-    publisher = Column(String, required=True)
+    author = Column(String, nullable=True)
+    publisher = Column(String, nullable=True)
     city = Column(String)
     year = Column(Integer)
     isbn_10 = Column(
