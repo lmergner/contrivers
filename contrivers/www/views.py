@@ -16,7 +16,7 @@ from sqlalchemy import desc, func
 from .forms import SearchForm
 from .rss import RssGenerator
 from . import www
-from ..models import Writing, Article, Review, Tag, Author, db
+from ..models import Writing, Article, Review, Tag, Author, db, Reading
 from ..utils import aopen
 
 
@@ -116,6 +116,31 @@ def rss_reviews():
         Review.query.order_by(Review.publish_date.desc()).limit(20),
         title=u"Contrivers' Review Book Reviews")
     return make_response(rss.rss_str())
+
+@www.route('/readings/', defaults={'id_': None, 'page': 1, 'slug': None})
+@www.route('/readings/<int:id_>/<slug>/', defaults={'page': 1})
+@www.route('/readings/<int:id_>/', defaults={'page': 1, 'slug': None})
+@www.route('/readings/p/<int:page>/', defaults={'id_': None, 'slug': None})
+def readings(id_, page, slug):
+    if id_ is not None:
+        return render_template(
+            'article.html',
+            article=Reading.query.get_or_404(id_))
+    else:
+        return render_template(
+            'articles.html',
+            paginated=Reading.query.order_by(Reading.publish_date.desc()).paginate(page),
+            endpoint='.readings',
+            rss_url = url_for('.rss_readings', _external=True))
+
+@www.route('/readings/rss/')
+def rss_readings():
+    rss = RssGenerator(
+        url_for('.readings'),
+        reading.query.order_by(reading.publish_date.desc()).limit(20),
+        title=u"Contrivers' reading Book readings")
+    return make_response(rss.rss_str())
+
 
 @www.route('/archive/', defaults={'page': 1})
 @www.route('/archive/p/<int:page>/')
@@ -295,7 +320,7 @@ def sitemap():
     # user model pages
     writings = Writing.query.\
             filter_by(hidden=False).\
-            order_by(Writing._last_edited_date.desc()).\
+            order_by(Writing.last_edited_date.desc()).\
             all()
     for article in writings:
         url = article.make_url() # url_for('www.articles', article_id=article.id )

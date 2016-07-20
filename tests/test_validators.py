@@ -7,8 +7,8 @@
     consistent return from our model
 """
 import pytest
-from contrivers.core.validators import validate_isbn
-from contrivers.core.errors import ValidationError
+from contrivers.validators import validate_isbn
+from contrivers.errors import ValidationError
 
 
 @pytest.mark.parametrize('success', [

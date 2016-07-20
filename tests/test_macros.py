@@ -17,7 +17,7 @@ class MockPagination(object):
         self.items = items
 
 class MockAuthor(object):
-    """ Mock the attributes of the `app.core.models.Author` SQLAlchemy class """
+    """ Mock the attributes of the `app.models.Author` SQLAlchemy class """
 
     def __init__(self, *args, **kwargs):
         self.id = 1

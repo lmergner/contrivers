@@ -9,7 +9,7 @@ testing environment.
 """
 
 import pytest
-from contrivers.core.models import *
+from contrivers.models import *
 from contrivers import db
 
 @pytest.fixture
@@ -35,7 +35,6 @@ def test_tables_are_empty(app, table):
     assert result == 0
 
 def test_why_no_tables_exist(client):
-    client.application.config['SQLALCHEMY_ECHO'] = True
     author = Author(
         name='blarg',
         email='blarg@example.com')

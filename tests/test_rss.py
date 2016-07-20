@@ -11,7 +11,7 @@ import re
 from StringIO import StringIO
 from lxml import etree
 from contrivers import db, create_app
-from contrivers.core.models import Tag, Author
+from contrivers.models import Tag, Author
 from contrivers.www.rss import RssGenerator
 
 xml_endpoints = [

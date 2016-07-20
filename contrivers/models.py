@@ -7,6 +7,7 @@
 """
 
 import datetime
+from flask import url_for
 from sqlalchemy import (
     Integer, String, Column, ForeignKey, DateTime, func,
     Table, Boolean, UniqueConstraint, CheckConstraint
@@ -14,6 +15,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship, backref, validates
 from sqlalchemy.dialects.postgresql import TSVECTOR
 from sqlalchemy.sql import func
+from sqlalchemy.ext.hybrid import hybrid_property
 
 from .ext import db
 from .validators import validate_isbn
@@ -43,6 +45,28 @@ class BaseMixin(object):
         server_default=func.now()
     )
 
+    slug = None
+    default_view_blueprint = 'www'
+    default_route = 'archive'
+
+    # @hybrid_method
+    def url(self):
+        """ return a valid url from model type and id """
+        route = '.'.join((
+            self.default_view_blueprint,
+            self.route or self.default_route,
+        ))
+        # use kw expansion so we can optionall set the slug
+        params = {'id_': self.id}
+
+        # Don't pass the slug to url_for if it isn't set or ''
+        if self.slug is not None and self.slug != '':
+            params['slug'] = self.slug
+
+        return url_for(route, _external=True, **params)
+    make_url = url
+
+
 # Many to Many :: Author to Article
 author_to_writing = Table(
     'author_to_writing', db.Model.metadata,
@@ -71,6 +95,7 @@ class Tag(BaseMixin, db.Model):
 
     id = Column('id', Integer, primary_key=True)
     __tablename__ = 'tags'
+    route = 'categories'
     tag = Column('name', String, unique=True)
 
     def __repr__(self):
@@ -107,6 +132,7 @@ class Tag(BaseMixin, db.Model):
 class Author(BaseMixin, db.Model):
     """ Author table represents authors """
     __tablename__ = 'authors'
+    route = 'authors'
     id = Column('id', Integer, primary_key=True)
     name = Column('name', String)
     email = Column('email', String, unique=True, nullable=False)
@@ -120,10 +146,13 @@ class Author(BaseMixin, db.Model):
     def __unicode__(self):
         return self.name
 
-    @property
+    @hybrid_property
     def slug(self):
-        trans_map = { ord('.'): None, ord(','): None}
-        return '-'.join(self.name.lower().translate(trans_map).split())
+        try:
+            trans_map = {ord('.'): None, ord(','): None}
+            return '-'.join(self.name.lower().translate(trans_map).split())
+        except TypeError:
+            return None
 
     @property
     def count(self):
@@ -153,6 +182,7 @@ class Writing(BaseMixin, db.Model):
     # the adjecency list many-to-many freaks out
     id = Column('id', Integer, primary_key=True)
     __tablename__ = 'writing'
+    route = 'archive'
 
     # type is the polymorphic discriminator
     type = Column(String, nullable=False)
@@ -208,24 +238,28 @@ class Writing(BaseMixin, db.Model):
 
 class Article(Writing):
     __tablename__ = 'articles'
+    route = 'articles'
     id = Column('id', ForeignKey('writing.id'), primary_key=True)
     __mapper_args__ = {'polymorphic_identity': 'article'}
 
 
 class Intro(Writing):
     __tablename__ = 'intros'
+    route = 'intros'
     id = Column('id', ForeignKey('writing.id'), primary_key=True)
     __mapper_args__ = {'polymorphic_identity': 'intros'}
 
 
 class Reading(Writing):
     __tablename__ = 'readings'
+    route = 'readings'
     id = Column('id', ForeignKey('writing.id'), primary_key=True)
     __mapper_args__ = {'polymorphic_identity': 'readings'}
 
 
 class Review(Writing):
     __tablename__ = 'reviews'
+    route = 'reviews'
     id = Column('id', ForeignKey('writing.id'), primary_key=True)
     __mapper_args__ = {'polymorphic_identity': 'review'}
     book_reviewed = relationship('Book')

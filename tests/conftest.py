@@ -18,7 +18,7 @@ import pytest
 from flask import templating, url_for
 import jinja2
 from contrivers import create_app
-from contrivers.core.models import Article, Author, Tag, Book, Review
+from contrivers.models import Article, Author, Tag, Book, Review
 
 CONFIG_VARS = {
     'TESTING': True,

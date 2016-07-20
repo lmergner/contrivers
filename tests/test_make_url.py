@@ -2,7 +2,7 @@
 # pytest: disable=no-member
 
 import pytest
-from contrivers.core.models import Article, Review, Author
+from contrivers.models import Article, Review, Author
 
 def test_article_url(data):
     article = data.article()

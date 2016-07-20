@@ -42,8 +42,10 @@ def assert_context(ctx_var, client):
     if not used:
         pytest.fail('expected to find %s in template context' % ctx_var)
 
-def get_context(ctx_var, client):
-    return client._test_templates.get(ctx_var, None)
+def get_template(name, client):
+    for template in client._test_templates.keys():
+        if template.name == name:
+            return client._test_templates[template]
 
 def assert_content(resp, html):
     __tracebackhide__ = True
@@ -113,8 +115,11 @@ def test_search_with_param(client):
     with client.post('/search/', data={'search_term': 'Habermas'}) as resp:
         assert_200(resp)
         assert_template('search.html', client)
-        assert_context('search_term', client)
-        assert get_context('search_term', client) == 'Habermas'
+        assert_content(resp, 'Habermas')
+        assert_context('search', client)
+        assert_context('g', client)
+        g = get_template('search.html', client).get('g')
+        assert g.search_term == 'Habermas'
 
 #
 # Redirects
