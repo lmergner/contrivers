@@ -26,7 +26,7 @@ def test_db_url(app):
     assert app.config.get('SQLALCHEMY_DATABASE_URI').endswith('unittests')
 
 def test_schema_was_created(tables):
-    assert u'article' in tables
+    assert u'articles' in tables
     assert u'writing' in tables
 
 @pytest.mark.parametrize('table', db.metadata.tables)
