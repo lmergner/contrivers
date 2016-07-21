@@ -1,8 +1,8 @@
 language: python
 branches:
   only:
-  - v3
-  - v2
+  - develop
+  - master
 cache: pip
 addons:
   postgresql: '9.4'
@@ -28,12 +28,10 @@ notifications:
   email: false
 after_success:
 - coveralls
-after_failure:
-- coveralls
 deploy:
   provider: heroku
   app:
     v2: contrivers-v2
-    v3: contrivers-v3
+    develop: contrivers-next
   api_key:
     secure: Ax+2fa3zHGDrT8rIB/EQK3ZvF85ZKLba3qNFLGHpU7qfIXd5UvUWfl3p/HV0SN8Sws7EPFIDXgT+kDfb6PrSwC0Ypyg/jazfQTcg7NJepdq/bMNz5Zoiua6LXMFUl8746LnTiKsf+G2FqN6nUVzQ0ghFZ5xT2BJQtc/1LJsZg7Hs2/Yk3scGxm6wj3zy5OJhAEai0wleRvXngFTfNwqMG2V60Ngyov9XUlO3909iPYxWpE8PyyTYMjPwrgTUnI8rsTmCd0x+HUUSyIL372VPo/xW5ZTA36/othUudLmOizbje0v5YVgsNOfPMciuqdia4grIQZMsETJRM4y7Fc1a1/xV/octpSDfyQKfLsCpyjVWL8vVsqB+KxzBM/KT0cJEZoZ7LGIflJL+jkb++m682gjz0SxvQdp3DGRIAcr6u4lduno1eZQFwjpSjNoCevAQmE5bJaHJsizxGVkHL4/KGUcMMtoyIB9KotJEBPZR6md+LKqn0XNrA99sNupuWaeOlViTciKkGkwuIH4hqoKh2JCtUQhyNxSDbX5lA35x2rzVltezrGEOw8tOKbTaw+fsyt7kVJ+k7akHeB8pzWFmLOSQar/eKsf6ZKQYRfCJjXztLtppvP839lITTaNdM6FJHYbIK13Gvy3A3pQxmeYq89uR62gXAYD3KkKcZyAysQU=
