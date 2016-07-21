@@ -6,17 +6,26 @@
     SQLAlchemy ORM Declarative models
 """
 
-import datetime
 from flask import url_for
 from sqlalchemy import (
-    Integer, String, Column, ForeignKey, DateTime, func,
-    Table, Boolean, UniqueConstraint, CheckConstraint
+    Integer,
+    String,
+    Column,
+    ForeignKey,
+    DateTime,
+    func,
+    Table,
+    Boolean,
+    UniqueConstraint,
+    CheckConstraint,
+    types,
 )
 from sqlalchemy.orm import relationship, backref, validates
 from sqlalchemy.dialects.postgresql import TSVECTOR
 from sqlalchemy.sql import func
 from sqlalchemy.ext.hybrid import hybrid_property
 
+from .utils import with_utc
 from .ext import db
 from .validators import validate_isbn
 
@@ -26,6 +35,15 @@ __all__ = (
     'Reading', 'Intro'
 )
 
+class UTCDateTime(types.TypeDecorator):
+    """
+    Custom column type that always returns a UTC-aware DateTime
+    """
+    impl = types.DateTime
+
+    def process_result_value(self, value, dialect):
+        return with_utc(value)
+
 class BaseMixin(object):
     """
     Mixin for SQLAlchemy Models that track created and last modified date.
@@ -33,14 +51,14 @@ class BaseMixin(object):
     mark_for_delete = Column('mark_for_delete', Boolean, default=False)
     create_date = Column(
         'create_date',
-        DateTime,
+        UTCDateTime,
         nullable=False,
         server_default=func.now()
     )
 
     last_edited_date = Column(
         'last_edited_date',
-        DateTime,
+        UTCDateTime,
         server_onupdate=func.now(),
         server_default=func.now()
     )
@@ -49,7 +67,6 @@ class BaseMixin(object):
     default_view_blueprint = 'www'
     default_route = 'archive'
 
-    # @hybrid_method
     def url(self):
         """ return a valid url from model type and id """
         route = '.'.join((
@@ -194,7 +211,7 @@ class Writing(BaseMixin, db.Model):
 
     # track basic attributes of all writing:
     # title, text, summary
-    publish_date = Column('publish_date', DateTime)
+    publish_date = Column('publish_date', UTCDateTime)
     title = Column('title', String, nullable=False)
     slug = Column('slug', String)
     text = Column('text', String)

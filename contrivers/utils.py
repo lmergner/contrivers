@@ -11,6 +11,7 @@ import boto3
 import botocore
 from functools import update_wrapper
 import datetime
+from pytz import timezone
 from ._compat import iteritems
 
 
@@ -119,3 +120,22 @@ def aremove(key_name, bucket_name='contrivers-assets'):
     except botocore.exceptions.ClientError as err:
         # TODO: handle ClientError
         raise err
+
+def has_timezone(dt):
+    """ Return True if datetime object has a tzinfo attribute """
+    if not isinstance(dt, datetime.datetime):
+        raise TypeError('Expected a datetime object')
+    if dt.tzinfo is not None:
+       return True
+    return False
+
+def with_utc(dt):
+    """ return a datetime with a UTC timezone
+
+    If the datetime is non-UTC, it will be converted. If the datetime is
+    naive, UTC will be added.
+    """
+    if not has_timezone(dt):
+        return dt.replace(tzinfo=timezone('UTC'))
+    else:
+        return dt.astimezone(timezone('UTC'))
