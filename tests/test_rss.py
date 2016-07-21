@@ -87,7 +87,7 @@ def test_for_valid_xml(client, populate):
     for xml in xml_endpoints:
         with client.get(xml) as resp:
             assert resp.status_code == 200
-            assert validate_rss(resp.data)
+            validate_rss(resp.data)
             # TODO: Ensure that RSS returns unicode data
             # self.assertIsInstance(resp.data, unicode)
 
