@@ -12,13 +12,13 @@ from sqlalchemy import (
     String,
     Column,
     ForeignKey,
-    DateTime,
     func,
     Table,
     Boolean,
     UniqueConstraint,
     CheckConstraint,
     types,
+    text,
 )
 from sqlalchemy.orm import relationship, backref, validates
 from sqlalchemy.dialects.postgresql import TSVECTOR
@@ -44,6 +44,9 @@ class UTCDateTime(types.TypeDecorator):
     def process_result_value(self, value, dialect):
         return with_utc(value)
 
+    def process_literal_value(self, value, dialect):
+        return value
+
 class BaseMixin(object):
     """
     Mixin for SQLAlchemy Models that track created and last modified date.
@@ -53,14 +56,14 @@ class BaseMixin(object):
         'create_date',
         UTCDateTime,
         nullable=False,
-        server_default=func.now()
+        server_default=text('now() at timezone "utc"'),
     )
 
     last_edited_date = Column(
         'last_edited_date',
         UTCDateTime,
         server_onupdate=func.now(),
-        server_default=func.now()
+        server_default=text('now() at timezone "utc"'),
     )
 
     slug = None

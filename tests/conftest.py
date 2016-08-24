@@ -25,17 +25,20 @@ CONFIG_VARS = {
     'DEBUG': False,
     'SQLALCHEMY_DATABASE_URI': "postgres://contrivers@localhost/contrivers-unittests",
     'SQLALCHEMY_ECHO': False,
-    'WTF_CSRF_ENABLED': False
+    'WTF_CSRF_ENABLED': False,
+    'PIPE': 'testing',
 }
 
 
 def pytest_report_header(config):  # pylint: disable=unused-argument
     return "DB: {}".format(CONFIG_VARS['SQLALCHEMY_DATABASE_URI'])
 
+
 def uopen(path):
     """ Open a file using the utf-8 codec """
     with codecs.open(path, mode='r', encoding='utf-8') as f:
         return f.read()
+
 
 @pytest.fixture
 def jinja_env(mocker):

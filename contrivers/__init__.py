@@ -13,8 +13,6 @@ import importlib
 from flask import Flask
 
 from .ext import db
-from .cfg import SiteConfig
-
 
 __version__ = "0.3.0"
 __authors__ = ['Luke Thomas Mergner <lmergner@gmail.com']
@@ -52,10 +50,6 @@ def create_app(
 
     app = Flask(name, static_folder='static')
 
-    @app.context_processor
-    def site_settings():
-        return dict(site=SiteConfig())
-
     # log to stderr
     import logging
     # from logging import StreamHandler
@@ -65,14 +59,17 @@ def create_app(
         app.logger.setLevel(logging.INFO)
     # app.logger.addHandler(StreamHandler())
 
+    # Load the appropriate config based on an environmental variable
     if testing:
-        app.logger.debug('Loading from TestConfig')
         app.config.from_object(config.TestConfig)
     else:
-        app.logger.debug('Loading from ProductionConfig')
         app.config.from_object(config.ProductionConfig)
 
+    # Update the config with any cli args
     app.config.update(additional_config_vars)
+
+    for key in sorted(app.config.keys()):
+        print('{} => {}'.format(key, app.config.get(key)))
 
     # run ext.init_app(app) all in one place
     configure_ext(app)
