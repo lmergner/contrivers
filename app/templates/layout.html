@@ -108,22 +108,6 @@
 
 <footer class="contrivers-footer">
     <div class="footer-nav">
-        <h2>Mailing List</h2>
-        <!-- Begin MailChimp Signup Form -->
-        <form action="//contrivers.us3.list-manage.com/subscribe/post?u=dd125dca9ae429922ce3f2ff4&amp;id=22a9f9d26e" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank"  novalidate>
-            <div class="footer-field-group" style='display: inline-block;' >
-                <label for="mce-EMAIL" style='display: none'>Email Address </label>
-                <input type="email" value="" placeholder='Email Address' name="EMAIL" class="required email" id="mce-EMAIL">
-            </div>
-            <div id="mce-responses" class="clear" style='display: inline-block;' >
-                <div class="response" id="mce-error-response" style="display:none"></div>
-                <div class="response" id="mce-success-response" style="display:none"></div>
-            </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-            <div style="position: absolute; left: -5000px;"><input type="text" name="b_dd125dca9ae429922ce3f2ff4_22a9f9d26e" tabindex="-1" value=""></div>
-    <button style='display: inline-block;' class='form-button' value="Subscribe" type="submit" name="subscribe" id="mc-embedded-subscribe">Subscribe</button>
-        </form>
-
-        <!--End mc_embed_signup-->
         <h2 >Magazine</h2>
         <ul>
             {# <li ><a href="{{ url_for('www.issues') }}">Issues</a></li> #}
@@ -140,21 +124,23 @@
     </div>
     <ul class="copyright">
         <li>
-            <p><em>Contrivers’ Review</em> is a non-profit digital publication in the
-            tradition of intellectual journals, publishing the best essays on
-            political and social theory. Its most immediate goal is to reconnect
-            the highly professionalized discourse of theory with broader and more
-            diverse audiences.<p>
+            <p>
+                Contrivers’ Review is a non-profit digital publication featuring essays, book
+                reviews, and interviews. Its primary mission is to reconnect the highly
+                professionalized discourses of the humanities and social theory with broader
+                and more diverse audiences. Contrivers’ Review takes seriously the task of
+                critique, while remaining respectful of the limits of theory’s ambitions.
+            </p>
         </li>
         <li>
-            Contrivers' Review is published in Glendale, CA.
+            Contrivers' Review was founded in Glendale, CA.
         </li>
         <li>
-            &copy; Copyright 2014-2015 Contrivers' Review.
+            &copy; Copyright 2014-{{ year }} Contrivers' Review.
         </li>
 
         <li>
-            Artwork &copy; Copyright 2014-2015 by <a
+            Artwork &copy; Copyright 2014-{{ year }} by <a
                 href='http://www.natesinnott.com/Muse%20Site/'
                 target='_blank'>Nathaniel Sinnott</a>.
         </li>
