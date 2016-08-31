@@ -21,12 +21,9 @@ from contrivers import create_app
 from contrivers.models import Article, Author, Tag, Book, Review
 
 CONFIG_VARS = {
-    'TESTING': True,
-    'DEBUG': False,
     'SQLALCHEMY_DATABASE_URI': "postgres://contrivers@localhost/contrivers-unittests",
     'SQLALCHEMY_ECHO': False,
     'WTF_CSRF_ENABLED': False,
-    'PIPE': 'testing',
 }
 
 
@@ -61,6 +58,7 @@ def app(mocker, monkeypatch):
         _app = create_app(
             'contrivers-unittests',
             testing=True,
+            debug=False,
             additional_config_vars=CONFIG_VARS
         )
 

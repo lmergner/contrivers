@@ -70,7 +70,7 @@ def create_app(
     app.config.update(additional_config_vars)
 
     for key in sorted(app.config.keys()):
-        print('{} => {}'.format(key, app.config.get(key)))
+        app.logger.debug('{} => {}'.format(key, app.config.get(key)))
 
     # run ext.init_app(app) all in one place
     configure_ext(app)
