@@ -10,6 +10,7 @@ defines create_app factory function and performs setup for the application.
 import os
 import config
 import importlib
+from datetime import datetime
 from flask import Flask
 
 from .ext import db
@@ -85,6 +86,11 @@ def create_app(
 
     # Error handlers
     configure_error_handlers(app)
+
+    @app.context_processor
+    def context():
+        return dict(year=str(datetime.today().year))
+
     return app
 
 

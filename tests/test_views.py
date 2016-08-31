@@ -72,10 +72,6 @@ def test_sitemap(client):
         assert_200(resp)
         assert_template('sitemap.xml', client)
 
-# TODO: favicon should be served from static files
-def test_favicon(client):
-    with client.get('/favicon.ico') as resp:
-        assert_200(resp)
 #
 # Content endpoints
 #
