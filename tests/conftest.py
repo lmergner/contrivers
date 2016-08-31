@@ -38,6 +38,11 @@ def uopen(path):
 
 
 @pytest.fixture
+def test_config():
+    return CONFIG_VARS
+
+
+@pytest.fixture
 def jinja_env(mocker):
     """ Return a mocked jinja environment with our custom globals and filters"""
     env = jinja2.Environment(

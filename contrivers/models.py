@@ -18,7 +18,6 @@ from sqlalchemy import (
     UniqueConstraint,
     CheckConstraint,
     types,
-    text,
 )
 from sqlalchemy.orm import relationship, backref, validates
 from sqlalchemy.dialects.postgresql import TSVECTOR
@@ -56,14 +55,14 @@ class BaseMixin(object):
         'create_date',
         UTCDateTime,
         nullable=False,
-        server_default=text('now() at timezone "utc"'),
+        server_default=func.now(),
     )
 
     last_edited_date = Column(
         'last_edited_date',
         UTCDateTime,
         server_onupdate=func.now(),
-        server_default=text('now() at timezone "utc"'),
+        server_default=func.now(),
     )
 
     slug = None
@@ -227,8 +226,9 @@ class Writing(BaseMixin, db.Model):
     # track some tags that say if the piece is
     # publishable or if it should be highlighted in
     # some way
-    hidden = Column(Boolean, nullable=False, default=True)
-    featured = Column(Boolean, nullable=False, default=False)
+    # TODO: should be server_defaults
+    hidden = Column(Boolean, nullable=False, default=True, server_default='true')
+    featured = Column(Boolean, nullable=False, default=False, server_default='false')
 
     #
     # Relationships
