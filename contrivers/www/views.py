@@ -209,7 +209,7 @@ def rss_tag(id_):
 
 @www.route('/masthead/')
 def masthead():
-    return render_template('static.html', static_title='Masthead', content=aopen('masthead.md', bucket_name=app.config.get('BUCKET')))
+    return render_template('static.html', static_title='Masthead', content=aopen('masthead.md', bucket_name=current_app.config.get('BUCKET')))
 
 @www.route('/support/')
 def support():

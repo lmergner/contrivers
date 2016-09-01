@@ -7,12 +7,11 @@
 %}
 
 {% macro asset(name) -%}
-{% if config.TESTING %}
+{% if config.TESTING -%}
 {{ url_for('static', filename=name) }}
-{% else %}
-{# https://{{ config.BUCKET }}.s3.amazonaws.com/{{ name }} #}
+{%- else -%}
 https://s3-us-west-1.amazonaws.com/{{ config.BUCKET }}/{{ name }}
-{% endif %}
+{%- endif %}
 {%- endmacro %}
 
 <!DOCTYPE html>
@@ -40,7 +39,7 @@ https://s3-us-west-1.amazonaws.com/{{ config.BUCKET }}/{{ name }}
 
     {% block twitter_card %}
     <meta name="twitter:card" content="summary">
-    <meta name="twitter: content="@{{ config.TWITTER_NAME }}">
+    <meta name="twitter:content="@{{ config.TWITTER_NAME }}">
     <meta name="twitter:title" content="{{ config.TITLE }}">
     <meta name="twitter:description" content="{{ config.DESCRIPTION }}">
     <meta name="twitter:image" content="{{ asset('images/contrivers_icon_small.gif') }}">
