@@ -75,6 +75,8 @@ class Tag(BaseMixin, UrlMixin, db.Model):
     def __str__(self):
         return self.tag
 
+    writing = relationship('Writing', secondary=tag_to_writing, order_by='Writing.publish_date.desc()')
+
     @property
     def slug(self):
         return '-'.join(self.tag.lower().split())
@@ -187,8 +189,7 @@ class Writing(BaseMixin, DatesMixin, UrlMixin, PublishMixin, db.Model):
     authors = relationship('Author', secondary=author_to_writing,
         backref=backref('writing', lazy='dynamic'))
 
-    tags = relationship('Tag', secondary=tag_to_writing,
-        backref=backref('writing', lazy='dynamic'))
+    tags = relationship('Tag', secondary=tag_to_writing)
 
     images = relationship('Image', secondary=image_to_writing,
         backref=backref('writing', lazy='subquery'))
