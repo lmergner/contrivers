@@ -28,18 +28,12 @@
 {% block title %} - {{ article.title }}{% endblock %}
 {% block sidebar %}{% endblock %}
 
-{% block content %}
+{% block content %} 
 {{ render_aside(article, site, request) }}
 <div class='article-page layout'>
 
-<article>
-    <!-- TODO: fix this hack to filter out Readings vs Articles -->
-    {% for tag in article.tags %}
-        {% if tag.tag == 'Readings' %}
-            {% include 'readings_header.html' %}
-        {% endif %}
-    {% endfor %}
 
+<article>
 <div class='article-header'>
     {{ render_title(article, class='article-header-title') }}
     {% if article.book_reviewed is defined %}
