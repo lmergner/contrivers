@@ -1,0 +1,57 @@
+
+.responsive-image,
+%responsive-image { 
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+%italic-copy, 
+.italic-copy {
+    font-style: oblique;
+    font-style: italic;
+}
+
+
+%small-copy, 
+.small-copy {
+    font-size: 11px;
+    color: color(gray);
+}
+
+
+%author-copy, 
+.author {
+    @include set-font($face: serif, $color: black);
+    a {
+        @include unstyled-link;
+    }
+}
+
+
+.datetime,
+%datetime {
+    @include set-font(serif, delta, gray);
+}
+
+
+
+%accent-copy,
+.accent { 
+    color: color(primary);
+}
+
+
+%bold-copy,
+strong,
+b,
+.strong {
+    font-weight: 700;
+    font-weight: bold;
+}
+
+
+%paragraph-copy {
+    @include paragraph-styles;
+}
+

@@ -1,0 +1,65 @@
+/*doc
+---
+title: Footnotes
+category: Components - Footnotes
+name: components-footnotes
+---
+
+Footnotes are rendered by a python [Markdown](http://daringfireball.net/projects/markdown/) library in 
+the jinja template before the page is returned. On the client side, they are formated by [Bigfoot.js](http://www.bigfootjs.com/).
+
+
+```html_example
+
+<article class='article-body'>
+
+<!-- The footnote should be picked up and styled by bigfoot.js -->
+
+<p>
+    This is a paragraph, which has a footnote.<sup id="fnref:1"><a
+    class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>
+</p>
+<div class="footnote">
+    <hr />
+    <ol>
+        <li id="fn:1">
+            <p>This is a footnote.&#160;<a class="footnote-backref"
+            href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in
+            the text">&#8617;</a></p>
+        </li>
+    </ol>
+</div>
+
+</article>
+
+```
+*/
+
+.footnotes, 
+.footnote {
+  @include rhythm;
+  @include set-font(serif, epsilon, black);
+  p { 
+      @include set-font(serif, epsilon, black);
+      hyphens: manual;
+      overflow: hidden;
+      text-align: left;
+      @include trailer(0.25);
+  }
+  li { 
+      list-style-type: decimal;
+      list-style-position: inside; 
+  }
+}
+
+.footnote-ref {
+    @extend %small-copy;
+    vertical-align: super;
+    text-decoration: none;
+}
+
+.bigfoot-footnote__content {
+    p {
+        @include set-font(serif, epsilon, black);
+    }
+}

@@ -1,0 +1,90 @@
+/*doc
+---
+title: Article Menu
+category: Layout - Article Menu 
+---
+
+Note: The Cortana theme apparently also uses .dropdown-menu.
+
+
+```html_example
+<div class='article-menu'>
+    <ul class='dropdown-menu'>
+        <li class='menu-title'>Info</li>
+        <li class=''><a href=''>Issue</a>
+            <ul class=''>
+                <li><a href=''>The Essayist and the Intellectual</a> </li> 
+                <li><a href="">On the Intellectual Question</a> </li>
+                <li><a href="">Further Reading</a> </li>
+            </ul>
+        </li>
+        <li class=''>Responses
+            <ul class=''>
+                <li><a href="">Another Response to Kovanda</a></li>
+            </ul>
+        </li>
+        <li class=''>Respondees
+            <ul class=''>
+                <li><a href=''>Dummy title</a></li>
+                <li><a href=''>Another Respondee</a></li>
+            </ul>
+        </li>
+        <li class='article-menu__icon'><a href=""><i class='fa fa-twitter'></i></a></li>
+        <li class='article-menu__icon'><a href=""><i class='fa fa-facebook'></i></a></li>
+        <li class='article-menu__icon'><a href='' alt='Instapaper'><i class='fa fa-instapaper'></i></a></li>
+        <li class='article-menu__icon'><a href='' alt='Download ebook'><i class='fa fa-book'></i></a></li>
+    </ul>
+</div>
+<article>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a diam
+lectus. Sed sit amet ipsum mauris. Maecenas congue ligula ac quam viverra nec
+consectetur ante hendrerit. Donec et mollis dolor. Praesent et diam eget libero
+egestas mattis sit amet vitae augue. Nam tincidunt congue enim, ut porta lorem
+lacinia consectetur. Donec ut libero sed arcu vehicula ultricies a non tortor.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida
+lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor.
+Pellentesque auctor nisi id magna consequat sagittis. Curabitur dapibus enim
+sit amet elit pharetra tincidunt feugiat nisl imperdiet. Ut convallis libero in
+urna ultrices accumsan. Donec sed odio eros. Donec viverra mi quis quam
+pulvinar at malesuada arcu rhoncus. Cum sociis natoque penatibus et magnis dis
+parturient montes, nascetur ridiculus mus. In rutrum accumsan ultricies. Mauris
+vitae nisi at sem facilisis semper ac in est.</p>
+</article>
+```
+
+*/
+
+$menu-bg-color: tint(color(secondary), 40%);
+$menu-hover-color: color(secondary);
+$menu-color: color(gray) !default;
+
+.article-menu {
+    @include trailer;
+    @include dropdown-menu;
+    font-family: font(serif);
+    font-size: 1.5em;
+    color: $menu-color;
+
+    ul {
+        margin: 0 auto;
+        background-color: $menu-bg-color;
+        border-bottom: $default-border;
+    }
+
+    li ul {
+        border-right: $default-border;
+        border-left: $default-border;
+    }
+
+    li:not(.menu-title) {
+        &:hover,
+        &:focus {
+            background-color: $menu-hover-color;
+            @include single-transition('background-color', 1s, ease-in);
+        }
+    }
+    &:after {
+        clear: both;
+        content: ' ';
+    }
+}

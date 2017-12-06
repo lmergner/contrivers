@@ -1,0 +1,73 @@
+/*doc
+
+*/
+
+
+// Don't use the compass mixins which cascade to the 
+// submenu ul which should dropdown.
+
+@mixin dropdown-menu {
+    ul {
+        white-space: nowrap;
+        // text-overflow: ellipsis;
+        overflow: visible;
+        list-style: none;
+        text-align: left;
+
+        display: inline-block; // ie fallback
+        display: -webkit-flex;
+        display: flex;
+        flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+        -webkit-justify-content: center;
+        align-items: center;
+        -webkit-align-items: center;
+
+        .dropdown-menu-title,
+        .menu-title {
+            @extend %bold-copy;
+            transition: none;
+            flex-order: -1;
+        }
+
+        a { 
+            @include unstyled-link;
+            display: block; 
+            width: 100%;
+        }
+
+        li {
+            text-align: left;
+            position: relative;
+            padding: 0.25em gutter();
+
+            & a:hover ul,
+            &:hover ul,
+            &:focus ul {
+                left: 0;
+            }
+
+            ul {
+                @include border-radius;
+                font-size: 1em;
+                position: absolute;
+                left: -9999px;
+                margin-top: 7px;
+
+                li {
+                    font-size: 0.75em;
+                    display: block;
+                    border-top: $default-border;
+                    z-index: 9999;
+                    width: 100%;
+
+                    &:first-of-type {
+                        border-top: none;
+                    }
+                }
+            }
+        }
+    }
+}

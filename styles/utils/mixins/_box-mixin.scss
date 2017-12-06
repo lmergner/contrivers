@@ -1,0 +1,22 @@
+
+@mixin colored-box($bg-color) {
+    @include border-radius;
+    @include clearfix;
+    @include trailer;
+    // @include rhythm-padding;
+    display: block;
+    padding-top: rhythm();
+    padding-bottom: rhythm();
+
+    background-color: $bg-color;
+    padding: rhythm() gutter();
+
+    @include breakpoint(map-get($breakpoints, phone)) {
+        border-top: $default-border;
+        border-bottom: $default-border;
+    }
+
+    @include breakpoint(map-get($breakpoints, tablet)) {
+        border: $default-border;
+    }
+}

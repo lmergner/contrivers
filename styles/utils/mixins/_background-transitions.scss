@@ -1,0 +1,11 @@
+@mixin background-transition($color, $opacity-start: 1, $opacity-end: 0.6) {
+    background-color: color($color); /* The Fallback */
+    background-color: rgba(color($color), $opacity-start);
+
+    &:hover,
+    &:focus {
+        background-color: rgba(color($color), $opacity-end);
+        @include single-transition('background-color', 1s, ease-out);
+    }
+}
+

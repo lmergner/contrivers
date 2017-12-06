@@ -1,0 +1,26 @@
+// Styles for Marked.app preview
+
+@import 'compass/reset';
+@import 'compass';
+@import 'sassy-maps';
+@import 'susy';
+@import 'breakpoint';
+
+// http://sass-guidelin.es/#main-file
+
+@import 'base/html';
+@import 'base/variables';
+@import 'base/typography';
+
+@import 'utils/functions';
+@import 'utils/mixins/**/*';
+@import 'utils/extends';
+
+@import 'components/**/*';
+@import 'layout/**/*';
+
+// Add some padding to the Marked.app window
+body,
+article {
+  margin: 0 20px;
+}

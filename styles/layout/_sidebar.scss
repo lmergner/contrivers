@@ -1,0 +1,44 @@
+/*doc
+---
+title: Sidebar
+category: Layout - Sidebar
+name: layout-sidebar
+---
+
+Site Sidebar used on the main index page.
+
+```html_example
+
+    <div class='contrivers-sidebar'>
+        <div class='announcement'>
+            <a href=''>Contrivers' Review</a> is currently fundraising for its
+            first issue of 2015. Throughout the year, we'll be publishing 
+            essays discussing the impact of technology on education, philosophy, 
+            society, and politics. To help us, click <a href=''>here for more 
+            information</a>.
+        </div>
+        <div class='image-wrapper__banner-art'>
+            <a href=''>
+                <img src='/images/contrivers-icon.jpg' />
+            </a> 
+        </div>
+        <div class='image-wrapper__advertising'>
+            <img src="//storage.googleapis.com/support-kms-prod/SNP_1DA7588EEB5450EE2A22C2B2F0A6458A61C0_2922342_en_v1" height="auto" />
+        </div>
+    </div>
+
+
+```
+
+*/
+
+.contrivers-sidebar {
+    display: none;
+    @include breakpoint(map-get($breakpoints, window)) {
+        @include rhythm;
+        display: block;
+        @include span($sidebar-col-width last);
+    }
+}
+
+

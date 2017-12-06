@@ -1,0 +1,70 @@
+/*doc
+---
+title: Footer
+category: Layout - Footer
+name: layout-footer
+---
+
+```html_example
+<footer class="contrivers-footer">
+
+    <ul class="footer-nav">
+        <li class='footer-nav-item'><a href=''>Masthead</a></li>
+        <li class='footer-nav-item'><a href=''>Support</a></li>
+        <li class='footer-nav-item'><a href=''>Articles</a></li>
+    </ul>
+    <ul class="copyright">
+        <li>
+            <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.contrivers.org"
+            property="cc:attributionName" rel="cc:attributionURL">&copy; 2014 Contrivers' Review</a>
+            under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons
+            Attribution-NonCommercial-NoDerivatives 4.0 International License </a>.
+        </li>
+
+        <li>
+            Artwork and Design &copy; by <a href='http://www.natesinnott.com/Muse%20Site/' target='blank'>Nathaniel Sinnott</a>.
+        </li>
+
+        <li>
+            Contrivers' Review is a Python app built (mostly) with <a href='https://github.com/mitsuhiko/flask'>Flask</a>,
+            <a href='http://www.sqlalchemy.org/'>SQLAlchemy</a>, <a href='http://sass-lang.com/'>Sass</a>, and other open
+            source libraries. The code for this site is <a href='http://www.github.com/lmergner/contrivers/'>available at
+            Github</a>.
+        </li>
+        </ul>
+</footer>
+```
+
+*/
+
+@mixin footer-grid($half) {
+    @include breakpoint(map-get($breakpoints, tablet)) {
+        @include span(6 $half);
+    }
+}
+
+
+.contrivers-footer {
+    @include box-shadow;
+    @include rhythm-padding;
+    @include set-font(serif, delta, white);
+    @include clearfix;
+    background-color: color(gray);
+    border-top: 2px solid color(gray);
+    clear: both;
+    min-height: 50px;
+    p { @include set-font(serif, delta, white); }
+    a {
+        @include link-colors(color(white), $visited: color(white));
+    }
+    .copyright {
+        @include footer-grid(last);
+        li {
+          @include trailer();
+        }
+    }
+    .footer-nav {
+        @include footer-grid(first);
+        @include trailer;
+    }
+}

@@ -1,0 +1,67 @@
+/*doc
+---
+title: Full Example
+category: Layout - Articles
+name: layout-article-example
+---
+
+The article body.
+
+```html_example
+<article class="article-body">
+    <div class="epigram align-center">“To be a scholar is, often, to be irrelevant.” </div>
+    <p>These words were written by New York Times columnist Nicholas Kristof last February in an op-ed that caused a mini-storm on social media. The piece, titled “<a href="http://www.nytimes.com/2014/02/16/opinion/sunday/kristof-professors-we-need-you.html">Professors, We Need You!</a>” was Kristof’s polemic against what is by now an easy target - the insular and esoteric nature of academia, including my own field, political science. For Kristof, some of the sharpest minds in America have marginalized themselves in academia by speaking in jargon, by publishing in gated journals instead of mass-oriented venues, by neglecting diversity (meaning any discipline too dominated by the academic left to be taken seriously in national debates), and by socializing aspiring graduate students into a culture of conformity.</p>
+    <p>The message behind this lament? Professional academics should be more intelligible, more empirical and rigorous (more policy, law, business, and economics), more open to disseminating ideas through blogs, Facebook, and Twitter. In other words, they should be less like medieval monks (Kristof’s designation) and more like public intellectuals. Just public intellectuals who, one can surmise, are also master stylists (intelligibility!), proficient in cutting-edge methods, and up to date on the latest academic literature.</p>
+    <p>Maybe the irony was lost on Kristof that, as one of the leading columnists of the <em>Times</em>, which in turn is one of the leading venues for the ideology of technocratic progressivism in the US, he was calling for academics to fill the void left by the passing of the intellectual. Per Kristof, it’s not that we need less professionalization, as evidenced by his praise of quantitative disciplines that require a great deal of training. Rather, it is that these academics, as professionalized products of the university system, should also concern themselves with speaking to the broader segments of the population in the way that public-oriented intellectuals once could. </p>
+    <p>What is the relationship between the professional academic and the intellectual? Kristof’s attack struck a nerve because, although closely linked, the mutual history of these figures over the course of the twentieth century has been the site of a tension. At stake was the nature of knowledge (specialized or public) and its place in the social order (placating or critical). Today, living with the outcomes of this historical development, we are forced to rethink the current relationship of professionalized knowledge to the public sphere, and whether a new form of social critique is possible in these current conditions.</p>
+    <div class="footnote">
+    <hr>
+    <ol>
+    <li id="fn:1" class="footnote-processed">
+    <p>Both the <a href="http://www.aaup.org/report/tenure-and-teaching-intensive-appointments">American Association of University Professors</a> and the <a href="http://nces.ed.gov/programs/digest/">National Center for Education Statistics</a> have tracked data on employment in universities. See also the <a href="http://chronicle.com/article/On-Some-Campuses-a-Population/135484/">Chronicle of Higher Education</a>. &nbsp;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">↩</a></p>
+    </li>
+    <li id="fn:2" class="footnote-processed">
+    <p>Jurgen Habermas, <a href="http://www.amazon.com/dp/0262581086/?tag=contrivers-review-20"><em>The Structural Transformation of the Public Sphere</em></a>, trans. Thomas Burger  (Cambridge, MA: MIT Press, 1991), esp. ch. 4 passim.  &nbsp;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">↩</a></p>
+    </li>
+    </ol>
+    </div>
+    </article>
+```
+*/
+
+
+// article.article-body, article.article-header {
+//     max-width: span($article-page-width);
+//     margin: 0 auto;
+// }
+
+.article-body {
+
+    @extend %paragraph-copy;
+    overflow: visible;
+
+
+    .epigram, 
+    .pullquote,
+    .book-reviewed {
+        @include rhythm;
+        padding: gutter();
+        @include margin-trailer;
+
+        &.align-center {
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        &.align-left {
+            text-align: left;
+        }
+    }
+
+    blockquote {
+        margin-left: 0;
+        margin-right: 0;
+        // @include bleed-x(gutter());
+        @include apply-side-rhythm-border(left, $width: 10px, $border-style: solid color(primary) );
+    }
+}

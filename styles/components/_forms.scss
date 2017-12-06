@@ -1,0 +1,57 @@
+/*doc
+---
+title: Signup
+category: Components - Forms
+name: components-forms
+---
+
+Forms are currently used only for the support page Mailchimp signup. Code was
+borrowed from Mailchimp's default embed styles and [bootstrap-sass][].
+
+[bootstrap-sass]: https://github.com/twbs/bootstrap-sass
+
+
+*/
+
+$form-line-height: $base-line-height !default;
+$form-font-size: $base-font-size !default;
+$form-line-padding: 0.25em !default;
+$form-background-color: color('white');
+$form-input-color: color('black');
+$form-font-family: sans-serif;
+
+// input[type='text'],
+// input[type='email'],
+// input[type='submit'],
+// input[type='search'] {
+input {
+    @include border-radius;
+    @include set-font($form-font-family, $form-font-size, $form-input-color);
+    border: $default-border;
+    background-color: $form-background-color;
+    line-height: $form-line-height;
+    padding-top: $form-line-padding;
+    padding-bottom: $form-line-padding;
+    display: block;
+    -webkit-appearance: none; // Reset on iOS, taken from bootstrap-sass
+    box-sizing: border-box;
+}
+
+label {
+    @include set-font($form-font-family, $form-font-size, $form-input-color);
+    line-height: $form-line-height;
+    display: block;
+    padding-top: $form-line-padding;
+    padding-bottom: $form-line-padding;
+}
+
+.required { }
+.field-group {
+    @include clearfix;
+    @include trailer(0.5);
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+form {}

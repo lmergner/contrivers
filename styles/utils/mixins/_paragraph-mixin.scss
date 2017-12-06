@@ -1,0 +1,12 @@
+
+@mixin paragraph-styles($size: delta, $trailer: true) {
+  p {
+    @include set-font(serif, $size, 'black');
+    hyphens: manual;
+    text-overflow: hidden;
+    text-align: left;
+    @if $trailer == true {
+      @include trailer;
+    }
+  }
+}

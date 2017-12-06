@@ -1,0 +1,41 @@
+/*doc
+---
+title: Table of Contents
+category: Components - TOC
+name: components-toc
+---
+
+No styles for toc yet.
+
+```html_example
+<div class='article-body'>
+<div class="toc">
+    <ul>
+        <li><a href="#editorial-statement">Editorial Statement</a></li>
+        <li><a href="#staff">Staff</a></li>
+        <li><a href="#submissions">Submissions</a></li>
+        <li><a href="#digital-publishing-and-labor-ethics">Digital Publishing and Labor Ethics</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</div>
+<h2 id="editorial-statement">Editorial Statement</h2>
+<h2 id="staff">Staff</h2>
+<h2 id="submissions">Submissions</h2>
+
+</div>
+```
+*/
+
+.toc {
+    padding: 1em;
+    @include align-items(center);
+    ul { 
+        list-style-type: decimal; 
+        list-style-position: inside;
+    }
+    
+    li {
+        @include set-font($size: epsilon);
+    }
+
+}

@@ -1,0 +1,31 @@
+@function color($name, $opacity: 1) {
+    $color: map-get($colors, $name);
+    @if $color != null {
+        @return rgba($color, $opacity);
+    }
+    @else {
+        @warn "#{$name} is not a valid color";
+        @return "black";
+    }
+}
+
+@function font-size($name) {
+    $size: map-get($font-sizes, $name);
+    @if $size != null {
+        @return $size
+    } @else {
+        @warn "#{$name} is not a valid font-size";
+        @return 16px;
+    }
+}
+
+
+@function font($face) {
+    $face: map-get($font-families, $face);
+    @if $face != null {
+        @return $face;
+    } @else {
+        @warn "#{$face} is not a valid font-face";
+        @return map-get($font-families, serif);
+    }
+}
