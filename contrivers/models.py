@@ -123,6 +123,8 @@ class Tag(BaseMixin, db.Model):
     def __str__(self):
         return self.tag
 
+    writing = relationship('Writing', secondary=tag_to_writing, order_by='Writing.publish_date.desc()')
+
     @property
     def slug(self):
         return '-'.join(self.tag.lower().split())
@@ -237,8 +239,7 @@ class Writing(BaseMixin, db.Model):
     authors = relationship('Author', secondary=author_to_writing,
         backref=backref('writing', lazy='dynamic'))
 
-    tags = relationship('Tag', secondary=tag_to_writing,
-        backref=backref('writing', lazy='dynamic'))
+    tags = relationship('Tag', secondary=tag_to_writing)
 
     #
     # Response -> Adjacency List Relationship

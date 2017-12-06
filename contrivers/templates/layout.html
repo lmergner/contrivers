@@ -1,19 +1,4 @@
-{% set description = "
-    <em>Contrivers’ Review</em> is a non-profit digital publication in the
-    tradition of intellectual journals, publishing the best essays on
-    political and social theory. Its most immediate goal is to reconnect
-    the highly professionalized discourse of theory with broader and more
-    diverse audiences.<p>"
-%}
-
-{% macro asset(name) -%}
-{% if config.TESTING -%}
-{{ url_for('static', filename=name) }}
-{%- else -%}
-https://s3-us-west-1.amazonaws.com/{{ config.BUCKET }}/{{ name }}
-{%- endif %}
-{%- endmacro %}
-
+{% from 'macros.html' import render_announcements %}
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://opg.me/ns#">
 
@@ -21,8 +6,8 @@ https://s3-us-west-1.amazonaws.com/{{ config.BUCKET }}/{{ name }}
     <meta charset="utf-8">
     <link rel="canonical" href="{{ request.url }}">
     {% if rss_url is defined %}<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ rss_url }}" />{% endif %}
-    <link rel="shortcut icon" href="{{ asset('images/contrivers-icon-small.gif') }}" >
-    <link rel="icon" href="{{ asset('images/favicon.png') }}" >
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" >
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" >
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
@@ -30,7 +15,7 @@ https://s3-us-west-1.amazonaws.com/{{ config.BUCKET }}/{{ name }}
     <meta property="og:title" content="{{ config.TITLE }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.url }}">
-    <meta property="og:image" content="{{ asset('images/contrivers_icon_small.gif') }}">
+    <meta property="og:image" content="{{ url_for('static', filename='images/contrivers_icon_small.gif') }}">
     <meta property="og:image:width" content="241">
     <meta property="og:image:height" content="324">
     <meta property="og:description" content="{{ config.DESCRIPTION }}">
@@ -46,10 +31,10 @@ https://s3-us-west-1.amazonaws.com/{{ config.BUCKET }}/{{ name }}
     {% endblock %}
 
     {% block stylesheets -%}
-    <link href="{{ asset('css/contrib/font-awesome/font-awesome.css') }}"  media='screen, projection' rel='stylesheet' type='text/css' />
-    <link href="{{ asset('css/screen.css') }}" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="{{ url_for('static', filename='assets/css/contrib/font-awesome/font-awesome.css') }}"  media='screen, projection' rel='stylesheet' type='text/css' />
+    <link href="{{ url_for('static', filename='assets/css/screen.css') }}" media="screen, projection" rel="stylesheet" type="text/css" />
     {%- endblock stylesheets %}
-    <title>{{ config.TITLE }}{% block title %}{% endblock title %}</title>
+    <title>{{ site.title }}{% block title %}{% endblock title %}</title>
 {% endblock head %}</head>
 
 <body>
@@ -59,10 +44,10 @@ https://s3-us-west-1.amazonaws.com/{{ config.BUCKET }}/{{ name }}
     <div class="header-title">
         <a href="{{ url_for('www.index') }}">
             <img
-                src='{{ asset('images/window_banner.png') }}'
-                srcset="{{ asset('images/window_banner.png') }}, {{ asset('images/phone_banner.png') }} 480w"
+                src='{{ url_for('static', filename='images/window_banner.png') }}'
+                srcset="{{ url_for('static', filename='images/window_banner.png') }}, {{ url_for('static', filename='images/phone_banner.png') }} 480w"
                 sizes="100vw"
-                alt="Contrivers' Review"
+                alt='Contrivers Review Site Banner'
             />
             <!-- sizes="(min-width: 480px) 100vw, 100vw" -->
         </a>
@@ -71,10 +56,11 @@ https://s3-us-west-1.amazonaws.com/{{ config.BUCKET }}/{{ name }}
         <ul>
             <li class='nav-item__link'><a href="{{ url_for('www.articles') }}" >Articles</a></li>
             <li class='nav-item__link'><a href="{{ url_for('www.reviews') }}">Reviews</a></li>
+            <li class='nav-item__link'><a href="{{ url_for('www.readings') }}">Readings</a></li>
             <li class='nav-item__link'><a href="{{ url_for('www.support') }}">Support</a></li>
             <li class='nav-item__link'><a href="{{ url_for('www.masthead') }}">Masthead</a></li>
             <li class='nav-item__icon'><a href='{{ url_for('www.search') }}'><i class="fa fa-search"></i></a></li>
-            <li class="nav-item__icon"><a href="https://twitter.com/{{ config.TWITTER_NAME }}" ><i class="fa fa-twitter-square"></i></a></li>
+            <!-- li class="nav-item__icon"><a href="https://twitter.com/{{ site.twitter_name }}" ><i class="fa fa-twitter-square"></i></a></li> -->
         </ul>
     </nav>
 </header>
@@ -90,32 +76,12 @@ https://s3-us-west-1.amazonaws.com/{{ config.BUCKET }}/{{ name }}
     <div class='image-wrapper__banner-art'>
         <a href="{{ url_for('www.index') }}">
             <img
-              src="{{ asset('images/contrivers_icon_small.gif') }}"
-              srcset="{{ asset('images/contrivers_icon_small.gif') }} 480w, {{ asset('images/contrivers_icon_large.jpg') }}"
+              src="{{ url_for('static', filename='images/contrivers_icon_small.gif') }}"
+              srcset="{{ url_for('static', filename='images/contrivers_icon_small.gif') }} 480w, {{ url_for('static', filename='images/contrivers_icon_large.jpg') }}"
               alt='Contrivers Review Brand Image'
             />
         </a>
     </div>
-    {% block advertising %}
-    <div class='image-wrapper__advertising'>
-    {% if config['DEBUG'] or config['TESTING'] %}
-        <img
-            src="//storage.googleapis.com/support-kms-prod/SNP_1DA7588EEB5450EE2A22C2B2F0A6458A61C0_2922342_en_v1"
-            style='max-width:160px;display:inline-block;height:auto;'/>
-    {% else %}
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Med Sidebar ad banner -->
-        <ins class="adsbygoogle"
-         style="display:inline-block;width:160px;height:auto"
-         data-ad-client="ca-pub-8811176003564180"
-         data-ad-slot="8096834152"></ins>
-        <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    {% endif %}
-    </div>
-    {% endblock %}
-</div>
 {% endblock %}
 
 <footer class="contrivers-footer">
@@ -131,6 +97,7 @@ https://s3-us-west-1.amazonaws.com/{{ config.BUCKET }}/{{ name }}
             <li ><a href="{{ url_for('www.tags' ) }}">Categories</a></li>
             <li ><a href="{{ url_for('www.masthead') }}">Masthead</a></li>
             <li ><a href="{{ url_for('www.support') }}">Support</a></li>
+
         </ul>
     </div>
     <ul class="copyright">
@@ -170,8 +137,9 @@ https://s3-us-west-1.amazonaws.com/{{ config.BUCKET }}/{{ name }}
 
 {% block scripts %}
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src='{{ asset('js/responsive-nav.min.js') }}' type='text/javascript' ></script>
-<script src='{{ asset('js/img.srcset.polyfill.js') }}' type='text/javascript' ></script>
+<script src='{{ url_for('static', filename='js/responsive-nav.min.js') }}' type='text/javascript' ></script>
+<script src='{{ url_for('static', filename='js/img.srcset.polyfill.js') }}' type='text/javascript' ></script>
+{# <script src='{{ url_for('static', filename='js/hoverIntent.js') }}' type='text/javascript' ></script> #}
 <script>
     var nav = responsiveNav('.nav-collapse', { label: "<i class='fa fa-bars fa-2x'></i>"} );
 </script>
