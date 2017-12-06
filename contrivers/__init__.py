@@ -8,7 +8,7 @@ defines create_app factory function and performs setup for the application.
 """
 
 import os
-import config
+from . import config as config
 import importlib
 from datetime import datetime
 from flask import Flask

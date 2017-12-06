@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 
 import os
+import codecs
 
 
 class Config(object):
@@ -38,7 +39,7 @@ class TestConfig(Config):
     WTF_CSRF_ENABLED = False
     TESTING = True
     CACHE_TYPE = 'null'
-    SECRET_KEY = os.environ.get('SECRET_KEY', os.urandom(16).encode('hex'))
+    SECRET_KEY = os.environ.get('SECRET_KEY', codecs.encode(os.urandom(64), 'hex').decode())
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         'DATABASE_URL',
