@@ -52,14 +52,14 @@ $font-sizes: (
     epsilon: 13px,
 );
 
-// Compass Typography Variables
-$base-font-size: 16px;
-$base-line-height: 28px;
-$rhythm-unit: 'rem';
-$rem-with-px-fallback: false;
+// // Compass Typography Variables
+// $base-font-size: 16px;
+// $base-line-height: 28px;
+// $rhythm-unit: 'rem';
+// $rem-with-px-fallback: false;
 
-// include compass vertical rhythm
-@include establish-baseline;
+// // include compass vertical rhythm
+// @include establish-baseline;
 
 
 //  sass/global/_variables.scss

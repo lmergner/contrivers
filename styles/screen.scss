@@ -1,14 +1,8 @@
 // Styles for screen
-
-@import 'compass/reset';
-@import 'compass';
-@import 'sassy-maps';
-@import 'susy';
-@import 'breakpoint';
-
 // http://sass-guidelin.es/#main-file
 
-
+@import 'susy';
+@import 'breakpoint';
 
 @import 'base/html';
 @import 'base/variables';
