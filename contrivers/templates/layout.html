@@ -27,14 +27,14 @@
     <meta name="twitter:content="@{{ config.TWITTER_NAME }}">
     <meta name="twitter:title" content="{{ config.TITLE }}">
     <meta name="twitter:description" content="{{ config.DESCRIPTION }}">
-    <meta name="twitter:image" content="{{ asset('images/contrivers_icon_small.gif') }}">
+    <meta name="twitter:image" content="{{ url_for('static', filename='assets/contrivers_icon_small.gif') }}">
     {% endblock %}
 
     {% block stylesheets -%}
     <link href="{{ url_for('static', filename='assets/css/contrib/font-awesome/font-awesome.css') }}"  media='screen, projection' rel='stylesheet' type='text/css' />
     <link href="{{ url_for('static', filename='assets/css/screen.css') }}" media="screen, projection" rel="stylesheet" type="text/css" />
     {%- endblock stylesheets %}
-    <title>{{ site.title }}{% block title %}{% endblock title %}</title>
+    <title>{% if site is defined %}{{ site.title }}{% endif %}{% block title %}{% endblock title %}</title>
 {% endblock head %}</head>
 
 <body>
@@ -59,8 +59,8 @@
             <li class='nav-item__link'><a href="{{ url_for('www.readings') }}">Readings</a></li>
             <li class='nav-item__link'><a href="{{ url_for('www.support') }}">Support</a></li>
             <li class='nav-item__link'><a href="{{ url_for('www.masthead') }}">Masthead</a></li>
-            <li class='nav-item__icon'><a href='{{ url_for('www.search') }}'><i class="fa fa-search"></i></a></li>
-            <!-- li class="nav-item__icon"><a href="https://twitter.com/{{ site.twitter_name }}" ><i class="fa fa-twitter-square"></i></a></li> -->
+            <li class='nav-item__icon'><a href="{{ url_for('www.search') }}""><i class="fa fa-search"></i></a></li>
+            {% if site is defined %}<li class="nav-item__icon"><a href="https://twitter.com/{{ site.twitter_name }}" ><i class="fa fa-twitter-square"></i></a></li>{% endif %}
         </ul>
     </nav>
 </header>

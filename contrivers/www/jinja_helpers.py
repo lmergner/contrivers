@@ -24,7 +24,12 @@ def markdown_factory(extensions=None):
     """
 
     if extensions is None:
-        extensions = ['footnotes', 'headerid', 'smarty', 'tables']
+        extensions = [
+            'footnotes',
+            # 'headerid',
+            'smarty',
+            'tables'
+    ]
     return markdown.Markdown(extensions=extensions)
 
 

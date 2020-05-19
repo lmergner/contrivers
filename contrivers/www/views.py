@@ -215,9 +215,9 @@ def masthead():
 def support():
     return render_template('support.html')
 
-@www.route('/readings/')
-def readings():
-    return redirect(url_for('www.tags', id_=6, page=1))
+# @www.route('/readings/')
+# def readings():
+#     return redirect(url_for('www.tags', id_=6, page=1))
 
 @www.route('/search/', methods=('POST', 'GET'), defaults={'page': 1})
 @www.route('/search/p/<int:page>/')
