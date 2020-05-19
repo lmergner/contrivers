@@ -5,15 +5,15 @@ category: Components - Footnotes
 name: components-footnotes
 ---
 
-Footnotes are rendered by a python [Markdown](http://daringfireball.net/projects/markdown/) library in 
-the jinja template before the page is returned. On the client side, they are formated by [Bigfoot.js](http://www.bigfootjs.com/).
+Footnotes are rendered by a python [Markdown](http://daringfireball.net/projects/markdown/) library in
+the jinja template before the page is returned. On the client side, they are formated by [Littlefoot.js](https://goblindegook.github.io/littlefoot/).
 
 
 ```html_example
 
 <article class='article-body'>
 
-<!-- The footnote should be picked up and styled by bigfoot.js -->
+<!-- The footnote should be picked up and styled by littlefoot.js -->
 
 <p>
     This is a paragraph, which has a footnote.<sup id="fnref:1"><a
@@ -35,20 +35,20 @@ the jinja template before the page is returned. On the client side, they are for
 ```
 */
 
-.footnotes, 
+.footnotes,
 .footnote {
   @include rhythm;
   @include set-font(serif, epsilon, black);
-  p { 
+  p {
       @include set-font(serif, epsilon, black);
       hyphens: manual;
       overflow: hidden;
       text-align: left;
       @include trailer(0.25);
   }
-  li { 
+  li {
       list-style-type: decimal;
-      list-style-position: inside; 
+      list-style-position: inside;
   }
 }
 
@@ -58,7 +58,7 @@ the jinja template before the page is returned. On the client side, they are for
     text-decoration: none;
 }
 
-.bigfoot-footnote__content {
+.littlefoot-footnote__content {
     p {
         @include set-font(serif, epsilon, black);
     }
