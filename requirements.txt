@@ -5,7 +5,7 @@ gunicorn
 Jinja2
 Markdown
 MarkupSafe
-psycopg2
+psycopg2-binary
 pytz
 requests
 six
