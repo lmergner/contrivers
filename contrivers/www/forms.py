@@ -7,7 +7,7 @@
     Web forms via WTForms.
 """
 
-from flask.ext.wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import TextField
 
 class SearchField(TextField):
@@ -15,6 +15,5 @@ class SearchField(TextField):
     pass
 
 
-class SearchForm(Form):
+class SearchForm(FlaskForm):
     search_term = TextField("Search")
-
