@@ -8,7 +8,7 @@
 
 import pytest
 import re
-from StringIO import StringIO
+from io import StringIO
 from lxml import etree
 from contrivers import db, create_app
 from contrivers.models import Tag, Author
