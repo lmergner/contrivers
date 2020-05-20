@@ -1,0 +1,19 @@
+@mixin title($size: gamma, $responsive: true) {
+    @include set-font(title, $size: $size);
+    @include rhythm;
+    display: block;
+    margin: 0 auto;
+    a {
+        @include hover-link;
+    }
+    @if $responsive {
+        @include breakpoint(map-get($breakpoints, phone)) {
+            text-align: left;
+        }
+        @include breakpoint(map-get($breakpoints, tablet)) {
+            text-align: center;
+        }
+    }
+}
+
+

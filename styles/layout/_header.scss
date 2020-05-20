@@ -1,0 +1,127 @@
+/*doc
+---
+title: Header
+category: Layout - Header
+name: layout-header
+---
+
+Main header styles.
+
+```html_example
+<div class='container' style='min-height: 500px;'>
+
+<header class="contrivers-header" role="banner">
+    <div class="header-title">
+        <a href="#">
+            <img
+                src='../images/window_banner.png'
+                srcset='../images/phone_banner.png 480w, ../images/window_banner.png 1x'
+            />
+        </a>
+    </div>
+    <nav class="nav header-nav nav-collapse" >
+        <ul role='menubar'>
+            <li class="nav-item__link"><a href="#">Articles</a></li>
+            <li class="nav-item__link"><a href="#">Reviews</a></li>
+            <li class="nav-item__link"><a href="#">Support</a></li>
+            <li class="nav-item__link"><a href="#">Masthead</a></li>
+            <li class="nav-item__icon"><a href="#"><i class="fa fa-search"></i></a></li>
+            <li class="nav-item__icon"><a href="#"><i class="fa fa-twitter-square"></i></a></li>
+        </ul>
+    </nav>
+</header>
+
+</div>
+```
+
+*/
+
+header.contrivers-header {
+    // @include bleed(0 gutter() 0 gutter());
+    // @include clearfix;
+    @include box-shadow;
+    background-color: color(primary);
+    border-bottom: $default-border;
+    a { @include unstyled-link; }
+    img { @extend %responsive-image; }
+
+    @include breakpoint(map-get($breakpoints, phone)) {
+    }
+    @include breakpoint(map-get($breakpoints, tablet)) {
+        @include rhythm-padding;
+    }
+
+    .menu-toggle { float: right; }
+
+    .header-title {
+        @include breakpoint(map-get($breakpoints, phone)) {
+            @include span($menu-toggle-width);
+            @include set-font($size: beta); // Backup in case we're not using an image
+        }
+        @include breakpoint(map-get($breakpoints, tablet)) {
+            @include set-font($size: alpha);
+        }
+    }
+}
+
+// also see .nav-collapse in contrib/responsive-nav/
+.header-nav,
+.nav-collapse {
+    clear: both;
+    // @include clearfix;
+    ul {
+        @include breakpoint(map-get($breakpoints, phone)) {
+            margin-top: 0.25em;
+            padding: 0;
+        }
+    }
+}
+
+%nav-item {
+    @include breakpoint(map-get($breakpoints, phone)) {
+        @include set-font($size: beta);
+    }
+    @include breakpoint(map-get($breakpoints, tablet)) {
+        @include set-font($size: beta);
+    }
+    @include breakpoint(map-get($breakpoints, window)) {
+        @include set-font($size: beta);
+    }
+    text-align: center;
+    a {
+        display: block;
+        text-decoration: none;
+        color: color(black);
+        width: 100%;
+        height: 100%;
+    }
+    @include breakpoint(map-get($breakpoints, phone)) {
+        border-top: 1px solid black;
+    }
+    @include breakpoint(map-get($breakpoints, tablet)) {
+        border-top: 1px solid black;
+        @include gallery(6);
+    }
+    @include breakpoint(map-get($breakpoints, window)) {
+        border: none;
+        @include gallery(2);
+    }
+
+}
+
+.nav-item__link {
+    @extend %nav-item;
+    display: block;
+    @include breakpoint(map-get($breakpoints, phone)) {
+        width: span(12);
+    }
+
+}
+
+.nav-item__icon {
+    @extend %nav-item;
+    @include breakpoint(map-get($breakpoints, phone)) {
+        width: span(6);
+    }
+    display: inline-block;
+}

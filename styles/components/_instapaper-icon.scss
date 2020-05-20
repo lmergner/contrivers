@@ -1,0 +1,23 @@
+/*doc
+---
+title: Icons
+category: Base - Icons
+---
+
+Font Awesome doesn't have an Instapaper icon
+
+```html_example
+<i class='fa fa-instapaper'></i>
+```
+
+*/
+
+// Emulate font-awesome icons
+.fa-instapaper {
+    &:before {
+        @extend %bold-copy;
+        font-family: font(serif);
+        content: 'I';
+        display: block;
+    }
+}

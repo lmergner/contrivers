@@ -1,0 +1,30 @@
+{
+  "name": "contrivers",
+  "version": "0.3.0",
+  "description": "A publishing platform",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "breakpoint-sass": "^2.7.1"
+  },
+  "devDependencies": {
+    "sass": "^1.26.5",
+    "susy": "^3.0.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "styles": "sass  --source-map --precision 6 styles/screen.scss assets/styles.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lmergner/contrivers.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lmergner/contrivers/issues"
+  },
+  "homepage": "https://github.com/lmergner/contrivers#readme"
+}

@@ -1,4 +1,4 @@
-.PHONY: clean-pyc clean-build docs
+.PHONY: clean-pyc clean-build docs styles
 
 help:
 	@echo "run - run the flask test server"
@@ -34,6 +34,9 @@ coverage:
 	coverage report -m
 	coverage html
 	open htmlcov/index.html
+
+styles:
+	python compile.py
 
 docs:
 	rm -f docs/journal.rst

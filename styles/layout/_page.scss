@@ -1,0 +1,70 @@
+/*doc
+---
+title: Pages
+category: Layout - Pages
+---
+
+Pages encapsulate a view or endpoint such as main-page, archive-page, article-page.
+
+For article styles, see `.article-body`
+
+*/
+
+
+// $module-pages defined in global/_variables
+
+
+%page,
+.page {
+    @include full;
+    @include breakpoint(map-get($breakpoints, tablet)) {
+    }
+    @include breakpoint(map-get($breakpoints, window)) {
+        @include span(map-get($susy, columns) - $sidebar-col-width first);
+    }
+    .block__issue {
+    }
+}
+
+.index-page {
+    @include breakpoint(map-get($breakpoints, tablet)) {
+        @include leader;
+    }
+}
+
+.article-page {
+    @include full;
+    article {
+        max-width: $article-page-width;
+        margin: 0 auto;
+    }
+}
+
+.tags-page,
+.static-page {
+    @include leader;
+}
+
+.author-page,
+.authors-page {
+    @include leader;
+}
+
+@for $num from 1 through 5 {
+  h#{$num} {
+    // @include trailer;
+    @include rhythm;
+    @include set-font(title, $size: nth(map-keys($font-sizes), $num));
+    display: block;
+    margin: 0 auto;
+    a {
+        @include hover-link;
+    }
+    @include breakpoint(map-get($breakpoints, phone)) {
+        text-align: left;
+    }
+    @include breakpoint(map-get($breakpoints, tablet)) {
+        text-align: center;
+    }
+  }
+}

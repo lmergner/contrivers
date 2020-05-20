@@ -1,0 +1,12 @@
+
+@mixin set-font($face: null, $size: null, $color: null) {
+    @if $face != null {
+        font-family: font($face);
+    }
+    @if $size != null {
+        //@include adjust-font-size-to(font-size($size));
+    }
+    @if $color != null {
+        color: color($color);
+    }
+}

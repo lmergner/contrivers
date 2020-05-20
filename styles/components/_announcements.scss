@@ -1,0 +1,35 @@
+
+/*doc
+---
+title: Announcements
+category: Components - Announcements
+---
+
+What do I call things that are on the front page,
+but are not styled `block` elements.
+
+```html_example
+
+<div style='max-width: 500px; margin: 1em auto;' class='announcement'>
+    Browse our latest issue on <a href="#">the Digital Humanities</a>.
+</div>
+
+<div style='max-width: 500px; margin: 1em auto;' class='announcement' >
+    <h3>Fundraising</h3>
+    <p><a href=''>Contrivers' Review</a> is currently fundraising for its
+    first issue of 2015. Throughout the year, we'll be publishing 
+    essays discussing the impact of technology on education, philosophy, 
+    society, and politics. To help us, click <a href=''>here for more 
+    information</a>.</p>
+</div>
+
+```
+*/
+
+
+.announcement {
+    @extend %paragraph-copy;
+    @include colored-box(rgba(color(secondary), 0.6));
+}
+
+.announcement__fundraising {}

@@ -1,0 +1,74 @@
+/*doc
+---
+title: Typography
+category: Global - Typography
+name: base-typography
+---
+
+Primary api for typography is `set-font`:
+
+@mixin set-font
+
+    __face__: must be valid key in font-families map
+    __size__: must be valid key in font-sizes map
+    __color__: must be valid key in colors map
+
+All are optional and will not output if ommited so that styles can be inherited.
+
+## Extra Credit
+
+- [Medium 1](https://medium.com/p/8e51498c3713)
+- [Using Compass Vertical Rhythm](https://medium.com/@amlinarev/using-sass-compass-vertical-rhythm-to-set-up-typography-defaults-in-a-project-34fe2f1d2c02)
+- [Typesettings]( https://github.com/ianrose/typesettings)
+- [Typomatic](https://github.com/andrejmlinarevic/typomatic)
+- [Sassline](https://github.com/designbyjake/sassline/)
+- [Managing responsive typography with Sass](http://maketea.co.uk/2014/11/05/managing-responsive-typography-with-sass.html)
+
+*/
+
+@import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans);
+@import url(http://fonts.googleapis.com/css?family=Lora:400,700,400italic);
+
+$font-families: (
+    serif: ("Droid Serif", Georgia, serif),
+    sans-serif: ("Droid Sans", sans-serif),
+    title: ("Lora", Georgia, serif),
+);
+
+$base-font: (
+    font-family: map-get($font-families, serif),
+    line-height: 1.5,
+    font-size: 16,
+    color: map-get($colors, black),
+    font-weight: 400,
+);
+
+$font-sizes: (
+    alpha: 42px,
+    beta: 26px,
+    gamma: 20px,
+    delta: 16px, // lh = 25
+    epsilon: 13px,
+);
+
+// // Compass Typography Variables
+// $base-font-size: 16px;
+// $base-line-height: 28px;
+// $rhythm-unit: 'rem';
+// $rem-with-px-fallback: false;
+
+// // include compass vertical rhythm
+// @include establish-baseline;
+
+
+//  sass/global/_variables.scss
+//  $link-colors for definition
+a {
+  color: map-get($link-colors, normal);
+  &:visited { color: map-get($link-colors, visited); }
+  &:focus { color: map-get($link-colors, focus); }
+  &:hover { color: map-get($link-colors, hover); }
+  &:active { color: map-get($link-colors, active); }
+}
+

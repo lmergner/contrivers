@@ -1,0 +1,61 @@
+
+b,
+.strong {
+    font-weight: bold;
+    font-weight: 700;
+}
+
+i,
+em,
+.italics {
+  font-style : oblique;
+  font-style: italics;
+}
+
+html {
+//    @include box-sizing('border-box');
+}
+
+h1 {
+  font-family: Georgia, serif;
+  font-size: 42px;
+}
+
+h2 {
+  font-family: Georgia, serif;
+  font-size: 26px;
+}
+
+h3 {
+  font-family: Georgia, serif;
+  font-size: 20px;
+}
+
+
+
+article,
+aside,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section { display: block; }
+
+// Don't show figcaptions created by Markdown formated image links
+figcaption {
+  display: none;
+}
+
+// hide things by class name
+.hidden {
+  display: none;
+}
+
+p {
+  font-family: Georgia, serif;
+  font-size: 16px;
+  color: black;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}

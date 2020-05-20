@@ -75,3 +75,6 @@ shell.py
 node_modules
 tests/perf.json
 .cache/
+
+assets
+!.gitkeep

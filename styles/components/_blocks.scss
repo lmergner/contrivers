@@ -1,0 +1,266 @@
+/*doc
+---
+title: Blocks
+category: Components - Blocks
+name: components-block
+---
+
+Blocks are the structure which wraps the presentation of objects like Articles.
+They are supposed to maintain vertical rhythm. Normal blocks have trailing
+borders.
+
+
+```html_example
+<div id='content' class=''>
+
+<div class="block">
+    <div class="block-header">
+        <div class='block-header-button__issue'><a href=''>Political Economy</a></div>
+        <div class='block-header-button'><time datetime="2014-09-09T13:58">September 9, 2014</time></div>
+        <div class='block-header-button__featured'><a href='/articles/featured/'>Featured</a></div>
+        <h2 class="block-header-title article-title "><a href="">Seeing Like An App</a></h2>
+        <div class="block-header-attribution">by&nbsp;<a class="block-header-author" href="/authors/1/">Luke Thomas Mergner</a>&nbsp;&amp;&nbsp;<a class="block-header-author" href="/authors/2/">Pete Sinnott, Jr.</a>&nbsp;</div>
+    </div>
+    <div class="block-abstract">
+        <p> Evgeny Morozov’s newest book is best read as marginalia rather than
+        as any systematic contribution to a social theory of technology. It
+        is a book very much of the moment, focused on challenging the
+        mistakes of a narrow field of interlocutors, all of whom publish,
+        like Morozov, on the fashionable topic of technology journalism.</p>
+   </div>
+</div>
+<div class='block'>
+   <div class="block-header">
+       <div class="block-header-button__issue"><a href="#">Intellectuals</a></div>
+       <div class="block-header-button"><time datetime="2014-06-02T16:52">June  2, 2014</time></div>
+       <h2 class="article-title block-header-title"> <a href="#">The Essayist and the Intellectual</a> </h2>
+       <div class="block-header-attribution">by&nbsp;<a class="block-header-author" href="/authors/2/">Pete Sinnott, Jr.</a>&nbsp;</div>
+   </div>
+   <div class="block-abstract">
+       <p>In this essay, Pete Sinnott, Jr. provides a
+       short, but important, history of the form of intellectual production, the
+       essay. Both the producer and the product are uncertain, historical
+       artifacts. How we understand intellectual work today is bound up in that
+       history:  on one hand, of the author’s self-conscious introspection or lack
+       thereof and, on the other hand, of the essay as it oscillates between
+       science, art, and criticism.</p>
+   </div>
+</div>
+
+</div> <!-- end content div -->
+```
+
+*/
+
+
+.block {
+    @include trailing-border($border-style: solid);
+    &:last-child {
+        border: none;
+    }
+    &:not(:first-of-type) {
+        @include leader;
+    }
+}
+
+
+.block-header {
+    @include breakpoint(map-get($breakpoints, tablet)) {
+        clear: left;
+    }
+}
+
+
+
+.block-header-button {
+    @include set-font(title, epsilon, gray);
+    a {
+        @include unstyled-link;
+        width: 100%;
+        height: 100%;
+    }
+    @include breakpoint(map-get($breakpoints, phone)) {
+    }
+    @include breakpoint(map-get($breakpoints, tablet)) {
+        @include make-button(gray);
+        @include background-transition(gray, $opacity-start: 0.6, $opacity-end: 1);
+        display: inline-block;
+        float: right;
+        margin-left: 2px;
+    }
+}
+
+.block-header-button__featured {
+    @extend .block-header-button;
+    @include breakpoint(map-get($breakpoints, tablet)) {
+        @include background-transition(primary, $opacity-start: 0.6, $opacity-end: 1);
+    }
+}
+
+.block-header-button__issue {
+    @extend .block-header-button;
+}
+
+.block-header-attribution {
+    @extend %author-copy;
+}
+
+.block-header-title {
+    @include title(beta);
+    display: inline-block;
+}
+
+.block-abstract,
+%block__abstract {
+    // @include paragraph-styles($trailer: false);
+    @include leader(0.5);
+    @include set-font($size: epsilon);
+}
+
+
+/*doc
+---
+title: Issue Blocks
+category: Components - Blocks
+---
+
+```html_example
+
+<div id='content' class='layout'>
+
+<div class="block__issue">
+    <h3 class="block-header-title__issue"><a href="">Issue 1: Intellectuals</a></h3>
+</div>
+
+</div>
+```
+
+*/
+
+.block__issue {
+    @extend .block;
+    @include leader;
+}
+
+.block-header-title__issue {
+//    @include set-font($size: alpha);
+    // @include trailer;
+    a { @include hover-link; }
+    display: block;
+}
+
+/*doc
+---
+title: Author Block
+category: Components - Blocks
+---
+
+```html_example
+<div class="block__author ">
+    <div class="author-name"><a href="/authors/1/">Luke Thomas Mergner</a></div>
+    <div class="author-twitter"><a href="http://www.twitter.com/lmergner"><i class="fa fa-twitter"></i> @lmergner</a></div>
+    <div class="author-bio"></div>
+    <div class="author-articles">
+        <div class="block">
+            <div class="block-header">
+                <div class="block-header-button"><time datetime="2014-09-09T13:58">September  9, 2014</time></div>
+                <div class="block-header-title"><a href="/reviews/6/">Seeing Like An App</a></div>
+            </div>
+            <div class="block-abstract"><p>Evgeny Morozov’s newest book is best read as marginalia rather than as any systematic contribution to a social theory of technology. It is a book very much of the moment, focused on challenging the mistakes of a narrow field of interlocutors, all of whom publish, like Morozov, on the fashionable topic of technology journalism. </p></div>
+            </div>
+        <div class="block">
+    <div class="block-header">
+    <div class="block-header-button__issue"><a href="/issues/1/">Intellectuals</a></div>
+    <div class="block-header-button"><time datetime="2014-06-10T15:06">June 10, 2014</time></div>
+
+    <div class="block-header-title"><a href="/articles/4/">Further Reading</a></div>
+
+    </div>
+    <div class="block-abstract"><p>A bibliographical essay on several recent conversations related to the theme of intellectual production and responsibility.</p></div>
+    </div><div class="block">
+    <div class="block-header">
+    <div class="block-header-button__issue"><a href="/issues/1/">Intellectuals</a></div>
+    <div class="block-header-button"><time datetime="2014-06-02T16:50">June  2, 2014</time></div>
+
+    <div class="block-header-title"><a href="/articles/1/">On the Intellectual Question</a></div>
+
+    </div>
+<div class="block-abstract"><p>Through a discussion of two important texts by Kant and Lenin, Luke Mergner explores how our ideas about public intellectuals are tied to different models of social and political authority. The public sphere is defined by the tension between democracy and intellectual authority. How can anyone claiming the role of the public intellectual find alternative critical languages when the egalitarian democratic spaces of the public sphere are withering away? </p></div>
+</div>
+</div>
+
+```
+
+*/
+
+.block__author {
+    @extend .block;
+
+    .block__author-header {
+        @include set-font($size: gamma);
+        text-align: left;
+        @include breakpoint(map-get($breakpoints, tablet)) {
+            text-align: center;
+        }
+    }
+
+    .block__author-divider {
+        text-align: center;
+        padding: 1em 0;
+        color: color(gray);
+    }
+
+    .author-name {
+        a { @include hover-link; }
+        @include breakpoint(map-get($breakpoints, tablet)) {
+            @include set-font($size: beta);
+        }
+    }
+
+    .author-twitter,
+    .author-rss {
+        display: inline-block;
+        color: color(gray);
+        padding-right: 0.25em;
+        a {
+            @include unstyled-link;
+        }
+        @include breakpoint(map-get($breakpoints, tablet)) {
+            font-size: 1.25em;
+            padding: 0 0.25em;
+        }
+    }
+
+    .author-bio {
+        // @include paragraph-styles($trailer: false);
+        @include leader;
+    }
+}
+
+
+/*doc
+---
+title: Tag Block
+category: Components - Blocks
+---
+
+```html_example
+<div class="block__tag">
+    <a href="">1. Intellectuals: 4 articles</a>
+</div>
+
+<div class="block__tag">
+    <a href="">2. Technology:       1 articles</a>
+</div>
+```
+
+*/
+
+.block__tag {
+    @extend .block;
+    .block__tag-title {
+        // @include clearfix;
+        @include full;
+        text-align: center;
+    }
+}

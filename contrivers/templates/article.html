@@ -22,7 +22,7 @@
 
 {% block stylesheets %}
 {{ super() }}
-    <link href="{{ url_for('static', filename='css/contrib/bigfoot/bigfoot.css') }}" media='screen, projection' rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="https://unpkg.com/littlefoot/dist/littlefoot.css" />
 {% endblock %}
 
 {% block title %} - {{ article.title }}{% endblock %}
@@ -32,14 +32,8 @@
 {{ render_aside(article, request) }}
 <div class='article-page layout'>
 
-<article>
-    <!-- TODO: fix this hack to filter out Readings vs Articles -->
-    {% for tag in article.tags %}
-        {% if tag.tag == 'Readings' %}
-            {% include 'readings_header.html' %}
-        {% endif %}
-    {% endfor %}
 
+<article>
 <div class='article-header'>
     {{ render_title(article, class='article-header-title') }}
     {% if article.book_reviewed is defined %}
@@ -59,14 +53,12 @@
 
 {% block scripts %}
 {{ super() }}
-<script src="{{ url_for('static', filename='js/bigfoot.js') }}" type="text/javascript"></script>
-<script type="text/javascript">
-    $.bigfoot(
-    	{
-            actionOriginalFN: "ignore",
-    	}
-    );
-
+<script
+  src="https://unpkg.com/littlefoot/dist/littlefoot.js"
+  type="application/javascript"
+></script>
+<script type="application/javascript">
+  littlefoot.default()
 </script>
 {% endblock %}
 

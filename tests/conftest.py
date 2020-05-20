@@ -17,11 +17,16 @@ from collections import Iterable
 import pytest
 from flask import templating, url_for
 import jinja2
+from sqlalchemy.engine.url import make_url
 from contrivers import create_app
 from contrivers.models import Article, Author, Tag, Book, Review
 
+
+DATABASE_URL = make_url(os.environ.get("DATABASE_URL"))
+DATABASE_URL.database += "-unitests-" + datetime.datetime.now().strftime("%m-%d-%H-%M-%S")
+
 CONFIG_VARS = {
-    'SQLALCHEMY_DATABASE_URI': "postgres://contrivers@localhost/contrivers-unittests",
+    'SQLALCHEMY_DATABASE_URI': DATABASE_URL,
     'SQLALCHEMY_ECHO': False,
     'WTF_CSRF_ENABLED': False,
 }

@@ -1,0 +1,57 @@
+/*doc
+---
+title: Title
+category: Layout - Articles
+name: layout-article-title
+---
+
+```html-example
+<div class="article-header">
+    <h2 class="article-header-title ">
+        <a href="/articles/3/">Social Criticism and the Academy</a>
+    </h2>
+    <div class="article-header-book-reviewed">
+        A review of <span class="book-reviewed-title"><a
+        href="http://www.amazon.com/dp/1781683271/?tag=contrivers-review-20">Utopia
+        or Bust</a></span><span class="book-reviewed-colon">:</span> <span
+        class="book-reviewed-subtitle">A Guide to the Present Crisis</span> by
+        <span class="book-reviewed-author">Benjamin Kunkel</span> <span
+        class="book-reviewed-biblio">(Verso: Brooklyn, 2014)</span>
+    </div>
+    <div class="article-header-attribution">
+        <span class='attribution-by'>by</span>
+        <a class='article-header-author' href="/authors/3/">Rafael Khachaturian</a> 
+        <span class='attribution-ampersand ampersand'>&amp;</span>
+        <a class='article-header-author' href=''>Dummy McStupid</a>
+    </div>
+</div>
+```
+
+*/
+
+
+.article-header {
+
+    @include title(beta);
+
+    .article-header-title {
+    }
+
+    .article-header-attribution {
+        span, a { 
+            display: inline-block; 
+            margin-left: .25em;
+        }
+        @include set-font(title, gamma, gray);
+        @include rhythm;
+    }
+
+    .article-header-book-reviewed {
+        @include set-font(serif, delta, gray);
+        // span.book-reviewed-title > a
+        // book-reviewed-colon
+        // book-reviewed-subtitle
+        // book-reviewed-author
+        // book-reviewed-biblio
+    }
+}

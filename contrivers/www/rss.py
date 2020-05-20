@@ -9,7 +9,7 @@
 
 import datetime
 from feedgen.feed import FeedGenerator
-from urlparse import urljoin
+from urllib.parse import urljoin
 
 from flask import url_for
 

@@ -1,0 +1,154 @@
+/*doc
+---
+title: Support
+category: Layout - Support
+---
+
+```html_example
+<div id="content" class="support-page">
+
+<div id="fundraising" class="announcement__fundraising">
+<h1>Support Us</h1>
+<p class='fundraising-blurb'>
+Contrivers' Review is a non-profit publication that relies on your support.
+Please consider donating. Our staff is small and our overhead is low, so your
+money goes to paying writers a fair compensation for their efforts.
+</p>
+<ul>
+<li><a href="">Kickstarter</a></li>
+<li><a href="‘http://www.patreon.com/contriversrev'">Patreon</a></li>
+<li>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+">
+<input type="submit" value="Paypal">
+</form>
+</li>
+<li><a href="">Amazon</a></li>
+</ul>
+
+</div>
+
+<!-- Begin MailChimp Signup Form -->
+<div id="mc_embed_signup">
+<h1>Mailing List</h1>
+<p class="form-blurb">Please sign up for our mailing list. We announce new issues and other infrequent items of interest.</p>
+
+<form action="" class="validate" target="_blank" novalidate="">
+<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+<div style="position: absolute; left: -5000px;">
+<input type="text" name="b_dd125dca9ae429922ce3f2ff4_22a9f9d26e" tabindex="-1" value="">
+</div>
+
+<div class="mc-field-group">
+<label for="mce-EMAIL">Email Address <span class="asterisk">*</span> </label>
+<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL" placeholder='Email Address'>
+</div>
+
+<div id="mce-responses" class="clear">
+<div class="response" id="mce-error-response" style="display:none"></div>
+<div class="response" id="mce-success-response" style="display:none"></div>
+</div>
+<div class="clear form-ctrl-group mc-field-group">
+<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+</div>
+</form>
+<!--End mc_embed_signup-->
+</div>
+
+</div>
+```
+*/
+
+#mc_embed_signup {
+    @include colored-box(color(gray-light));
+    @include leader;
+
+    p,
+    .form-blurb {
+        @include set-font(serif, delta);
+        @include rhythm;
+    }
+
+    label {
+        display: none;
+    }
+
+    input[type=email] {
+        text-align: left;
+        width: 100%;
+        padding-left: 5px;
+    }
+
+    input[type=submit] {
+        @include background-transition(gray);
+        color: color(white);
+        padding: 0 1em;
+        // width: 100%;
+    }
+
+    .mc-field-group {
+        @extend .field-group;
+    }
+
+    .form-ctl-group {
+    }
+
+    .asterisk {
+        color: color(primary);
+    }
+}
+
+#fundraising {
+    @include colored-box(color(secondary));
+    @include leader;
+
+    p,
+    .fundraising-blurb {
+        @include set-font($face: serif, $size: delta);
+        @include rhythm;
+    }
+
+    input[type='submit'],
+    button[type='submit'] {
+        @include make-button(secondary, 'black');
+        @include title($responsive: false);
+        background: transparent;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        margin: 0 auto;
+        padding: inherit;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    li {
+        // @include border-radius;
+        @include background-darken(secondary);
+        @include title;
+        @include box-shadow;
+        border: $default-border;
+        text-align: center;
+        padding: 0.5em 0;
+
+        a {
+            @include unstyled-link;
+            display: block;
+            text-align: center;
+        }
+
+        @include breakpoint(map-get($breakpoints, phone)) {
+            @include full;
+            margin-top: rhythm(0.5);
+            margin-bottom: rhythm(0.5);
+        }
+
+        @include breakpoint(map-get($breakpoints, tablet)) {
+            @include gallery(4);
+        }
+    }
+}

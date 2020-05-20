@@ -1,0 +1,63 @@
+/*doc
+---
+title: Frames
+category: Components - Images
+---
+```html_example
+<img class='image-frame' style='height:300px; width:300px;' />
+
+```
+
+*/
+%image-frame,
+.image-frame {
+    // @include trailer;
+    @include breakpoint(map-get($breakpoints, tablet)) {
+        border: $default-border;
+        // @include border-radius;
+        padding: 2px;
+    }
+}
+
+/*doc
+---
+title: Brand
+category: Components - Images
+---
+
+TODO: Generate, and include links for, srcset appropriate images
+
+```html_example
+<div class='image-wrapper__banner-art' style="width: 300px;">
+    <a href=''>
+        <img
+            class='banner-art'
+            id='banner-art'
+            src='/images/contrivers-icon.jpg'
+        />
+    </a>
+</div>
+
+<div class='image-wrapper__advertising' style='max-width: 160px'>
+    <img
+    src="//storage.googleapis.com/support-kms-prod/SNP_1DA7588EEB5450EE2A22C2B2F0A6458A61C0_2922342_en_v1"
+    height="auto"
+    />
+ </div>
+```
+
+*/
+
+$wrapper-variants: banner-art;
+
+@each $prefix in $wrapper-variants {
+    .image-wrapper__#{$prefix} {
+        @extend %image-frame;
+        img {
+            @extend %responsive-image;
+            margin: 0 auto;
+        }
+    }
+}
+
+.image-wrapper__advertising {}

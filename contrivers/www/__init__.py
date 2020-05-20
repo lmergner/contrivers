@@ -17,5 +17,5 @@ www = Blueprint(
     # static_url_path='',
     static_folder='static')
 
-import views, jinja_helpers
-
+from . import views as views
+from . import jinja_helpers as jinja_helpers

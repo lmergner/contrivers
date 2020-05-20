@@ -1,0 +1,9 @@
+
+@mixin unstyled-link {
+    color: inherit;
+    text-decoration: inherit;
+    cursor: inherit;
+    &:active, &:focus {
+      outline: none;
+    }
+  }

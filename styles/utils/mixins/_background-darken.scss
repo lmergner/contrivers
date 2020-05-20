@@ -1,0 +1,10 @@
+@mixin background-darken($color, $percent: 25%, $opacity: 1) {
+    background-color: color($color);
+    background-color: rgba(color($color), $opacity);
+
+    &:hover,
+    &:focus {
+        background-color: rgba(darken(color($color), $percent), $opacity);
+        @include single-transition('background-color', 1s, ease-out);
+    }
+}

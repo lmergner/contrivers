@@ -1,0 +1,18 @@
+@mixin eq($states...) {
+  @if (length($states) == 0) {
+    @warn 'You need to include a state!';
+  }
+  @else {
+    $extend: unique-id();
+    @at-root {
+      %#{$extend} {
+        @content;
+      }
+    }
+    @each $state in $states {
+      &[data-eq-state="#{$state}"] {
+        @extend %#{$extend};
+      }
+    }
+  }
+}

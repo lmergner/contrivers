@@ -6,7 +6,7 @@
 """
 import logging
 import codecs
-from urllib import urlencode
+from urllib.parse import urlencode
 import boto3
 import botocore
 from functools import update_wrapper
