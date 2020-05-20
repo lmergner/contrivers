@@ -44,7 +44,7 @@ the jinja template before the page is returned. On the client side, they are for
       hyphens: manual;
       overflow: hidden;
       text-align: left;
-      @include trailer(0.25);
+      // @include trailer(0.25);
   }
   li {
       list-style-type: decimal;

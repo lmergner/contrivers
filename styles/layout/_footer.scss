@@ -48,7 +48,7 @@ name: layout-footer
     @include box-shadow;
     @include rhythm-padding;
     @include set-font(serif, delta, white);
-    @include clearfix;
+    // @include clearfix;
     background-color: color(gray);
     border-top: 2px solid color(gray);
     clear: both;
@@ -60,11 +60,11 @@ name: layout-footer
     .copyright {
         @include footer-grid(last);
         li {
-          @include trailer();
+          // @include trailer();
         }
     }
     .footer-nav {
         @include footer-grid(first);
-        @include trailer;
+        // @include trailer;
     }
 }

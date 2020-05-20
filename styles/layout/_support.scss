@@ -127,7 +127,7 @@ money goes to paying writers a fair compensation for their efforts.
     }
 
     li {
-        @include border-radius;
+        // @include border-radius;
         @include background-darken(secondary);
         @include title;
         @include box-shadow;

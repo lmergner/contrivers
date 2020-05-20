@@ -32,8 +32,8 @@ $pagination-background: rgba(color(secondary), $default-opacity) !default;
 
 .pagination {
     // Appears at the top of the archive pages
-    @include clearfix;
-    @include trailer;
+    // @include clearfix;
+    // @include trailer;
     margin: 0 auto;
     background-color: $pagination-background;
     @include breakpoint(map-get($breakpoints, phone)) {
@@ -41,12 +41,12 @@ $pagination-background: rgba(color(secondary), $default-opacity) !default;
     }
     @include breakpoint(map-get($breakpoints, tablet) map-get($breakpoints, window)) {
         @include bleed-x(gutter());
-        @include trailer;
+        // @include trailer;
         border-bottom: $default-border;
     }
     @include breakpoint(map-get($breakpoints, window)) {
         @include rhythm;
-        @include border-radius;
+        // @include border-radius;
         border-bottom: none;
         border: $default-border;
     }

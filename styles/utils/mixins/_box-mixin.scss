@@ -1,8 +1,8 @@
 
 @mixin colored-box($bg-color) {
-    @include border-radius;
-    @include clearfix;
-    @include trailer;
+    // @include border-radius;
+    // @include clearfix;
+    // @include trailer;
     // @include rhythm-padding;
     display: block;
     padding-top: rhythm();

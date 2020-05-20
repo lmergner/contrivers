@@ -1,7 +1,7 @@
 /*doc
 ---
 title: Article Menu
-category: Layout - Article Menu 
+category: Layout - Article Menu
 ---
 
 Note: The Cortana theme apparently also uses .dropdown-menu.
@@ -13,7 +13,7 @@ Note: The Cortana theme apparently also uses .dropdown-menu.
         <li class='menu-title'>Info</li>
         <li class=''><a href=''>Issue</a>
             <ul class=''>
-                <li><a href=''>The Essayist and the Intellectual</a> </li> 
+                <li><a href=''>The Essayist and the Intellectual</a> </li>
                 <li><a href="">On the Intellectual Question</a> </li>
                 <li><a href="">Further Reading</a> </li>
             </ul>
@@ -59,7 +59,7 @@ $menu-hover-color: color(secondary);
 $menu-color: color(gray) !default;
 
 .article-menu {
-    @include trailer;
+    // @include trailer;
     @include dropdown-menu;
     font-family: font(serif);
     font-size: 1.5em;

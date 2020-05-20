@@ -4,7 +4,7 @@
         font-family: font($face);
     }
     @if $size != null {
-        @include adjust-font-size-to(font-size($size));
+        //@include adjust-font-size-to(font-size($size));
     }
     @if $color != null {
         color: color($color);

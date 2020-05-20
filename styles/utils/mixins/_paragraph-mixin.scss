@@ -6,7 +6,7 @@
     text-overflow: hidden;
     text-align: left;
     @if $trailer == true {
-      @include trailer;
+      // @include trailer;
     }
   }
 }

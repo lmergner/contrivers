@@ -7,7 +7,7 @@ name: components-block
 
 Blocks are the structure which wraps the presentation of objects like Articles.
 They are supposed to maintain vertical rhythm. Normal blocks have trailing
-borders. 
+borders.
 
 
 ```html_example
@@ -15,7 +15,7 @@ borders.
 
 <div class="block">
     <div class="block-header">
-        <div class='block-header-button__issue'><a href=''>Political Economy</a></div> 
+        <div class='block-header-button__issue'><a href=''>Political Economy</a></div>
         <div class='block-header-button'><time datetime="2014-09-09T13:58">September 9, 2014</time></div>
         <div class='block-header-button__featured'><a href='/articles/featured/'>Featured</a></div>
         <h2 class="block-header-title article-title "><a href="">Seeing Like An App</a></h2>
@@ -101,18 +101,18 @@ borders.
     @extend .block-header-button;
 }
 
-.block-header-attribution { 
+.block-header-attribution {
     @extend %author-copy;
 }
 
-.block-header-title { 
+.block-header-title {
     @include title(beta);
     display: inline-block;
 }
 
 .block-abstract,
 %block__abstract {
-    @include paragraph-styles($trailer: false);
+    // @include paragraph-styles($trailer: false);
     @include leader(0.5);
     @include set-font($size: epsilon);
 }
@@ -144,12 +144,12 @@ category: Components - Blocks
 
 .block-header-title__issue {
 //    @include set-font($size: alpha);
-    @include trailer;
+    // @include trailer;
     a { @include hover-link; }
     display: block;
 }
 
-/*doc 
+/*doc
 ---
 title: Author Block
 category: Components - Blocks
@@ -206,7 +206,7 @@ category: Components - Blocks
 
     .block__author-divider {
         text-align: center;
-        padding: 1em 0; 
+        padding: 1em 0;
         color: color(gray);
     }
 
@@ -232,7 +232,7 @@ category: Components - Blocks
     }
 
     .author-bio {
-        @include paragraph-styles($trailer: false);
+        // @include paragraph-styles($trailer: false);
         @include leader;
     }
 }
@@ -259,7 +259,7 @@ category: Components - Blocks
 .block__tag {
     @extend .block;
     .block__tag-title {
-        @include clearfix;
+        // @include clearfix;
         @include full;
         text-align: center;
     }

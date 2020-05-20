@@ -3,7 +3,7 @@
 */
 
 
-// Don't use the compass mixins which cascade to the 
+// Don't use the compass mixins which cascade to the
 // submenu ul which should dropdown.
 
 @mixin dropdown-menu {
@@ -32,9 +32,9 @@
             flex-order: -1;
         }
 
-        a { 
+        a {
             @include unstyled-link;
-            display: block; 
+            display: block;
             width: 100%;
         }
 
@@ -50,7 +50,7 @@
             }
 
             ul {
-                @include border-radius;
+                // @include border-radius;
                 font-size: 1em;
                 position: absolute;
                 left: -9999px;

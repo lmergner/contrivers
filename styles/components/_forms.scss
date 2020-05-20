@@ -25,7 +25,7 @@ $form-font-family: sans-serif;
 // input[type='submit'],
 // input[type='search'] {
 input {
-    @include border-radius;
+    // @include border-radius;
     @include set-font($form-font-family, $form-font-size, $form-input-color);
     border: $default-border;
     background-color: $form-background-color;
@@ -47,8 +47,8 @@ label {
 
 .required { }
 .field-group {
-    @include clearfix;
-    @include trailer(0.5);
+    // @include clearfix;
+    // @include trailer(0.5);
     &:last-of-type {
         margin-bottom: 0;
     }

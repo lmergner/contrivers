@@ -52,7 +52,7 @@ For article styles, see `.article-body`
 
 @for $num from 1 through 5 {
   h#{$num} {
-    @include trailer;
+    // @include trailer;
     @include rhythm;
     @include set-font(title, $size: nth(map-keys($font-sizes), $num));
     display: block;
